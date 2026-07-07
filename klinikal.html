@@ -1,1311 +1,1393 @@
 <!doctype html>
 <html lang="ms">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hab Klinikal - Pergigian Kota Bharu</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-      :root {
-        --bg-clinical: #f8fafc;
-        --bg-panel: #ffffff;
-        --border-sterile: #e2e8f0;
-        --border-sterile-hover: #cbd5e1;
-        --accent-teal: #0d9488;
-        --accent-teal-light: #f0fdfa;
-        --accent-navy: #0f172a;
-        --accent-blue: #2563eb;
-        --accent-blue-light: #eff6ff;
-        --accent-lime: #10b981;
-        --accent-lime-light: #ecfdf5;
-        --text-primary: #0f172a;
-        --text-secondary: #475569;
-        --text-muted: #94a3b8;
-        --shadow-soft:
-          0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
-        --shadow-hover:
-          0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-      }
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Inter', sans-serif;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hab Klinikal - Pergigian Kota Bharu</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg-clinical: #f8fafc;
+      --bg-panel: #ffffff;
+      --border-sterile: #e2e8f0;
+      --border-sterile-hover: #cbd5e1;
+      --accent-teal: #0d9488;
+      --accent-teal-light: #f0fdfa;
+      --accent-navy: #0f172a;
+      --accent-blue: #2563eb;
+      --accent-blue-light: #eff6ff;
+      --accent-lime: #10b981;
+      --accent-lime-light: #ecfdf5;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --shadow-soft:
+        0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+      --shadow-hover:
+        0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-clinical);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-sterile);
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      color: var(--accent-teal);
+    }
+
+    .logo-text h1 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--accent-navy);
+    }
+
+    .logo-text p {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-teal);
+      font-weight: 600;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 auto 0 32px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-link:hover {
+      color: var(--accent-teal);
+      background: var(--accent-teal-light);
+    }
+
+    .nav-link.active {
+      color: var(--accent-teal);
+      background: var(--accent-teal-light);
+      font-weight: 600;
+    }
+
+    .system-time {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .time-box {
+      font-family: 'Orbitron', sans-serif;
+      background: var(--bg-clinical);
+      border: 1px solid var(--border-sterile);
+      padding: 6px 12px;
+      border-radius: 4px;
+      color: var(--accent-navy);
+      font-weight: 600;
+    }
+
+    .app-container {
+      max-width: 1024px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      flex-grow: 1;
+    }
+
+    @media (max-width: 968px) {
+      .app-container {
+        padding: 16px;
+      }
+    }
+
+    .clinical-panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-sterile);
+      border-radius: 8px;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-sterile);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-header h2 {
+      font-size: 1.1rem;
+      color: var(--accent-navy);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .panel-content {
+      padding: 24px;
+    }
+
+    /* Checklist section */
+    .checklist-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border: 1px solid var(--border-sterile);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .checklist-item:hover {
+      border-color: var(--border-sterile-hover);
+      background: #fafafb;
+    }
+
+    .checklist-item.checked {
+      background: var(--accent-teal-light);
+      border-color: rgba(13, 148, 136, 0.2);
+    }
+
+    .checklist-item.checked .item-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .checkbox-custom {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      border: 2px solid var(--border-sterile);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      color: #ffffff;
+    }
+
+    .checklist-item.checked .checkbox-custom {
+      background: var(--accent-teal);
+      border-color: var(--accent-teal);
+    }
+
+    .item-text {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    /* KPI metrics */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      padding: 20px;
+      border: 1px solid var(--border-sterile);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .metric-val {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent-navy);
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* SOP list */
+    .sop-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sop-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      border: 1px solid var(--border-sterile);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .sop-item:hover {
+      border-color: var(--border-sterile-hover);
+      transform: translateX(4px);
+    }
+
+    .sop-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sop-icon {
+      color: var(--accent-blue);
+    }
+
+    .sop-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent-navy);
+    }
+
+    .sop-btn {
+      padding: 6px 12px;
+      border-radius: 4px;
+      background: var(--accent-blue-light);
+      color: var(--accent-blue);
+      border: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .sop-btn:hover {
+      background: var(--accent-blue);
+      color: #ffffff;
+    }
+
+    footer {
+      padding: 24px;
+      text-align: center;
+      background: var(--bg-panel);
+      border-top: 1px solid var(--border-sterile);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
       body {
-        background-color: var(--bg-clinical);
-        color: var(--text-primary);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
+        font-size: 16px;
       }
 
       header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px 32px;
-        background: var(--bg-panel);
-        border-bottom: 1px solid var(--border-sterile);
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
-      }
-
-      .logo-section {
-        display: flex;
-        align-items: center;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px 16px;
         gap: 12px;
       }
 
-      .logo-icon {
-        color: var(--accent-teal);
+      .logo-section {
+        justify-content: space-between;
+        width: 100%;
       }
 
       .logo-text h1 {
-        font-size: 1.3rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        color: var(--accent-navy);
+        font-size: 1.25rem;
       }
 
       .logo-text p {
         font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        color: var(--accent-teal);
-        font-weight: 600;
       }
 
       .header-nav {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin: 0 auto 0 32px;
+        display: flex !important;
+        margin: 4px 0 0 0;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        gap: 6px;
+        padding-bottom: 8px;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .header-nav::-webkit-scrollbar {
+        display: none;
       }
 
       .nav-link {
-        text-decoration: none;
-        color: var(--text-secondary);
+        padding: 10px 14px;
         font-size: 0.85rem;
-        font-weight: 500;
-        padding: 8px 16px;
-        border-radius: 6px;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .nav-link:hover {
-        color: var(--accent-teal);
-        background: var(--accent-teal-light);
-      }
-
-      .nav-link.active {
-        color: var(--accent-teal);
-        background: var(--accent-teal-light);
-        font-weight: 600;
+        flex-shrink: 0;
       }
 
       .system-time {
         display: flex;
-        align-items: center;
-        gap: 12px;
-        font-size: 0.85rem;
-        color: var(--text-secondary);
-        font-weight: 500;
-      }
-
-      .time-box {
-        font-family: 'Orbitron', sans-serif;
-        background: var(--bg-clinical);
-        border: 1px solid var(--border-sterile);
-        padding: 6px 12px;
-        border-radius: 4px;
-        color: var(--accent-navy);
-        font-weight: 600;
+        justify-content: space-between;
+        width: 100%;
+        font-size: 0.8rem;
+        border-top: 1px solid var(--border-sterile);
+        padding-top: 8px;
       }
 
       .app-container {
-        max-width: 1024px;
-        width: 100%;
-        margin: 0 auto;
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        flex-grow: 1;
-      }
-
-      @media (max-width: 968px) {
-        .app-container {
-          padding: 16px;
-        }
-      }
-
-      .clinical-panel {
-        background: var(--bg-panel);
-        border: 1px solid var(--border-sterile);
-        border-radius: 8px;
-        box-shadow: var(--shadow-soft);
-        overflow: hidden;
+        padding: 16px 12px;
+        gap: 16px;
       }
 
       .panel-header {
-        padding: 18px 24px;
-        border-bottom: 1px solid var(--border-sterile);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        padding: 12px 16px;
       }
 
       .panel-header h2 {
-        font-size: 1.1rem;
-        color: var(--accent-navy);
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        font-size: 0.95rem !important;
       }
 
       .panel-content {
-        padding: 24px;
+        padding: 14px;
       }
 
-      /* Checklist section */
-      .checklist-group {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        margin-top: 16px;
-      }
-
-      .checklist-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 14px 18px;
-        border: 1px solid var(--border-sterile);
-        border-radius: 6px;
-        transition: all 0.2s ease;
-        cursor: pointer;
-      }
-
-      .checklist-item:hover {
-        border-color: var(--border-sterile-hover);
-        background: #fafafb;
-      }
-
-      .checklist-item.checked {
-        background: var(--accent-teal-light);
-        border-color: rgba(13, 148, 136, 0.2);
-      }
-
-      .checklist-item.checked .item-text {
-        text-decoration: line-through;
-        color: var(--text-muted);
-      }
-
-      .checkbox-custom {
-        width: 20px;
-        height: 20px;
-        border-radius: 4px;
-        border: 2px solid var(--border-sterile);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-        color: #ffffff;
-      }
-
-      .checklist-item.checked .checkbox-custom {
-        background: var(--accent-teal);
-        border-color: var(--accent-teal);
-      }
-
-      .item-text {
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: var(--text-primary);
-      }
-
-      /* KPI metrics */
-      .metric-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        margin-bottom: 24px;
-      }
-
-      .metric-card {
-        padding: 20px;
-        border: 1px solid var(--border-sterile);
-        border-radius: 6px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .metric-val {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: var(--accent-navy);
-      }
-
-      .metric-label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        font-weight: 700;
-        letter-spacing: 0.5px;
-      }
-
-      /* SOP list */
-      .sop-list {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .sop-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 14px 18px;
-        border: 1px solid var(--border-sterile);
-        border-radius: 6px;
-        transition: all 0.2s ease;
-      }
-
-      .sop-item:hover {
-        border-color: var(--border-sterile-hover);
-        transform: translateX(4px);
-      }
-
-      .sop-info {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .sop-icon {
-        color: var(--accent-blue);
-      }
-
-      .sop-title {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--accent-navy);
-      }
-
-      .sop-btn {
-        padding: 6px 12px;
-        border-radius: 4px;
-        background: var(--accent-blue-light);
-        color: var(--accent-blue);
-        border: none;
-        font-size: 0.75rem;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-      }
-
-      .sop-btn:hover {
-        background: var(--accent-blue);
-        color: #ffffff;
-      }
-
-      footer {
-        padding: 24px;
-        text-align: center;
-        background: var(--bg-panel);
-        border-top: 1px solid var(--border-sterile);
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        margin-top: auto;
-      }
-
-      @media (max-width: 768px) {
-        header {
-          flex-direction: column;
-          gap: 16px;
-          padding: 16px;
-        }
-        .header-nav {
-          margin: 0;
-          width: 100%;
-          justify-content: space-around;
-        }
-        .system-time {
-          display: none;
-        }
-      }
-      /* Tab Layout for PDF uploads/downloads */
-      .tabs-container {
-        margin-top: 32px;
-        border-top: 1px solid var(--border-sterile);
-        padding-top: 24px;
-      }
-
-      .tab-buttons {
-        display: flex;
-        gap: 8px;
-        border-bottom: 2px solid var(--border-sterile);
-        padding-bottom: 8px;
-        margin-bottom: 20px;
-      }
-
-      .tab-btn {
-        background: none;
-        border: none;
-        padding: 10px 20px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--text-secondary);
-        cursor: pointer;
-        border-radius: 6px;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .tab-btn:hover {
-        color: var(--accent-teal);
-        background: var(--accent-teal-light);
-      }
-
-      .tab-btn.active {
-        color: var(--accent-teal);
-        background: var(--accent-teal-light);
-        box-shadow: inset 0 -2px 0 var(--accent-teal);
-      }
-
-      .tab-content {
-        display: none;
-        animation: fadeIn 0.3s ease;
-      }
-
-      .tab-content.active {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      /* PDF card styling */
-      .pdf-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      .pdf-card {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 14px 18px;
-        border: 1px solid var(--border-sterile);
-        border-radius: 6px;
-        background: #ffffff;
-        transition: all 0.2s ease;
-      }
-
-      .pdf-card:hover {
-        border-color: var(--border-sterile-hover);
-        box-shadow: var(--shadow-soft);
-      }
-
-      .pdf-info {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .pdf-icon {
-        color: #ef4444; /* red for PDF */
-      }
-
-      .pdf-meta {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-
-      .pdf-title {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--accent-navy);
-      }
-
-      .pdf-size {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-      }
-
-      /* Upload widget styling */
-      .upload-widget {
-        background: #f8fafc;
-        border: 2px dashed var(--border-sterile);
-        border-radius: 8px;
-        padding: 20px;
-        margin-top: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .upload-form-row {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-
-      .upload-input-text {
-        flex: 2;
-        min-width: 200px;
-        padding: 10px 14px;
-        border: 1px solid var(--border-sterile);
-        border-radius: 6px;
-        font-size: 0.85rem;
-        outline: none;
-      }
-
-      .upload-input-file {
-        flex: 1;
-        min-width: 150px;
-        font-size: 0.8rem;
-        cursor: pointer;
-      }
-
-      .btn-upload {
-        background: var(--accent-teal);
-        color: #ffffff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 6px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        transition: background 0.2s ease;
-      }
-
-      .btn-upload:hover {
-        background: #0b7a70;
-      }
-
-      /* Glass Shell Wrapper & Design System */
-      .glass-shell-wrapper {
-        grid-column: span 2;
-        max-width: 1024px;
-        width: 100%;
-        margin: 24px auto;
-        position: relative;
-        overflow: hidden;
-        border-radius: 16px;
-      }
-
-      .glass-shell-gradients {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 1;
-        pointer-events: none;
-      }
-
-      .radial-gradient {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(40px);
-        opacity: 0.15;
-      }
-
-      .blob-1 {
-        background: radial-gradient(circle, #0d9488 0%, rgba(13, 148, 136, 0) 70%);
-        width: 300px;
-        height: 300px;
-        top: -100px;
-        left: -100px;
-      }
-
-      .blob-2 {
-        background: radial-gradient(circle, #3b82f6 0%, rgba(59, 130, 246, 0) 70%);
-        width: 300px;
-        height: 300px;
-        bottom: -100px;
-        right: -100px;
-      }
-
-      .glass-shell {
-        position: relative;
-        z-index: 2;
-        background: rgba(255, 255, 255, 0.45);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 16px;
-        box-shadow: 
-          0 8px 32px 0 rgba(15, 23, 42, 0.06),
-          inset 0 8px 32px 0 rgba(255, 255, 255, 0.3),
-          0 1px 2px 0 rgba(0, 0, 0, 0.02);
-        padding: 32px;
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      .glass-shell-header {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-      }
-
-      .glass-shell-header h3 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: #0f172a;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .glass-shell-header p {
-        font-size: 0.9rem;
-        color: #475569;
-        line-height: 1.5;
-      }
-
-      .glass-shell-content {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        width: 100%;
-      }
-
-      /* ── Announcement Banner ───────────────────────── */
       .glass-announcement {
-        grid-column: span 2;
-        max-width: 1024px;
-        width: 100%;
-        margin: 0 auto;
-        position: relative;
-        border-radius: 14px;
-        background: rgba(236, 253, 245, 0.55);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(52, 211, 153, 0.35);
-        box-shadow:
-          0 4px 24px 0 rgba(16, 185, 129, 0.07),
-          inset 0 1px 0 rgba(255, 255, 255, 0.6);
-        padding: 18px 24px;
-        display: flex;
-        align-items: flex-start;
-        gap: 14px;
-        transition: opacity 0.35s ease, transform 0.35s ease;
-        overflow: hidden;
-      }
-
-      .glass-announcement::before {
-        content: '';
-        position: absolute;
-        top: -60px;
-        left: -60px;
-        width: 180px;
-        height: 180px;
-        background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, transparent 70%);
-        border-radius: 50%;
-        pointer-events: none;
-      }
-
-      .glass-announcement.dismissed {
-        opacity: 0;
-        transform: translateY(-8px);
-        pointer-events: none;
-      }
-
-      .ann-icon-wrap {
-        flex-shrink: 0;
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        background: rgba(16, 185, 129, 0.15);
-        border: 1px solid rgba(16, 185, 129, 0.25);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #059669;
-      }
-
-      .ann-body {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+        padding: 14px;
+        gap: 10px;
       }
 
       .ann-title {
-        font-size: 0.9rem;
-        font-weight: 700;
-        color: #064e3b;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .ann-badge {
-        font-size: 0.65rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        background: rgba(16, 185, 129, 0.18);
-        color: #047857;
-        padding: 2px 8px;
-        border-radius: 50px;
-        border: 1px solid rgba(16, 185, 129, 0.3);
+        font-size: 0.85rem;
       }
 
       .ann-text {
-        font-size: 0.85rem;
-        color: #065f46;
-        line-height: 1.55;
+        font-size: 0.8rem;
       }
 
-      .ann-timestamp {
-        font-size: 0.75rem;
-        color: #6ee7b7;
-        margin-top: 2px;
+      .glass-shell {
+        padding: 18px;
       }
 
-      .ann-dismiss {
-        flex-shrink: 0;
-        width: 30px;
-        height: 30px;
-        border-radius: 8px;
-        background: rgba(16, 185, 129, 0.1);
-        border: 1px solid rgba(16, 185, 129, 0.2);
-        color: #059669;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
+      .glass-shell-header h3 {
+        font-size: 1.1rem;
       }
 
-      .ann-dismiss:hover {
-        background: rgba(16, 185, 129, 0.25);
-        color: #047857;
+      .glass-shell-header p {
+        font-size: 0.82rem;
       }
 
-      /* ── Submodule Card Grid ───────────────────────── */
       .submodule-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-      }
-
-      @media (max-width: 680px) {
-        .submodule-grid {
-          grid-template-columns: 1fr;
-        }
-        .glass-announcement {
-          flex-direction: column;
-        }
+        grid-template-columns: 1fr;
+        gap: 16px;
       }
 
       .submodule-card {
-        position: relative;
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.5);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        box-shadow:
-          0 4px 20px rgba(15, 23, 42, 0.06),
-          inset 0 1px 0 rgba(255, 255, 255, 0.7);
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-                    box-shadow 0.28s ease,
-                    backdrop-filter 0.28s ease;
-        overflow: hidden;
-      }
-
-      .submodule-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, var(--card-accent-a, #0d9488), var(--card-accent-b, #3b82f6));
-        opacity: 0;
-        transition: opacity 0.28s ease;
-        border-radius: 14px 14px 0 0;
-      }
-
-      .submodule-card:hover {
-        transform: translateY(-5px) scale(1.01);
-        box-shadow:
-          0 16px 40px rgba(15, 23, 42, 0.1),
-          inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-      }
-
-      .submodule-card:hover::before {
-        opacity: 1;
-      }
-
-      .card-icon-wrap {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        transition: transform 0.25s ease;
-      }
-
-      .submodule-card:hover .card-icon-wrap {
-        transform: rotate(-4deg) scale(1.08);
-      }
-
-      .card-body {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        flex: 1;
+        padding: 18px;
       }
 
       .card-title {
-        font-size: 1rem;
-        font-weight: 700;
-        color: #0f172a;
+        font-size: 0.95rem;
       }
 
       .card-desc {
-        font-size: 0.82rem;
-        color: #475569;
-        line-height: 1.55;
-      }
-
-      .glass-dl-btn {
-        align-self: flex-start;
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        padding: 10px 18px;
-        border-radius: 9px;
-        background: rgba(255, 255, 255, 0.65);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07);
         font-size: 0.8rem;
-        font-weight: 700;
-        color: #0f172a;
-        text-decoration: none;
-        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      .glass-dl-btn:hover {
-        background: rgba(13, 148, 136, 0.12);
-        border-color: rgba(13, 148, 136, 0.4);
-        color: #0d9488;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 16px rgba(13, 148, 136, 0.15);
-      }
-
-      .glass-dl-btn span {
-        font-size: 0.65rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        padding: 2px 7px;
-        border-radius: 50px;
-        background: rgba(15, 23, 42, 0.06);
-        color: #64748b;
-      }
-
-      /* ── PDF document list (inside expanded submodule cards) ── */
-      .doc-list {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        width: 100%;
-        margin-top: 4px;
       }
 
       .doc-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 12px;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.45);
-        border: 1px solid rgba(255, 255, 255, 0.55);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 4px rgba(15,23,42,0.04);
-        transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-      }
-
-      .doc-row:hover {
-        background: rgba(255, 255, 255, 0.7);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 4px 12px rgba(13,148,136,0.08);
-        transform: translateX(2px);
-      }
-
-      .doc-row-icon {
-        flex-shrink: 0;
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        background: rgba(13, 148, 136, 0.10);
-        border: 1px solid rgba(13, 148, 136, 0.18);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #0d9488;
-      }
-
-      .doc-row-info {
-        flex: 1;
-        display: flex;
         flex-direction: column;
-        gap: 2px;
-        min-width: 0;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px;
       }
 
       .doc-row-name {
-        font-size: 0.82rem;
-        font-weight: 600;
-        color: #0f172a;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .doc-row-meta {
-        font-size: 0.7rem;
-        color: #94a3b8;
-        font-weight: 500;
+        font-size: 0.8rem;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
       }
 
       .doc-row-btn {
-        flex-shrink: 0;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        padding: 6px 12px;
-        border-radius: 7px;
-        background: rgba(13, 148, 136, 0.10);
-        border: 1px solid rgba(13, 148, 136, 0.25);
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: #0d9488;
-        text-decoration: none;
-        transition: all 0.2s ease;
-        white-space: nowrap;
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Tab Layout for PDF uploads/downloads */
+    .tabs-container {
+      margin-top: 32px;
+      border-top: 1px solid var(--border-sterile);
+      padding-top: 24px;
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 8px;
+      border-bottom: 2px solid var(--border-sterile);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      color: var(--accent-teal);
+      background: var(--accent-teal-light);
+    }
+
+    .tab-btn.active {
+      color: var(--accent-teal);
+      background: var(--accent-teal-light);
+      box-shadow: inset 0 -2px 0 var(--accent-teal);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* PDF card styling */
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .pdf-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      border: 1px solid var(--border-sterile);
+      border-radius: 6px;
+      background: #ffffff;
+      transition: all 0.2s ease;
+    }
+
+    .pdf-card:hover {
+      border-color: var(--border-sterile-hover);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .pdf-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pdf-icon {
+      color: #ef4444;
+      /* red for PDF */
+    }
+
+    .pdf-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .pdf-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent-navy);
+    }
+
+    .pdf-size {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Upload widget styling */
+    .upload-widget {
+      background: #f8fafc;
+      border: 2px dashed var(--border-sterile);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .upload-form-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .upload-input-text {
+      flex: 2;
+      min-width: 200px;
+      padding: 10px 14px;
+      border: 1px solid var(--border-sterile);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .upload-input-file {
+      flex: 1;
+      min-width: 150px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .btn-upload {
+      background: var(--accent-teal);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .btn-upload:hover {
+      background: #0b7a70;
+    }
+
+    /* Glass Shell Wrapper & Design System */
+    .glass-shell-wrapper {
+      grid-column: span 2;
+      max-width: 1024px;
+      width: 100%;
+      margin: 24px auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .glass-shell-gradients {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .radial-gradient {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.15;
+    }
+
+    .blob-1 {
+      background: radial-gradient(circle, #0d9488 0%, rgba(13, 148, 136, 0) 70%);
+      width: 300px;
+      height: 300px;
+      top: -100px;
+      left: -100px;
+    }
+
+    .blob-2 {
+      background: radial-gradient(circle, #3b82f6 0%, rgba(59, 130, 246, 0) 70%);
+      width: 300px;
+      height: 300px;
+      bottom: -100px;
+      right: -100px;
+    }
+
+    .glass-shell {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 16px;
+      box-shadow:
+        0 8px 32px 0 rgba(15, 23, 42, 0.06),
+        inset 0 8px 32px 0 rgba(255, 255, 255, 0.3),
+        0 1px 2px 0 rgba(0, 0, 0, 0.02);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-shell-header {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .glass-shell-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .glass-shell-header p {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    .glass-shell-content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+    }
+
+    /* ── Announcement Banner ───────────────────────── */
+    .glass-announcement {
+      grid-column: span 2;
+      max-width: 1024px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      border-radius: 14px;
+      background: rgba(236, 253, 245, 0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      box-shadow:
+        0 4px 24px 0 rgba(16, 185, 129, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      padding: 18px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      overflow: hidden;
+    }
+
+    .glass-announcement::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: -60px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .glass-announcement.dismissed {
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+    }
+
+    .ann-icon-wrap {
+      flex-shrink: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #059669;
+    }
+
+    .ann-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ann-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #064e3b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ann-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: rgba(16, 185, 129, 0.18);
+      color: #047857;
+      padding: 2px 8px;
+      border-radius: 50px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .ann-text {
+      font-size: 0.85rem;
+      color: #065f46;
+      line-height: 1.55;
+    }
+
+    .ann-timestamp {
+      font-size: 0.75rem;
+      color: #6ee7b7;
+      margin-top: 2px;
+    }
+
+    .ann-dismiss {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: #059669;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .ann-dismiss:hover {
+      background: rgba(16, 185, 129, 0.25);
+      color: #047857;
+    }
+
+    /* ── Submodule Card Grid ───────────────────────── */
+    .submodule-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 680px) {
+      .submodule-grid {
+        grid-template-columns: 1fr;
       }
 
-      .doc-row-btn:hover {
-        background: #0d9488;
-        border-color: #0d9488;
-        color: #ffffff;
-        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+      .glass-announcement {
+        flex-direction: column;
       }
+    }
 
-    </style>
-  </head>
-  <body>
-    <header>
-      <div class="logo-section">
-        <i data-lucide="shield-check" class="logo-icon" style="width: 28px; height: 28px"></i>
-        <div class="logo-text">
-          <h1>PERGIGIAN KOTA BHARU</h1>
-          <p>Pusat Hab Maklumat Pentadbiran</p>
-        </div>
-      </div>
-      <nav class="header-nav">
-        <a href="index.html" class="nav-link">
-          <i data-lucide="layout-dashboard" style="width: 14px; height: 14px"></i> Utama
-        </a>
-        <a href="direktori.html" class="nav-link">
-          <i data-lucide="users" style="width: 14px; height: 14px"></i> Direktori
-        </a>
-        <a href="klinikal.html" class="nav-link active">
-          <i data-lucide="stethoscope" style="width: 14px; height: 14px"></i> Klinikal
-        </a>
-        <a href="pentadbiran.html" class="nav-link">
-          <i data-lucide="clipboard-list" style="width: 14px; height: 14px"></i> Pentadbiran
-        </a>
-      </nav>
-      <div class="system-time">
-        <span>MASA SISTEM:</span>
-        <span class="time-box" id="live-clock">00:00:00 AM</span>
-      </div>
-    </header>
+    .submodule-card {
+      position: relative;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow:
+        0 4px 20px rgba(15, 23, 42, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.28s ease,
+        backdrop-filter 0.28s ease;
+      overflow: hidden;
+    }
 
-    <div class="app-container" style="display: flex; flex-direction: column; gap: 20px;">
+    .submodule-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--card-accent-a, #0d9488), var(--card-accent-b, #3b82f6));
+      opacity: 0;
+      transition: opacity 0.28s ease;
+      border-radius: 14px 14px 0 0;
+    }
 
-      <!-- ── Announcement Banner ───────────────────── -->
-      <div class="glass-announcement" id="klinikal-announcement">
-        <div class="ann-icon-wrap">
-          <i data-lucide="bell-ring" style="width: 18px; height: 18px"></i>
-        </div>
-        <div class="ann-body">
-          <div class="ann-title">
-            Makluman Terkini Hab Klinikal
-            <span class="ann-badge">Terkini</span>
-          </div>
-          <p class="ann-text">
-            Fail PDF untuk <strong>Garis Panduan Klinikal versi 2026</strong> telah dikemas kini dan kini tersedia untuk dimuat turun. Sila semak bahagian Submodul di bawah dan muat turun versi terbaru.
-          </p>
-          <p class="ann-timestamp">Kemas kini Terakhir: 07 Julai 2026 &nbsp;·&nbsp; 11:45 AM</p>
-        </div>
-        <button class="ann-dismiss" onclick="dismissAnnouncement()" aria-label="Tutup pengumuman">
-          <i data-lucide="x" style="width: 15px; height: 15px"></i>
-        </button>
-      </div>
+    .submodule-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow:
+        0 16px 40px rgba(15, 23, 42, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
 
-      <!-- ── Submodules Glass Shell ────────────────── -->
-      <div class="glass-shell-wrapper">
-        <div class="glass-shell-gradients">
-          <div class="radial-gradient blob-1"></div>
-          <div class="radial-gradient blob-2"></div>
-        </div>
-        <div class="glass-shell">
+    .submodule-card:hover::before {
+      opacity: 1;
+    }
 
-          <div class="glass-shell-header">
-            <h3>
-              <i data-lucide="layout-grid" style="width: 20px; height: 20px; color: var(--accent-teal)"></i>
-              Submodul &amp; Ciri Klinikal Bersepadu
-            </h3>
-            <p>Akses pantas kepada dokumen sokongan rawatan, log pesakit, garis panduan klinikal, dan format penyelidikan rasmi.</p>
-          </div>
+    .card-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition: transform 0.25s ease;
+    }
 
-          <div class="glass-shell-content">
-            <div class="submodule-grid">
+    .submodule-card:hover .card-icon-wrap {
+      transform: rotate(-4deg) scale(1.08);
+    }
 
-              <!-- Card 1 · Surat Rujukan -->
-              <div class="submodule-card" style="--card-accent-a:#0d9488; --card-accent-b:#06b6d4;">
-                <div class="card-icon-wrap">
-                  <i data-lucide="file-output" style="width: 26px; height: 26px; color: #0d9488;"></i>
-                </div>
-                <div class="card-body">
-                  <h4 class="card-title">Surat Rujukan</h4>
-                  <p class="card-desc">Templat surat rujukan rasmi pesakit ke unit pakar pergigian KKM. Sila muat turun borang yang berkenaan.</p>
-                </div>
-                <div class="doc-list">
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
 
-                  <!-- Doc 1 -->
-                  <div class="doc-row">
-                    <div class="doc-row-icon">
-                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
-                    </div>
-                    <div class="doc-row-info">
-                      <span class="doc-row-name">Surat Rujukan Periodontik</span>
-                      <span class="doc-row-meta">PDF &middot; Pergigian Periodontik</span>
-                    </div>
-                    <a
-                      href="documents/surat-rujukan/Surat-Rujukan-Periodontik.pdf"
-                      download
-                      class="doc-row-btn"
-                    >
-                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
-                      Muat Turun
-                    </a>
-                  </div>
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
 
-                  <!-- Doc 2 -->
-                  <div class="doc-row">
-                    <div class="doc-row-icon">
-                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
-                    </div>
-                    <div class="doc-row-info">
-                      <span class="doc-row-name">Surat Rujukan Pergigian Restoratif</span>
-                      <span class="doc-row-meta">PDF &middot; Pergigian Restoratif</span>
-                    </div>
-                    <a
-                      href="documents/surat-rujukan/Surat-Rujukan-Restoratif.pdf"
-                      download
-                      class="doc-row-btn"
-                    >
-                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
-                      Muat Turun
-                    </a>
-                  </div>
+    .card-desc {
+      font-size: 0.82rem;
+      color: #475569;
+      line-height: 1.55;
+    }
 
-                  <!-- Doc 3 -->
-                  <div class="doc-row">
-                    <div class="doc-row-icon">
-                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
-                    </div>
-                    <div class="doc-row-info">
-                      <span class="doc-row-name">Surat Rujukan Pakar Pergigian Kesihatan Awam (UPPKA)</span>
-                      <span class="doc-row-meta">PDF &middot; UPPKA</span>
-                    </div>
-                    <a
-                      href="documents/surat-rujukan/Surat-Rujukan-UPPKA.pdf"
-                      download
-                      class="doc-row-btn"
-                    >
-                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
-                      Muat Turun
-                    </a>
-                  </div>
+    .glass-dl-btn {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 18px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      text-decoration: none;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-                </div>
-              </div>
+    .glass-dl-btn:hover {
+      background: rgba(13, 148, 136, 0.12);
+      border-color: rgba(13, 148, 136, 0.4);
+      color: #0d9488;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(13, 148, 136, 0.15);
+    }
 
-              <!-- Card 2 · Buku Log NDOP -->
-              <div class="submodule-card" style="--card-accent-a:#2563eb; --card-accent-b:#8b5cf6;">
-                <div class="card-icon-wrap">
-                  <i data-lucide="notebook-pen" style="width: 26px; height: 26px; color: #2563eb;"></i>
-                </div>
-                <div class="card-body">
-                  <h4 class="card-title">Buku Log NDOP</h4>
-                  <p class="card-desc">Borang log perkhidmatan harian pergigian (NDOP) dan borang penilaian bagi pelbagai pengkhususan klinikal.</p>
-                </div>
-                <div class="doc-list">
-                  
-                  <!-- Doc 1 -->
-                  <div class="doc-row">
-                    <div class="doc-row-icon" style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
-                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
-                    </div>
-                    <div class="doc-row-info">
-                      <span class="doc-row-name">Logbook Paeds</span>
-                      <span class="doc-row-meta">PDF &middot; Pergigian Kanak-kanak (Paeds)</span>
-                    </div>
-                    <a
-                      href="documents/buku-log-ndop/Logbook-Paeds.pdf"
-                      download
-                      class="doc-row-btn"
-                      style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
-                      onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
-                      onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'"
-                    >
-                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
-                      Muat Turun
-                    </a>
-                  </div>
+    .glass-dl-btn span {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 50px;
+      background: rgba(15, 23, 42, 0.06);
+      color: #64748b;
+    }
 
-                  <!-- Doc 2 -->
-                  <div class="doc-row">
-                    <div class="doc-row-icon" style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
-                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
-                    </div>
-                    <div class="doc-row-info">
-                      <span class="doc-row-name">Logbook Primer</span>
-                      <span class="doc-row-meta">PDF &middot; Pergigian Penjagaan Primer</span>
-                    </div>
-                    <a
-                      href="documents/buku-log-ndop/Logbook-Primer.pdf"
-                      download
-                      class="doc-row-btn"
-                      style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
-                      onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
-                      onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'"
-                    >
-                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
-                      Muat Turun
-                    </a>
-                  </div>
+    /* ── PDF document list (inside expanded submodule cards) ── */
+    .doc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      margin-top: 4px;
+    }
 
-                  <!-- Doc 3 -->
-                  <div class="doc-row">
-                    <div class="doc-row-icon" style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
-                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
-                    </div>
-                    <div class="doc-row-info">
-                      <span class="doc-row-name">Logbook OMFS</span>
-                      <span class="doc-row-meta">PDF &middot; Bedah Mulut & Maksilofasial</span>
-                    </div>
-                    <a
-                      href="documents/buku-log-ndop/Logbook-OMFS.pdf"
-                      download
-                      class="doc-row-btn"
-                      style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
-                      onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
-                      onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'"
-                    >
-                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
-                      Muat Turun
-                    </a>
-                  </div>
+    .doc-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 1px 4px rgba(15, 23, 42, 0.04);
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
 
-                  <!-- Doc 4 -->
-                  <div class="doc-row">
-                    <div class="doc-row-icon" style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
-                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
-                    </div>
-                    <div class="doc-row-info">
-                      <span class="doc-row-name">Appraisal Form OMFS</span>
-                      <span class="doc-row-meta">PDF &middot; Borang Penilaian OMFS</span>
-                    </div>
-                    <a
-                      href="documents/buku-log-ndop/Appraisal-Form-OMFS.pdf"
-                      download
-                      class="doc-row-btn"
-                      style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
-                      onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
-                      onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'"
-                    >
-                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
-                      Muat Turun
-                    </a>
-                  </div>
+    .doc-row:hover {
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 12px rgba(13, 148, 136, 0.08);
+      transform: translateX(2px);
+    }
 
-                  <!-- Doc 5 -->
-                  <div class="doc-row">
-                    <div class="doc-row-icon" style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
-                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
-                    </div>
-                    <div class="doc-row-info">
-                      <span class="doc-row-name">Appraisal Form Paeds</span>
-                      <span class="doc-row-meta">PDF &middot; Borang Penilaian Paeds</span>
-                    </div>
-                    <a
-                      href="documents/buku-log-ndop/Appraisal-Form-Paeds.pdf"
-                      download
-                      class="doc-row-btn"
-                      style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
-                      onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
-                      onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'"
-                    >
-                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
-                      Muat Turun
-                    </a>
-                  </div>
+    .doc-row-icon {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(13, 148, 136, 0.10);
+      border: 1px solid rgba(13, 148, 136, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0d9488;
+    }
 
-                  <!-- Doc 6 -->
-                  <div class="doc-row">
-                    <div class="doc-row-icon" style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
-                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
-                    </div>
-                    <div class="doc-row-info">
-                      <span class="doc-row-name">Appraisal Form Primer</span>
-                      <span class="doc-row-meta">PDF &middot; Borang Penilaian Penjagaan Primer</span>
-                    </div>
-                    <a
-                      href="documents/buku-log-ndop/Appraisal-Form-Primer.pdf"
-                      download
-                      class="doc-row-btn"
-                      style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
-                      onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
-                      onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'"
-                    >
-                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
-                      Muat Turun
-                    </a>
-                  </div>
+    .doc-row-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
 
-                </div>
-              </div>
+    .doc-row-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-              <!-- Card 3 · Garis Panduan Klinikal -->
-              <div class="submodule-card" style="--card-accent-a:#0891b2; --card-accent-b:#0d9488;">
-                <div class="card-icon-wrap">
-                  <i data-lucide="book-open" style="width: 26px; height: 26px; color: #0891b2;"></i>
-                </div>
-                <div class="card-body">
-                  <h4 class="card-title">Garis Panduan Klinikal</h4>
-                  <p class="card-desc">Panduan klinikal rasmi 2026 merangkumi protokol rawatan, kawalan jangkitan, dan piawaian prosedur KKM terkini.</p>
-                </div>
-                <a
-                  href="documents/garis-panduan/garis-panduan-klinikal.pdf"
-                  download
-                  class="glass-dl-btn"
-                >
-                  <i data-lucide="download" style="width: 14px; height: 14px;"></i>
-                  Muat Turun PDF
-                  <span>PDF</span>
-                </a>
-              </div>
+    .doc-row-meta {
+      font-size: 0.7rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
 
-              <!-- Card 4 · Contoh Format Research -->
-              <div class="submodule-card" style="--card-accent-a:#7c3aed; --card-accent-b:#db2777;">
-                <div class="card-icon-wrap">
-                  <i data-lucide="flask-conical" style="width: 26px; height: 26px; color: #7c3aed;"></i>
-                </div>
-                <div class="card-body">
-                  <h4 class="card-title">Contoh Format Research</h4>
-                  <p class="card-desc">Templat format kertas penyelidikan pergigian KKM untuk kajian klinikal, audit kualiti, dan pembentangan ilmiah.</p>
-                </div>
-                <a
-                  href="documents/format-research/format-research.pdf"
-                  download
-                  class="glass-dl-btn"
-                >
-                  <i data-lucide="download" style="width: 14px; height: 14px;"></i>
-                  Muat Turun PDF
-                  <span>PDF</span>
-                </a>
-              </div>
+    .doc-row-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 7px;
+      background: rgba(13, 148, 136, 0.10);
+      border: 1px solid rgba(13, 148, 136, 0.25);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0d9488;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
 
-            </div>
-          </div>
+    .doc-row-btn:hover {
+      background: #0d9488;
+      border-color: #0d9488;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+    }
+  </style>
+</head>
 
-        </div>
+<body>
+  <header>
+    <div class="logo-section">
+      <i data-lucide="shield-check" class="logo-icon" style="width: 28px; height: 28px"></i>
+      <div class="logo-text">
+        <h1>PERGIGIAN KOTA BHARU</h1>
+        <p>Pusat Hab Maklumat Pentadbiran</p>
       </div>
     </div>
+    <nav class="header-nav">
+      <a href="index.html" class="nav-link">
+        <i data-lucide="layout-dashboard" style="width: 14px; height: 14px"></i> Utama
+      </a>
+      <a href="direktori.html" class="nav-link">
+        <i data-lucide="users" style="width: 14px; height: 14px"></i> Direktori
+      </a>
+      <a href="klinikal.html" class="nav-link active">
+        <i data-lucide="stethoscope" style="width: 14px; height: 14px"></i> Klinikal
+      </a>
+      <a href="pentadbiran.html" class="nav-link">
+        <i data-lucide="clipboard-list" style="width: 14px; height: 14px"></i> Pentadbiran
+      </a>
+    </nav>
+    <div class="system-time">
+      <span>MASA SISTEM:</span>
+      <span class="time-box" id="live-clock">00:00:00 AM</span>
+    </div>
+  </header>
 
-    <footer>
-      <div>&copy; 2026 Pergigian Kota Bharu. Reka Bentuk Minimalis Perubatan.</div>
-    </footer>
+  <div class="app-container" style="display: flex; flex-direction: column; gap: 20px;">
 
-    <script>
-      lucide.createIcons();
+    <!-- ── Announcement Banner ───────────────────── -->
+    <div class="glass-announcement" id="klinikal-announcement">
+      <div class="ann-icon-wrap">
+        <i data-lucide="bell-ring" style="width: 18px; height: 18px"></i>
+      </div>
+      <div class="ann-body">
+        <div class="ann-title">
+          Makluman Terkini Hab Klinikal
+          <span class="ann-badge">Terkini</span>
+        </div>
+        <p class="ann-text">
+          Fail PDF untuk <strong>Garis Panduan Klinikal versi 2026</strong> telah dikemas kini dan kini tersedia untuk
+          dimuat turun. Sila semak bahagian Submodul di bawah dan muat turun versi terbaru.
+        </p>
+        <p class="ann-timestamp">Kemas kini Terakhir: 07 Julai 2026 &nbsp;·&nbsp; 11:45 AM</p>
+      </div>
+      <button class="ann-dismiss" onclick="dismissAnnouncement()" aria-label="Tutup pengumuman">
+        <i data-lucide="x" style="width: 15px; height: 15px"></i>
+      </button>
+    </div>
 
-      // System Time Clock
-      function updateClock() {
-        const clockEl = document.getElementById('live-clock');
-        const now = new Date();
-        let hours = now.getHours();
-        let minutes = now.getMinutes();
-        let seconds = now.getSeconds();
-        const ampm = hours >= 12 ? 'PM' : 'AM';
+    <!-- ── Submodules Glass Shell ────────────────── -->
+    <div class="glass-shell-wrapper">
+      <div class="glass-shell-gradients">
+        <div class="radial-gradient blob-1"></div>
+        <div class="radial-gradient blob-2"></div>
+      </div>
+      <div class="glass-shell">
 
-        hours = hours % 12;
-        hours = hours ? hours : 12;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
+        <div class="glass-shell-content">
+          <div class="submodule-grid">
 
-        clockEl.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
-      }
-      setInterval(updateClock, 1000);
-      updateClock();
+            <!-- Card 1 · Surat Rujukan -->
+            <div class="submodule-card" style="--card-accent-a:#0d9488; --card-accent-b:#06b6d4;">
+              <div class="card-icon-wrap">
+                <i data-lucide="file-output" style="width: 26px; height: 26px; color: #0d9488;"></i>
+              </div>
+              <div class="card-body">
+                <h4 class="card-title">Surat Rujukan</h4>
+                <p class="card-desc">Templat surat rujukan rasmi pesakit ke unit pakar pergigian KKM. Sila muat turun
+                  borang yang berkenaan.</p>
+              </div>
+              <div class="doc-list">
 
-      // Dismiss announcement banner with smooth fade+collapse
-      function dismissAnnouncement() {
-        const el = document.getElementById('klinikal-announcement');
-        if (!el) return;
-        el.classList.add('dismissed');
-        setTimeout(() => {
-          el.style.display = 'none';
-        }, 380);
-      }
-    </script>
-  </body>
+                <!-- Doc 1 -->
+                <div class="doc-row">
+                  <div class="doc-row-icon">
+                    <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
+                  </div>
+                  <div class="doc-row-info">
+                    <span class="doc-row-name">Surat Rujukan Periodontik</span>
+                    <span class="doc-row-meta">PDF &middot; Pergigian Periodontik</span>
+                  </div>
+                  <a href="documents/surat-rujukan/Surat-Rujukan-Periodontik.pdf" download class="doc-row-btn">
+                    <i data-lucide="download" style="width: 12px; height: 12px;"></i>
+                    Muat Turun
+                  </a>
+                </div>
+
+                <!-- Doc 2 -->
+                <div class="doc-row">
+                  <div class="doc-row-icon">
+                    <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
+                  </div>
+                  <div class="doc-row-info">
+                    <span class="doc-row-name">Surat Rujukan Pergigian Restoratif</span>
+                    <span class="doc-row-meta">PDF &middot; Pergigian Restoratif</span>
+                  </div>
+                  <a href="documents/surat-rujukan/Surat-Rujukan-Restoratif.pdf" download class="doc-row-btn">
+                    <i data-lucide="download" style="width: 12px; height: 12px;"></i>
+                    Muat Turun
+                  </a>
+                </div>
+
+                <!-- Doc 3 -->
+                <div class="doc-row">
+                  <div class="doc-row-icon">
+                    <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
+                  </div>
+                  <div class="doc-row-info">
+                    <span class="doc-row-name">Surat Rujukan Pakar Pergigian Kesihatan Awam (UPPKA)</span>
+                    <span class="doc-row-meta">PDF &middot; UPPKA</span>
+                  </div>
+                  <a href="documents/surat-rujukan/Surat-Rujukan-UPPKA.pdf" download class="doc-row-btn">
+                    <i data-lucide="download" style="width: 12px; height: 12px;"></i>
+                    Muat Turun
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Card 2 · Buku Log NDOP -->
+            <div class="submodule-card" style="--card-accent-a:#2563eb; --card-accent-b:#8b5cf6;">
+              <div class="card-icon-wrap">
+                <i data-lucide="notebook-pen" style="width: 26px; height: 26px; color: #2563eb;"></i>
+              </div>
+              <div class="card-body">
+                <h4 class="card-title">Buku Log NDOP</h4>
+                <p class="card-desc">Borang log perkhidmatan harian pergigian (NDOP) dan borang penilaian bagi pelbagai
+                  pengkhususan klinikal.</p>
+              </div>
+              <div class="doc-list">
+
+                <!-- Doc 1 -->
+                <div class="doc-row">
+                  <div class="doc-row-icon"
+                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                    <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
+                  </div>
+                  <div class="doc-row-info">
+                    <span class="doc-row-name">Logbook Paeds</span>
+                    <span class="doc-row-meta">PDF &middot; Pergigian Kanak-kanak (Paeds)</span>
+                  </div>
+                  <a href="documents/buku-log-ndop/Logbook-Paeds.pdf" download class="doc-row-btn"
+                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
+                    onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
+                    onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'">
+                    <i data-lucide="download" style="width: 12px; height: 12px;"></i>
+                    Muat Turun
+                  </a>
+                </div>
+
+                <!-- Doc 2 -->
+                <div class="doc-row">
+                  <div class="doc-row-icon"
+                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                    <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
+                  </div>
+                  <div class="doc-row-info">
+                    <span class="doc-row-name">Logbook Primer</span>
+                    <span class="doc-row-meta">PDF &middot; Pergigian Penjagaan Primer</span>
+                  </div>
+                  <a href="documents/buku-log-ndop/Logbook-Primer.pdf" download class="doc-row-btn"
+                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
+                    onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
+                    onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'">
+                    <i data-lucide="download" style="width: 12px; height: 12px;"></i>
+                    Muat Turun
+                  </a>
+                </div>
+
+                <!-- Doc 3 -->
+                <div class="doc-row">
+                  <div class="doc-row-icon"
+                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                    <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
+                  </div>
+                  <div class="doc-row-info">
+                    <span class="doc-row-name">Logbook OMFS</span>
+                    <span class="doc-row-meta">PDF &middot; Bedah Mulut & Maksilofasial</span>
+                  </div>
+                  <a href="documents/buku-log-ndop/Logbook-OMFS.pdf" download class="doc-row-btn"
+                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
+                    onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
+                    onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'">
+                    <i data-lucide="download" style="width: 12px; height: 12px;"></i>
+                    Muat Turun
+                  </a>
+                </div>
+
+                <!-- Doc 4 -->
+                <div class="doc-row">
+                  <div class="doc-row-icon"
+                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                    <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
+                  </div>
+                  <div class="doc-row-info">
+                    <span class="doc-row-name">Appraisal Form OMFS</span>
+                    <span class="doc-row-meta">PDF &middot; Borang Penilaian OMFS</span>
+                  </div>
+                  <a href="documents/buku-log-ndop/Appraisal-Form-OMFS.pdf" download class="doc-row-btn"
+                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
+                    onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
+                    onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'">
+                    <i data-lucide="download" style="width: 12px; height: 12px;"></i>
+                    Muat Turun
+                  </a>
+                </div>
+
+                <!-- Doc 5 -->
+                <div class="doc-row">
+                  <div class="doc-row-icon"
+                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                    <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
+                  </div>
+                  <div class="doc-row-info">
+                    <span class="doc-row-name">Appraisal Form Paeds</span>
+                    <span class="doc-row-meta">PDF &middot; Borang Penilaian Paeds</span>
+                  </div>
+                  <a href="documents/buku-log-ndop/Appraisal-Form-Paeds.pdf" download class="doc-row-btn"
+                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
+                    onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
+                    onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'">
+                    <i data-lucide="download" style="width: 12px; height: 12px;"></i>
+                    Muat Turun
+                  </a>
+                </div>
+
+                <!-- Doc 6 -->
+                <div class="doc-row">
+                  <div class="doc-row-icon"
+                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                    <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
+                  </div>
+                  <div class="doc-row-info">
+                    <span class="doc-row-name">Appraisal Form Primer</span>
+                    <span class="doc-row-meta">PDF &middot; Borang Penilaian Penjagaan Primer</span>
+                  </div>
+                  <a href="documents/buku-log-ndop/Appraisal-Form-Primer.pdf" download class="doc-row-btn"
+                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
+                    onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
+                    onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'">
+                    <i data-lucide="download" style="width: 12px; height: 12px;"></i>
+                    Muat Turun
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Card 3 · Garis Panduan Klinikal -->
+            <div class="submodule-card" style="--card-accent-a:#0891b2; --card-accent-b:#0d9488;">
+              <div class="card-icon-wrap">
+                <i data-lucide="book-open" style="width: 26px; height: 26px; color: #0891b2;"></i>
+              </div>
+              <div class="card-body">
+                <h4 class="card-title">Garis Panduan Klinikal</h4>
+                <p class="card-desc">Panduan klinikal rasmi 2026 merangkumi protokol rawatan, kawalan jangkitan, dan
+                  piawaian prosedur KKM terkini.</p>
+              </div>
+              <a href="documents/garis-panduan/garis-panduan-klinikal.pdf" download class="glass-dl-btn">
+                <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+                Muat Turun PDF
+                <span>PDF</span>
+              </a>
+            </div>
+
+            <!-- Card 4 · Contoh Format Research -->
+            <div class="submodule-card" style="--card-accent-a:#7c3aed; --card-accent-b:#db2777;">
+              <div class="card-icon-wrap">
+                <i data-lucide="flask-conical" style="width: 26px; height: 26px; color: #7c3aed;"></i>
+              </div>
+              <div class="card-body">
+                <h4 class="card-title">Contoh Format Research</h4>
+                <p class="card-desc">Templat format kertas penyelidikan pergigian KKM untuk kajian klinikal, audit
+                  kualiti, dan pembentangan ilmiah.</p>
+              </div>
+              <a href="documents/format-research/format-research.pdf" download class="glass-dl-btn">
+                <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+                Muat Turun PDF
+                <span>PDF</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div>&copy; 2026 Pergigian Kota Bharu. Reka Bentuk Minimalis Perubatan.</div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // System Time Clock
+    function updateClock() {
+      const clockEl = document.getElementById('live-clock');
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      let seconds = now.getSeconds();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+
+      clockEl.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Dismiss announcement banner with smooth fade+collapse
+    function dismissAnnouncement() {
+      const el = document.getElementById('klinikal-announcement');
+      if (!el) return;
+      el.classList.add('dismissed');
+      setTimeout(() => {
+        el.style.display = 'none';
+      }, 380);
+    }
+  </script>
+</body>
+
 </html>
