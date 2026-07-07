@@ -595,96 +595,179 @@
       align-items: center;
     }
 
-    /* Card styling: Liquid Glass (subtle glassmorphism) */
+    /* Card styling: Meet Our Team Portrait style card with bottom white overlay */
     .org-card {
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(12px) saturate(140%);
-      -webkit-backdrop-filter: blur(12px) saturate(140%);
-      border: 1px solid rgba(203, 213, 225, 0.6);
-      border-radius: 12px;
       width: 180px;
-      padding: 14px;
+      height: 240px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 8px;
+      justify-content: flex-end;
       cursor: pointer;
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.03), 
-                  inset 0 1px 1px rgba(255, 255, 255, 0.85);
-      position: relative;
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      background: #f8fafc;
       z-index: 2;
     }
 
     .org-card:hover {
-      transform: translateY(-3px);
-      background: rgba(255, 255, 255, 0.95);
-      border-color: var(--accent-teal);
-      box-shadow: 0 10px 24px rgba(13, 148, 136, 0.12),
-                  0 2px 4px rgba(0, 0, 0, 0.01);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+      border-color: #f97316;
     }
 
     .org-card.active {
-      background: rgba(240, 253, 250, 0.85);
-      border-color: var(--accent-teal);
-      border-width: 1.5px;
-      box-shadow: 0 6px 20px rgba(13, 148, 136, 0.12),
-                  inset 0 1px 1px rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
+      border-color: #f97316;
+      box-shadow: 0 8px 20px rgba(244, 63, 94, 0.15);
     }
 
+    /* Hierarchy-based styling for roots and leads */
     .org-card.master-card {
-      width: 210px;
-      padding: 16px;
-      background: rgba(255, 255, 255, 0.75);
-      border: 1.5px solid rgba(13, 148, 136, 0.4);
-      box-shadow: 0 6px 24px rgba(13, 148, 136, 0.06), 
-                  inset 0 1px 2px rgba(255, 255, 255, 1);
+      width: 200px;
+      height: 250px;
+      border: 1.5px solid rgba(15, 23, 42, 0.15);
     }
 
     .org-card.lvl2-card {
-      border-color: rgba(37, 99, 235, 0.4);
+      border: 1.5px solid rgba(37, 99, 235, 0.2);
     }
 
-    .org-card.lvl2-card.active {
-      background: rgba(239, 246, 255, 0.85);
-      border-color: var(--accent-blue);
-    }
-
-    /* Card Contents */
-    .card-avatar-wrapper {
-      position: relative;
-      width: 48px;
-      height: 48px;
-      margin-bottom: 2px;
-    }
-
-    .card-avatar {
+    /* Card Photo & Silhouette Backgrounds */
+    .card-photo-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      border-radius: 50%;
       object-fit: cover;
-      border: 2px solid #ffffff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      z-index: 1;
+      transition: transform 0.3s;
     }
 
-    .card-avatar-text {
+    .org-card:hover .card-photo-bg {
+      transform: scale(1.05);
+    }
+
+    .card-silhouette-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.9);
+      z-index: 1;
+      font-family: 'Inter', sans-serif;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
       background: linear-gradient(135deg, var(--accent-teal), #0f766e);
+    }
+
+    .org-card:hover .card-silhouette-bg {
+      transform: scale(1.05);
+    }
+
+    .master-card .card-silhouette-bg {
+      background: linear-gradient(135deg, #1e293b, #475569);
+    }
+
+    .lvl2-card .card-silhouette-bg {
+      background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+    }
+
+    .lead-card .card-silhouette-bg {
+      background: linear-gradient(135deg, #0f766e, #14b8a6);
+    }
+
+    .leaf-card .card-silhouette-bg {
+      background: linear-gradient(135deg, #0d9488, #2dd4bf);
+    }
+
+    /* Bottom Overlay Card */
+    .card-overlay {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 10px 8px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      z-index: 2;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      justify-content: center;
+      min-height: 62px;
+    }
+
+    .org-card.active .card-overlay {
+      background: linear-gradient(135deg, #f97316, #f43f5e);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(244, 63, 94, 0.25);
+    }
+
+    /* Floating "+" button */
+    .card-floating-plus {
+      position: absolute;
+      top: -10px;
+      left: 12px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f97316, #f43f5e);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
+      font-size: 13px;
       font-weight: 700;
-      border: 2px solid #ffffff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      border: 2.2px solid #ffffff;
+      box-shadow: 0 2px 5px rgba(244, 63, 94, 0.3);
+      z-index: 3;
+      transition: all 0.2s;
     }
 
-    .lvl2-card .card-avatar-text {
-      background: linear-gradient(135deg, var(--accent-blue), #1d4ed8);
+    .org-card.active .card-floating-plus {
+      background: #ffffff;
+      color: #f97316;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-name {
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--accent-navy);
+      line-height: 1.25;
+      transition: color 0.2s;
+    }
+
+    .org-card.active .card-name {
+      color: #ffffff;
+    }
+
+    .card-role {
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      line-height: 1.2;
+      transition: color 0.2s;
+    }
+
+    .org-card.active .card-role {
+      color: rgba(255, 255, 255, 0.85);
     }
 
     .status-indicator {
@@ -1405,9 +1488,10 @@
 
     function renderCardHtml(node, extraClass = '') {
       const activeClass = document.getElementById('detail-name') && document.getElementById('detail-name').textContent === node.name ? 'active' : '';
-      const avatarHtml = node.avatar && (node.avatar.startsWith('http') || node.avatar.includes('/') || node.avatar.includes('.'))
-        ? `<img src="${node.avatar}" class="card-avatar" alt="${node.name}" onerror="this.outerHTML='<div class=&quot;card-avatar-text&quot;>${getInitials(node.name)}</div>'">`
-        : `<div class="card-avatar-text">${node.avatar || getInitials(node.name)}</div>`;
+      const hasImage = node.avatar && (node.avatar.startsWith('http') || node.avatar.includes('/') || node.avatar.includes('.'));
+      const bgHtml = hasImage
+        ? `<img src="${node.avatar}" class="card-photo-bg" alt="${node.name}" onerror="this.outerHTML='<div class=&quot;card-silhouette-bg&quot;>${getInitials(node.name)}</div>'">`
+        : `<div class="card-silhouette-bg">${node.avatar || getInitials(node.name)}</div>`;
 
       return `
         <div class="org-card ${extraClass} ${activeClass}" id="card-${node.id}" onclick="selectStaffNode('${node.id}', this)">
@@ -1421,12 +1505,12 @@
               </button>
             </div>
           ` : ''}
-          <div class="card-avatar-wrapper">
-            ${avatarHtml}
-            <span class="status-indicator status-online"></span>
+          ${bgHtml}
+          <div class="card-overlay">
+            <span class="card-floating-plus">+</span>
+            <div class="card-name">${node.name}</div>
+            <div class="card-role">${node.role}</div>
           </div>
-          <div class="card-name">${node.name}</div>
-          <div class="card-role">${node.role}</div>
         </div>
       `;
     }
@@ -1646,6 +1730,21 @@
           card.style.display = 'none';
         }
       });
+    }
+
+    // Check admin mode on page load
+    const isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
+    const switcherBar = document.querySelector('.view-switcher-bar');
+    const btnEdit = document.getElementById('btn-edit-mode');
+
+    if (isAdmin) {
+      if (switcherBar) switcherBar.style.display = 'flex';
+      if (btnEdit) btnEdit.style.display = 'flex';
+      switchView('org');
+    } else {
+      if (switcherBar) switcherBar.style.display = 'flex';
+      if (btnEdit) btnEdit.style.display = 'none';
+      switchView('org');
     }
   </script>
 </body>

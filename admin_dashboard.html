@@ -348,26 +348,23 @@
           icon: "contact",
           color: "bg-purple-500",
           desc: "Kemas kini senarai kakitangan dalam portal direktori awam dan tukar status perjawatan secara global.",
-          boilerplateTitle: "Tetapan Senarai Direktori Klinik (Directory Settings)",
           boilerplateMockHtml: `
             <div class="space-y-4">
               <div class="pb-4 border-b border-slate-100">
-                <h4 class="font-bold text-sm text-navy-900">Perjawatan Jabatan & Bahagian</h4>
-                <p class="text-[10px] text-slate-500">Konfigurasi label jabatan direktori awam.</p>
+                <h4 class="font-bold text-sm text-navy-900">Urus Carta Organisasi & Kakitangan</h4>
+                <p class="text-[10px] text-slate-500">Kemas kini jawatan, nama, hierarki, dan info kakitangan.</p>
               </div>
-              <div class="space-y-2 text-xs">
-                <div class="flex justify-between items-center py-2 px-3 bg-slate-50 border border-slate-100 rounded-lg">
-                  <span class="font-semibold text-navy-900">Klinikal / Pakar</span>
-                  <span class="text-[10px] font-mono text-slate-500">7 Kakitangan</span>
+              <div class="p-4 bg-purple-50 border border-purple-100 rounded-lg flex flex-col items-center justify-center text-center space-y-3">
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                  <i data-lucide="network" class="w-5 h-5"></i>
                 </div>
-                <div class="flex justify-between items-center py-2 px-3 bg-slate-50 border border-slate-100 rounded-lg">
-                  <span class="font-semibold text-navy-900">Sokongan Rawatan</span>
-                  <span class="text-[10px] font-mono text-slate-500">4 Kakitangan</span>
+                <div class="space-y-1">
+                  <h5 class="font-semibold text-xs text-navy-900">Editor Carta Organisasi Interaktif</h5>
+                  <p class="text-[10px] text-slate-500 max-w-[280px]">Buka editor visual untuk menyusun hierarki perjawatan, menukar nama, jawatan, gambar, dan butiran staf.</p>
                 </div>
-                <div class="flex justify-between items-center py-2 px-3 bg-slate-50 border border-slate-100 rounded-lg">
-                  <span class="font-semibold text-navy-900">Pentadbiran & Kaunter</span>
-                  <span class="text-[10px] font-mono text-slate-500">3 Kakitangan</span>
-                </div>
+                <a href="direktori.html?admin=true" target="_blank" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold text-xs transition flex items-center gap-1.5 shadow-sm inline-flex">
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Buka Editor Direktori
+                </a>
               </div>
             </div>
           `
