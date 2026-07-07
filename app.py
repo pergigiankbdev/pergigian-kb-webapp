@@ -36,6 +36,10 @@ def login():
 def pentadbiran():
     return send_from_directory('.', 'pentadbiran.html')
 
+@app.route('/admin-dashboard')
+def admin_dashboard():
+    return send_from_directory('.', 'admin_dashboard.html')
+
 # --- BANJIR ENDPOINTS ---
 @app.route('/api/banjir', methods=['GET'])
 def get_banjir():
