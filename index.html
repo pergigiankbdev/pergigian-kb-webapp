@@ -934,10 +934,7 @@
           <p>Pusat Hab Maklumat Pentadbiran</p>
         </div>
       </div>
-      <div class="system-time">
-        <span>MASA SISTEM:</span>
-        <span class="time-box" id="live-clock">00:00:00 AM</span>
-      </div>
+
     </header>
 
     <div class="app-container">
@@ -1490,7 +1487,9 @@
         minutes = minutes < 10 ? '0' + minutes : minutes;
         seconds = seconds < 10 ? '0' + seconds : seconds;
 
-        clockEl.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+        if (clockEl) {
+          clockEl.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+        }
 
         // Randomly update telemetry numbers slightly to look "live"
         if (seconds % 15 === 0) {
