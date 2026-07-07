@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hab Klinikal - Pergigian Kota Bharu</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      :root {
+        --bg-clinical: #f8fafc;
+        --bg-panel: #ffffff;
+        --border-sterile: #e2e8f0;
+        --border-sterile-hover: #cbd5e1;
+        --accent-teal: #0d9488;
+        --accent-teal-light: #f0fdfa;
+        --accent-navy: #0f172a;
+        --accent-blue: #2563eb;
+        --accent-blue-light: #eff6ff;
+        --accent-lime: #10b981;
+        --accent-lime-light: #ecfdf5;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #94a3b8;
+        --shadow-soft:
+          0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+        --shadow-hover:
+          0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-clinical);
+        color: var(--text-primary);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 32px;
+        background: var(--bg-panel);
+        border-bottom: 1px solid var(--border-sterile);
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+      }
+
+      .logo-section {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .logo-icon {
+        color: var(--accent-teal);
+      }
+
+      .logo-text h1 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: var(--accent-navy);
+      }
+
+      .logo-text p {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--accent-teal);
+        font-weight: 600;
+      }
+
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 auto 0 32px;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 8px 16px;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .nav-link:hover {
+        color: var(--accent-teal);
+        background: var(--accent-teal-light);
+      }
+
+      .nav-link.active {
+        color: var(--accent-teal);
+        background: var(--accent-teal-light);
+        font-weight: 600;
+      }
+
+      .system-time {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+
+      .time-box {
+        font-family: 'Orbitron', sans-serif;
+        background: var(--bg-clinical);
+        border: 1px solid var(--border-sterile);
+        padding: 6px 12px;
+        border-radius: 4px;
+        color: var(--accent-navy);
+        font-weight: 600;
+      }
+
+      .app-container {
+        max-width: 1440px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 24px;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+        flex-grow: 1;
+      }
+
+      @media (max-width: 968px) {
+        .app-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .clinical-panel {
+        background: var(--bg-panel);
+        border: 1px solid var(--border-sterile);
+        border-radius: 8px;
+        box-shadow: var(--shadow-soft);
+        overflow: hidden;
+      }
+
+      .panel-header {
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--border-sterile);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .panel-header h2 {
+        font-size: 1.1rem;
+        color: var(--accent-navy);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .panel-content {
+        padding: 24px;
+      }
+
+      /* Checklist section */
+      .checklist-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .checklist-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 18px;
+        border: 1px solid var(--border-sterile);
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .checklist-item:hover {
+        border-color: var(--border-sterile-hover);
+        background: #fafafb;
+      }
+
+      .checklist-item.checked {
+        background: var(--accent-teal-light);
+        border-color: rgba(13, 148, 136, 0.2);
+      }
+
+      .checklist-item.checked .item-text {
+        text-decoration: line-through;
+        color: var(--text-muted);
+      }
+
+      .checkbox-custom {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        border: 2px solid var(--border-sterile);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        color: #ffffff;
+      }
+
+      .checklist-item.checked .checkbox-custom {
+        background: var(--accent-teal);
+        border-color: var(--accent-teal);
+      }
+
+      .item-text {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+
+      /* KPI metrics */
+      .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .metric-card {
+        padding: 20px;
+        border: 1px solid var(--border-sterile);
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .metric-val {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--accent-navy);
+      }
+
+      .metric-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      /* SOP list */
+      .sop-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .sop-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 18px;
+        border: 1px solid var(--border-sterile);
+        border-radius: 6px;
+        transition: all 0.2s ease;
+      }
+
+      .sop-item:hover {
+        border-color: var(--border-sterile-hover);
+        transform: translateX(4px);
+      }
+
+      .sop-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .sop-icon {
+        color: var(--accent-blue);
+      }
+
+      .sop-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--accent-navy);
+      }
+
+      .sop-btn {
+        padding: 6px 12px;
+        border-radius: 4px;
+        background: var(--accent-blue-light);
+        color: var(--accent-blue);
+        border: none;
+        font-size: 0.75rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .sop-btn:hover {
+        background: var(--accent-blue);
+        color: #ffffff;
+      }
+
+      footer {
+        padding: 24px;
+        text-align: center;
+        background: var(--bg-panel);
+        border-top: 1px solid var(--border-sterile);
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: auto;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          gap: 16px;
+          padding: 16px;
+        }
+        .header-nav {
+          margin: 0;
+          width: 100%;
+          justify-content: space-around;
+        }
+        .system-time {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo-section">
+        <i data-lucide="shield-check" class="logo-icon" style="width: 28px; height: 28px"></i>
+        <div class="logo-text">
+          <h1>PERGIGIAN KOTA BHARU</h1>
+          <p>Pusat Hab Maklumat Pentadbiran</p>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link">
+          <i data-lucide="layout-dashboard" style="width: 14px; height: 14px"></i> Utama
+        </a>
+        <a href="direktori.html" class="nav-link">
+          <i data-lucide="users" style="width: 14px; height: 14px"></i> Direktori
+        </a>
+        <a href="klinikal.html" class="nav-link active">
+          <i data-lucide="stethoscope" style="width: 14px; height: 14px"></i> Klinikal
+        </a>
+        <a href="pentadbiran.html" class="nav-link">
+          <i data-lucide="clipboard-list" style="width: 14px; height: 14px"></i> Pentadbiran
+        </a>
+      </nav>
+      <div class="system-time">
+        <span>MASA SISTEM:</span>
+        <span class="time-box" id="live-clock">00:00:00 AM</span>
+      </div>
+    </header>
+
+    <div class="app-container">
+      <!-- Main Content Area: SOP and metrics -->
+      <div class="clinical-panel">
+        <div class="panel-header">
+          <h2>
+            <i data-lucide="stethoscope" style="width: 20px; height: 20px; color: var(--accent-teal)"></i>
+            Panduan & Prosedur Operasi Klinikal (SOP)
+          </h2>
+          <span style="font-size: 0.75rem; color: var(--accent-blue); font-weight: 600;">DOKUMEN & PEKELILING TERKINI</span>
+        </div>
+        <div class="panel-content">
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span class="metric-label">Pesakit Harap Dirawat (Hari ini)</span>
+              <span class="metric-val">42</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Peratusan Kejayaan Sterilisasi</span>
+              <span class="metric-val">100%</span>
+            </div>
+          </div>
+
+          <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: var(--accent-navy); font-weight: 700; text-transform: uppercase;">Panduan Standard</h3>
+          <div class="sop-list">
+            <div class="sop-item">
+              <div class="sop-info">
+                <i data-lucide="shield-alert" class="sop-icon"></i>
+                <span class="sop-title">Protokol Kawalan Jangkitan Silang (Cross-infection Control)</span>
+              </div>
+              <button class="sop-btn" onclick="alert('Memuat turun PDF SOP Kawalan Jangkitan...')">
+                <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
+              </button>
+            </div>
+            <div class="sop-item">
+              <div class="sop-info">
+                <i data-lucide="heart" class="sop-icon" style="color: var(--accent-teal);"></i>
+                <span class="sop-title">Panduan Dos Ubat Bius Tempatan (Local Anaesthetic Dosage Guidelines)</span>
+              </div>
+              <button class="sop-btn" onclick="alert('Memuat turun PDF Panduan Bius...')">
+                <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
+              </button>
+            </div>
+            <div class="sop-item">
+              <div class="sop-info">
+                <i data-lucide="file-check-2" class="sop-icon" style="color: #ea580c;"></i>
+                <span class="sop-title">SOP Pelupusan Sisa Klinikal & Bahan Merkuri Pergigian</span>
+              </div>
+              <button class="sop-btn" onclick="alert('Memuat turun PDF SOP Pelupusan Sisa...')">
+                <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side Area: Checklist Pensterilan -->
+      <div class="clinical-panel">
+        <div class="panel-header">
+          <h2>
+            <i data-lucide="check-square" style="width: 20px; height: 20px; color: var(--accent-teal)"></i>
+            Semakan Bilik Rawatan Sterile
+          </h2>
+        </div>
+        <div class="panel-content">
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">
+            Sila pastikan senarai semak keselamatan dan kebersihan di bawah lengkap sebelum memulakan sesi rawatan harian.
+          </p>
+          <div class="checklist-group">
+            <div class="checklist-item" onclick="toggleChecklist(this)">
+              <div class="checkbox-custom"><i data-lucide="check" style="width: 12px; height: 12px"></i></div>
+              <span class="item-text">Bilik Bedah & Unit Pergigian dinyahjangkit</span>
+            </div>
+            <div class="checklist-item" onclick="toggleChecklist(this)">
+              <div class="checkbox-custom"><i data-lucide="check" style="width: 12px; height: 12px"></i></div>
+              <span class="item-text">Peralatan Autoklaf dinyahjangkit & bersedia</span>
+            </div>
+            <div class="checklist-item" onclick="toggleChecklist(this)">
+              <div class="checkbox-custom"><i data-lucide="check" style="width: 12px; height: 12px"></i></div>
+              <span class="item-text">Semakan stok sarung tangan, topeng, & PPE</span>
+            </div>
+            <div class="checklist-item" onclick="toggleChecklist(this)">
+              <div class="checkbox-custom"><i data-lucide="check" style="width: 12px; height: 12px"></i></div>
+              <span class="item-text">Sistem sedutan & saliran diuji berfungsi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div>&copy; 2026 Pergigian Kota Bharu. Reka Bentuk Minimalis Perubatan.</div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+
+      // System Time Clock
+      function updateClock() {
+        const clockEl = document.getElementById('live-clock');
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let seconds = now.getSeconds();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        clockEl.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+
+      function toggleChecklist(el) {
+        el.classList.toggle('checked');
+      }
+    </script>
+  </body>
+</html>

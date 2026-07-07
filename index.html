@@ -919,6 +919,180 @@
           font-size: 0.95rem;
         }
       }
+
+      /* Navigation header menu styling */
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 auto 0 32px;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 8px 16px;
+        border-radius: 6px;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .nav-link:hover {
+        color: var(--accent-teal);
+        background: var(--accent-teal-light);
+      }
+
+      .nav-link.active {
+        color: var(--accent-teal);
+        background: var(--accent-teal-light);
+        font-weight: 600;
+      }
+
+      /* Module Navigator Grid styling */
+      .modules-grid-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+      }
+
+      .section-title-clinical {
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--accent-navy);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-left: 4px;
+      }
+
+      .modules-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      @media (max-width: 968px) {
+        .modules-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .header-nav {
+          display: none;
+        }
+      }
+
+      .module-card {
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        padding: 24px;
+        gap: 20px;
+        background: var(--bg-panel);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .module-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: transparent;
+        transition: background-color 0.25s ease;
+      }
+
+      .module-card:hover::after {
+        background: var(--accent-teal);
+      }
+
+      .module-card:hover {
+        transform: translateY(-4px);
+      }
+
+      .module-icon-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        transition: all 0.25s ease;
+      }
+
+      .module-icon-wrapper.color-teal {
+        background: var(--accent-teal-light);
+        color: var(--accent-teal);
+      }
+
+      .module-icon-wrapper.color-blue {
+        background: var(--accent-blue-light);
+        color: var(--accent-blue);
+      }
+
+      .module-icon-wrapper.color-navy {
+        background: #f1f5f9;
+        color: var(--accent-navy);
+      }
+
+      .module-card:hover .module-icon-wrapper.color-teal {
+        background: var(--accent-teal);
+        color: #ffffff;
+      }
+
+      .module-card:hover .module-icon-wrapper.color-blue {
+        background: var(--accent-blue);
+        color: #ffffff;
+      }
+
+      .module-card:hover .module-icon-wrapper.color-navy {
+        background: var(--accent-navy);
+        color: #ffffff;
+      }
+
+      .module-info {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex-grow: 1;
+      }
+
+      .module-name {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--accent-navy);
+      }
+
+      .module-desc {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      .module-action {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--accent-teal);
+        transition: gap 0.2s ease;
+        margin-top: auto;
+      }
+
+      .module-card:hover .module-action {
+        gap: 12px;
+      }
     </style>
   </head>
   <body>
@@ -934,7 +1108,24 @@
           <p>Pusat Hab Maklumat Pentadbiran</p>
         </div>
       </div>
-
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link active">
+          <i data-lucide="layout-dashboard" style="width: 14px; height: 14px"></i> Utama
+        </a>
+        <a href="direktori.html" class="nav-link">
+          <i data-lucide="users" style="width: 14px; height: 14px"></i> Direktori
+        </a>
+        <a href="klinikal.html" class="nav-link">
+          <i data-lucide="stethoscope" style="width: 14px; height: 14px"></i> Klinikal
+        </a>
+        <a href="pentadbiran.html" class="nav-link">
+          <i data-lucide="clipboard-list" style="width: 14px; height: 14px"></i> Pentadbiran
+        </a>
+      </nav>
+      <div class="system-time">
+        <span>MASA SISTEM:</span>
+        <span class="time-box" id="live-clock">00:00:00 AM</span>
+      </div>
     </header>
 
     <div class="app-container">
@@ -987,6 +1178,57 @@
               BERJAYA (100%)
             </span>
           </div>
+        </div>
+      </section>
+
+      <!-- Module Navigator Grid -->
+      <section class="modules-grid-container">
+        <h3 class="section-title-clinical">
+          <i data-lucide="layout-grid" style="width: 18px; height: 18px; color: var(--accent-teal)"></i>
+          Modul Perkhidmatan Utama
+        </h3>
+        <div class="modules-grid">
+          <a href="direktori.html" class="module-card clinical-panel">
+            <div class="module-icon-wrapper color-teal">
+              <i data-lucide="users" style="width: 24px; height: 24px"></i>
+            </div>
+            <div class="module-info">
+              <h4 class="module-name">Direktori Staf</h4>
+              <p class="module-desc">Sistem maklumat hubungan, extension talian lobi, serta struktur kepimpinan interaktif Klinik Pergigian.</p>
+            </div>
+            <div class="module-action">
+              <span>Buka Modul</span>
+              <i data-lucide="arrow-right" style="width: 14px; height: 14px"></i>
+            </div>
+          </a>
+
+          <a href="klinikal.html" class="module-card clinical-panel">
+            <div class="module-icon-wrapper color-blue">
+              <i data-lucide="stethoscope" style="width: 24px; height: 24px"></i>
+            </div>
+            <div class="module-info">
+              <h4 class="module-name">Hab Klinikal</h4>
+              <p class="module-desc">Panduan klinikal kawalan infeksi, pekeliling rawatan pergigian, serta telemetri rawatan pesakit harian.</p>
+            </div>
+            <div class="module-action">
+              <span>Buka Modul</span>
+              <i data-lucide="arrow-right" style="width: 14px; height: 14px"></i>
+            </div>
+          </a>
+
+          <a href="pentadbiran.html" class="module-card clinical-panel">
+            <div class="module-icon-wrapper color-navy">
+              <i data-lucide="clipboard-list" style="width: 24px; height: 24px"></i>
+            </div>
+            <div class="module-info">
+              <h4 class="module-name">Sistem Pentadbiran</h4>
+              <p class="module-desc">Pengurusan tugas harian staf, memo pekeliling rasmi, jadual bertugas dan pematuhan kualiti audit KKM.</p>
+            </div>
+            <div class="module-action">
+              <span>Buka Modul</span>
+              <i data-lucide="arrow-right" style="width: 14px; height: 14px"></i>
+            </div>
+          </a>
         </div>
       </section>
 

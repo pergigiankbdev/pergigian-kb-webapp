@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Direktori Staf - Pergigian Kota Bharu</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      :root {
+        --bg-clinical: #f8fafc;
+        --bg-panel: #ffffff;
+        --border-sterile: #e2e8f0;
+        --border-sterile-hover: #cbd5e1;
+        --accent-teal: #0d9488;
+        --accent-teal-light: #f0fdfa;
+        --accent-navy: #0f172a;
+        --accent-blue: #2563eb;
+        --accent-blue-light: #eff6ff;
+        --accent-lime: #10b981;
+        --accent-lime-light: #ecfdf5;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #94a3b8;
+        --shadow-soft:
+          0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+        --shadow-hover:
+          0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-clinical);
+        color: var(--text-primary);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 32px;
+        background: var(--bg-panel);
+        border-bottom: 1px solid var(--border-sterile);
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+      }
+
+      .logo-section {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .logo-icon {
+        color: var(--accent-teal);
+      }
+
+      .logo-text h1 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: var(--accent-navy);
+      }
+
+      .logo-text p {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--accent-teal);
+        font-weight: 600;
+      }
+
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 auto 0 32px;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 8px 16px;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .nav-link:hover {
+        color: var(--accent-teal);
+        background: var(--accent-teal-light);
+      }
+
+      .nav-link.active {
+        color: var(--accent-teal);
+        background: var(--accent-teal-light);
+        font-weight: 600;
+      }
+
+      .system-time {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+
+      .time-box {
+        font-family: 'Orbitron', sans-serif;
+        background: var(--bg-clinical);
+        border: 1px solid var(--border-sterile);
+        padding: 6px 12px;
+        border-radius: 4px;
+        color: var(--accent-navy);
+        font-weight: 600;
+      }
+
+      .app-container {
+        max-width: 1440px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        flex-grow: 1;
+      }
+
+      .clinical-panel {
+        background: var(--bg-panel);
+        border: 1px solid var(--border-sterile);
+        border-radius: 8px;
+        box-shadow: var(--shadow-soft);
+        overflow: hidden;
+      }
+
+      .panel-header {
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--border-sterile);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .panel-header h2 {
+        font-size: 1.1rem;
+        color: var(--accent-navy);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .panel-content {
+        padding: 24px;
+      }
+
+      /* Search & Filter bar */
+      .filter-bar {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+      }
+
+      .search-wrapper {
+        position: relative;
+        flex-grow: 1;
+        min-width: 280px;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 12px 16px 12px 42px;
+        border: 1px solid var(--border-sterile);
+        border-radius: 6px;
+        font-size: 0.9rem;
+        outline: none;
+        transition: all 0.2s ease;
+      }
+
+      .search-input:focus {
+        border-color: var(--accent-teal);
+        box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+      }
+
+      .category-select {
+        padding: 12px 16px;
+        border: 1px solid var(--border-sterile);
+        border-radius: 6px;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        outline: none;
+        background: #ffffff;
+        min-width: 200px;
+        cursor: pointer;
+      }
+
+      .category-select:focus {
+        border-color: var(--accent-teal);
+      }
+
+      /* Directory Card Grid */
+      .directory-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+      }
+
+      .staff-card {
+        padding: 20px;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        transition: all 0.2s ease;
+        border: 1px solid var(--border-sterile);
+        border-radius: 8px;
+      }
+
+      .staff-card:hover {
+        border-color: var(--border-sterile-hover);
+        box-shadow: var(--shadow-hover);
+        transform: translateY(-2px);
+      }
+
+      .avatar-wrapper {
+        position: relative;
+      }
+
+      .staff-avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--accent-teal-light);
+        color: var(--accent-teal);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+
+      .status-indicator {
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+      }
+
+      .status-online { background-color: var(--accent-lime); }
+      .status-away { background-color: #f59e0b; }
+      .status-busy { background-color: #ef4444; }
+
+      .staff-details {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex-grow: 1;
+      }
+
+      .staff-name {
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--accent-navy);
+      }
+
+      .staff-role {
+        font-size: 0.8rem;
+        color: var(--accent-teal);
+        font-weight: 600;
+      }
+
+      .staff-dept {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+      }
+
+      .staff-contact-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        margin-top: 4px;
+      }
+
+      .staff-contact-item i {
+        color: var(--text-muted);
+      }
+
+      .action-row {
+        margin-top: 12px;
+        display: flex;
+        gap: 8px;
+      }
+
+      .btn-contact {
+        flex: 1;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid var(--border-sterile);
+        background: #ffffff;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+        text-decoration: none;
+      }
+
+      .btn-contact:hover {
+        border-color: var(--accent-teal);
+        color: var(--accent-teal);
+        background: var(--accent-teal-light);
+      }
+
+      footer {
+        padding: 24px;
+        text-align: center;
+        background: var(--bg-panel);
+        border-top: 1px solid var(--border-sterile);
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: auto;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          gap: 16px;
+          padding: 16px;
+        }
+        .header-nav {
+          margin: 0;
+          width: 100%;
+          justify-content: space-around;
+        }
+        .system-time {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo-section">
+        <i data-lucide="shield-check" class="logo-icon" style="width: 28px; height: 28px"></i>
+        <div class="logo-text">
+          <h1>PERGIGIAN KOTA BHARU</h1>
+          <p>Pusat Hab Maklumat Pentadbiran</p>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link">
+          <i data-lucide="layout-dashboard" style="width: 14px; height: 14px"></i> Utama
+        </a>
+        <a href="direktori.html" class="nav-link active">
+          <i data-lucide="users" style="width: 14px; height: 14px"></i> Direktori
+        </a>
+        <a href="klinikal.html" class="nav-link">
+          <i data-lucide="stethoscope" style="width: 14px; height: 14px"></i> Klinikal
+        </a>
+        <a href="pentadbiran.html" class="nav-link">
+          <i data-lucide="clipboard-list" style="width: 14px; height: 14px"></i> Pentadbiran
+        </a>
+      </nav>
+      <div class="system-time">
+        <span>MASA SISTEM:</span>
+        <span class="time-box" id="live-clock">00:00:00 AM</span>
+      </div>
+    </header>
+
+    <div class="app-container">
+      <div class="clinical-panel">
+        <div class="panel-header">
+          <h2>
+            <i data-lucide="users" style="width: 20px; height: 20px; color: var(--accent-teal)"></i>
+            Direktori Staf Klinik Pergigian
+          </h2>
+          <span style="font-size: 0.75rem; color: var(--accent-teal); font-weight: 600;">PORTAL INTERAKTIF STAF</span>
+        </div>
+        <div class="panel-content">
+          <div class="filter-bar">
+            <div class="search-wrapper">
+              <i data-lucide="search" class="search-icon" style="width: 18px; height: 18px"></i>
+              <input
+                type="text"
+                id="staff-search"
+                class="search-input"
+                placeholder="Cari kakitangan mengikut nama atau peranan..."
+                onkeyup="filterDirectory()"
+              />
+            </div>
+            <select id="dept-filter" class="category-select" onchange="filterDirectory()">
+              <option value="all">Semua Jabatan</option>
+              <option value="klinikal">Klinikal / Pakar</option>
+              <option value="sokongan">Sokongan Rawatan</option>
+              <option value="pentadbiran">Pentadbiran & Kaunter</option>
+            </select>
+          </div>
+
+          <div class="directory-grid" id="directory-grid">
+            <!-- Staff 1 -->
+            <div class="staff-card" data-dept="klinikal">
+              <div class="avatar-wrapper">
+                <div class="staff-avatar">KA</div>
+                <span class="status-indicator status-online"></span>
+              </div>
+              <div class="staff-details">
+                <div class="staff-name">Dr. Khairul Azmi bin Mansor</div>
+                <div class="staff-role">Pakar Pergigian Pentadbir (Gred UD54)</div>
+                <div class="staff-dept">Jabatan Pakar Bedah Mulut</div>
+                <div class="staff-contact-item">
+                  <i data-lucide="phone" style="width: 12px; height: 12px"></i>
+                  <span>Ext. 302 / Bilik Pakar 1</span>
+                </div>
+                <div class="staff-contact-item">
+                  <i data-lucide="mail" style="width: 12px; height: 12px"></i>
+                  <span>khairulazmi@moh.gov.my</span>
+                </div>
+                <div class="action-row">
+                  <a href="mailto:khairulazmi@moh.gov.my" class="btn-contact">
+                    <i data-lucide="mail" style="width: 12px; height: 12px"></i> E-mel
+                  </a>
+                  <button class="btn-contact" onclick="alert('Mendail Extension 302...')">
+                    <i data-lucide="phone-call" style="width: 12px; height: 12px"></i> Panggil
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Staff 2 -->
+            <div class="staff-card" data-dept="klinikal">
+              <div class="avatar-wrapper">
+                <div class="staff-avatar">NA</div>
+                <span class="status-indicator status-online"></span>
+              </div>
+              <div class="staff-details">
+                <div class="staff-name">Dr. Nur Ainiah binti Mohd Noor</div>
+                <div class="staff-role">Pegawai Pergigian Kanan (Gred UD48)</div>
+                <div class="staff-dept">Jabatan Pergigian Am</div>
+                <div class="staff-contact-item">
+                  <i data-lucide="phone" style="width: 12px; height: 12px"></i>
+                  <span>Ext. 305 / Klinik Rawatan A</span>
+                </div>
+                <div class="staff-contact-item">
+                  <i data-lucide="mail" style="width: 12px; height: 12px"></i>
+                  <span>ainiah.mn@moh.gov.my</span>
+                </div>
+                <div class="action-row">
+                  <a href="mailto:ainiah.mn@moh.gov.my" class="btn-contact">
+                    <i data-lucide="mail" style="width: 12px; height: 12px"></i> E-mel
+                  </a>
+                  <button class="btn-contact" onclick="alert('Mendail Extension 305...')">
+                    <i data-lucide="phone-call" style="width: 12px; height: 12px"></i> Panggil
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Staff 3 -->
+            <div class="staff-card" data-dept="klinikal">
+              <div class="avatar-wrapper">
+                <div class="staff-avatar">SZ</div>
+                <span class="status-indicator status-busy"></span>
+              </div>
+              <div class="staff-details">
+                <div class="staff-name">Dr. Syahrul Zaki bin Harun</div>
+                <div class="staff-role">Pegawai Pergigian (Gred UD44)</div>
+                <div class="staff-dept">Klinik Ortodontik</div>
+                <div class="staff-contact-item">
+                  <i data-lucide="phone" style="width: 12px; height: 12px"></i>
+                  <span>Ext. 308 / Klinik Rawatan B</span>
+                </div>
+                <div class="staff-contact-item">
+                  <i data-lucide="mail" style="width: 12px; height: 12px"></i>
+                  <span>syahrul.z@moh.gov.my</span>
+                </div>
+                <div class="action-row">
+                  <a href="mailto:syahrul.z@moh.gov.my" class="btn-contact">
+                    <i data-lucide="mail" style="width: 12px; height: 12px"></i> E-mel
+                  </a>
+                  <button class="btn-contact" onclick="alert('Mendail Extension 308...')">
+                    <i data-lucide="phone-call" style="width: 12px; height: 12px"></i> Panggil
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Staff 4 -->
+            <div class="staff-card" data-dept="sokongan">
+              <div class="avatar-wrapper">
+                <div class="staff-avatar">SM</div>
+                <span class="status-indicator status-online"></span>
+              </div>
+              <div class="staff-details">
+                <div class="staff-name">Sister Maznah binti Ibrahim</div>
+                <div class="staff-role">Ketua Jururawat Pergigian (Gred U32)</div>
+                <div class="staff-dept">Unit Penyeliaan & Latihan</div>
+                <div class="staff-contact-item">
+                  <i data-lucide="phone" style="width: 12px; height: 12px"></i>
+                  <span>Ext. 310 / Bilik Penyelia</span>
+                </div>
+                <div class="staff-contact-item">
+                  <i data-lucide="mail" style="width: 12px; height: 12px"></i>
+                  <span>maznah.i@moh.gov.my</span>
+                </div>
+                <div class="action-row">
+                  <a href="mailto:maznah.i@moh.gov.my" class="btn-contact">
+                    <i data-lucide="mail" style="width: 12px; height: 12px"></i> E-mel
+                  </a>
+                  <button class="btn-contact" onclick="alert('Mendail Extension 310...')">
+                    <i data-lucide="phone-call" style="width: 12px; height: 12px"></i> Panggil
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Staff 5 -->
+            <div class="staff-card" data-dept="sokongan">
+              <div class="avatar-wrapper">
+                <div class="staff-avatar">PA</div>
+                <span class="status-indicator status-busy"></span>
+              </div>
+              <div class="staff-details">
+                <div class="staff-name">Puan Aishah binti Abd Rahman</div>
+                <div class="staff-role">Juruterapi Pergigian (Gred U29)</div>
+                <div class="staff-dept">Klinik Pedodontik</div>
+                <div class="staff-contact-item">
+                  <i data-lucide="phone" style="width: 12px; height: 12px"></i>
+                  <span>Ext. 312 / Bilik Terapi Kanak-Kanak</span>
+                </div>
+                <div class="staff-contact-item">
+                  <i data-lucide="mail" style="width: 12px; height: 12px"></i>
+                  <span>aishah.ar@moh.gov.my</span>
+                </div>
+                <div class="action-row">
+                  <a href="mailto:aishah.ar@moh.gov.my" class="btn-contact">
+                    <i data-lucide="mail" style="width: 12px; height: 12px"></i> E-mel
+                  </a>
+                  <button class="btn-contact" onclick="alert('Mendail Extension 312...')">
+                    <i data-lucide="phone-call" style="width: 12px; height: 12px"></i> Panggil
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Staff 6 -->
+            <div class="staff-card" data-dept="sokongan">
+              <div class="avatar-wrapper">
+                <div class="staff-avatar">EF</div>
+                <span class="status-indicator status-online"></span>
+              </div>
+              <div class="staff-details">
+                <div class="staff-name">En. Fadhil bin Sulaiman</div>
+                <div class="staff-role">Pembantu Pembedahan Pergigian (Gred U19)</div>
+                <div class="staff-dept">Unit Kawalan Infeksi & Sterile</div>
+                <div class="staff-contact-item">
+                  <i data-lucide="phone" style="width: 12px; height: 12px"></i>
+                  <span>Ext. 315 / Bilik Pensterilan</span>
+                </div>
+                <div class="staff-contact-item">
+                  <i data-lucide="mail" style="width: 12px; height: 12px"></i>
+                  <span>fadhil.s@moh.gov.my</span>
+                </div>
+                <div class="action-row">
+                  <a href="mailto:fadhil.s@moh.gov.my" class="btn-contact">
+                    <i data-lucide="mail" style="width: 12px; height: 12px"></i> E-mel
+                  </a>
+                  <button class="btn-contact" onclick="alert('Mendail Extension 315...')">
+                    <i data-lucide="phone-call" style="width: 12px; height: 12px"></i> Panggil
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Staff 7 -->
+            <div class="staff-card" data-dept="pentadbiran">
+              <div class="avatar-wrapper">
+                <div class="staff-avatar">AR</div>
+                <span class="status-indicator status-away"></span>
+              </div>
+              <div class="staff-details">
+                <div class="staff-name">Cik Atikah binti Rosli</div>
+                <div class="staff-role">Penyambut Tetamu / Khidmat Pelanggan</div>
+                <div class="staff-dept">Bahagian Pentadbiran Lobi Utama</div>
+                <div class="staff-contact-item">
+                  <i data-lucide="phone" style="width: 12px; height: 12px"></i>
+                  <span>Ext. 300 / Lobi Utama</span>
+                </div>
+                <div class="staff-contact-item">
+                  <i data-lucide="mail" style="width: 12px; height: 12px"></i>
+                  <span>atikah.r@moh.gov.my</span>
+                </div>
+                <div class="action-row">
+                  <a href="mailto:atikah.r@moh.gov.my" class="btn-contact">
+                    <i data-lucide="mail" style="width: 12px; height: 12px"></i> E-mel
+                  </a>
+                  <button class="btn-contact" onclick="alert('Mendail Extension 300...')">
+                    <i data-lucide="phone-call" style="width: 12px; height: 12px"></i> Panggil
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div>&copy; 2026 Pergigian Kota Bharu. Reka Bentuk Minimalis Perubatan.</div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+
+      // System Time Clock
+      function updateClock() {
+        const clockEl = document.getElementById('live-clock');
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let seconds = now.getSeconds();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        clockEl.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+
+      // Filter Directory function
+      function filterDirectory() {
+        const query = document.getElementById('staff-search').value.toLowerCase();
+        const dept = document.getElementById('dept-filter').value;
+        const cards = document.querySelectorAll('.staff-card');
+
+        cards.forEach((card) => {
+          const name = card.querySelector('.staff-name').textContent.toLowerCase();
+          const role = card.querySelector('.staff-role').textContent.toLowerCase();
+          const cardDept = card.getAttribute('data-dept');
+
+          const matchesSearch = name.includes(query) || role.includes(query);
+          const matchesDept = dept === 'all' || cardDept === dept;
+
+          if (matchesSearch && matchesDept) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
