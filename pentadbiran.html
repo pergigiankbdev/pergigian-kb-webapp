@@ -73,25 +73,36 @@
     }
 
     @media (max-width: 768px) {
+
       /* Scale up small texts to ensure legibility on mobile */
       .text-\[10px\] {
-        font-size: 0.75rem !important; /* 12px instead of 10px */
+        font-size: 0.75rem !important;
+        /* 12px instead of 10px */
       }
+
       .text-\[8px\] {
-        font-size: 0.7rem !important; /* 11.2px instead of 8px */
+        font-size: 0.7rem !important;
+        /* 11.2px instead of 8px */
       }
+
       .text-xs {
-        font-size: 0.85rem !important; /* 13.6px instead of 12px */
+        font-size: 0.85rem !important;
+        /* 13.6px instead of 12px */
       }
+
       .text-sm {
-        font-size: 0.95rem !important; /* 15.2px instead of 14px */
+        font-size: 0.95rem !important;
+        /* 15.2px instead of 14px */
       }
+
       .p-6 {
         padding: 16px !important;
       }
+
       .gap-6 {
         gap: 16px !important;
       }
+
       .h-20 {
         height: auto !important;
         padding-top: 12px !important;
@@ -100,13 +111,15 @@
     }
   </style>
 </head>
+
 <body class="bg-[#f8fafc] text-navy-900 min-h-screen font-sans flex flex-col">
 
   <!-- MAIN CONTENT AREA -->
   <main class="flex-1 flex flex-col">
 
     <!-- Top header bar -->
-    <header class="bg-white border-b border-navy-200 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 flex-shrink-0 z-30">
+    <header
+      class="bg-white border-b border-navy-200 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 flex-shrink-0 z-30">
       <!-- Logo & Title / Navigation -->
       <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 w-full md:w-auto">
         <div class="flex items-center gap-3">
@@ -118,19 +131,24 @@
             <span class="text-[10px] text-brand-500 font-semibold tracking-widest uppercase">Hab Pentadbiran</span>
           </div>
         </div>
-        
+
         <!-- Navigation Links -->
-        <nav class="flex items-center gap-1 overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0 scrollbar-none whitespace-nowrap">
-          <a href="index.html" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-500 hover:text-navy-900 rounded-lg hover:bg-slate-50 transition-all shrink-0">
+        <nav
+          class="flex items-center gap-1 overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0 scrollbar-none whitespace-nowrap">
+          <a href="index.html"
+            class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-500 hover:text-navy-900 rounded-lg hover:bg-slate-50 transition-all shrink-0">
             <i data-lucide="layout-dashboard" class="w-4.5 h-4.5"></i> Utama
           </a>
-          <a href="direktori.html" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-500 hover:text-navy-900 rounded-lg hover:bg-slate-50 transition-all shrink-0">
+          <a href="direktori.html"
+            class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-500 hover:text-navy-900 rounded-lg hover:bg-slate-50 transition-all shrink-0">
             <i data-lucide="users" class="w-4.5 h-4.5"></i> Direktori Staf
           </a>
-          <a href="klinikal.html" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-500 hover:text-navy-900 rounded-lg hover:bg-slate-50 transition-all shrink-0">
+          <a href="klinikal.html"
+            class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-500 hover:text-navy-900 rounded-lg hover:bg-slate-50 transition-all shrink-0">
             <i data-lucide="stethoscope" class="w-4.5 h-4.5"></i> Klinikal
           </a>
-          <a href="pentadbiran.html" class="flex items-center gap-2 px-3 py-2 text-xs font-bold text-brand-600 bg-brand-50 rounded-lg transition-all shrink-0">
+          <a href="pentadbiran.html"
+            class="flex items-center gap-2 px-3 py-2 text-xs font-bold text-brand-600 bg-brand-50 rounded-lg transition-all shrink-0">
             <i data-lucide="clipboard-list" class="w-4.5 h-4.5"></i> Pentadbiran
           </a>
         </nav>
@@ -138,13 +156,8 @@
 
       <!-- Quick actions & info -->
       <div class="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto">
-        <!-- Live Clock -->
-        <div>
-          <div id="live-clock" class="font-mono text-xs bg-slate-50 border border-slate-200 text-slate-700 font-bold py-1.5 px-3 rounded-lg">
-            00:00:00 AM
-          </div>
-        </div>
-        
+
+
         <div class="flex items-center gap-4">
           <!-- Notification Bell -->
           <div class="relative">
@@ -654,21 +667,34 @@
               <input id="booking-date" type="hidden" required />
               <div class="space-y-2 border border-slate-200 rounded-xl p-3 bg-slate-50">
                 <div class="flex justify-between items-center text-[11px]">
-                  <span class="font-bold text-navy-800 flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4 text-indigo-600"></i> Tarikh Tempahan</span>
+                  <span class="font-bold text-navy-800 flex items-center gap-1"><i data-lucide="calendar"
+                      class="w-4 h-4 text-indigo-600"></i> Tarikh Tempahan</span>
                   <div class="flex items-center gap-2">
-                    <button type="button" onclick="prevPickerMonth()" class="p-1 hover:bg-slate-200 rounded transition-colors"><i data-lucide="chevron-left" class="w-3.5 h-3.5"></i></button>
+                    <button type="button" onclick="prevPickerMonth()"
+                      class="p-1 hover:bg-slate-200 rounded transition-colors"><i data-lucide="chevron-left"
+                        class="w-3.5 h-3.5"></i></button>
                     <span id="picker-month-year" class="font-semibold text-slate-700">Julai 2026</span>
-                    <button type="button" onclick="nextPickerMonth()" class="p-1 hover:bg-slate-200 rounded transition-colors"><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button>
+                    <button type="button" onclick="nextPickerMonth()"
+                      class="p-1 hover:bg-slate-200 rounded transition-colors"><i data-lucide="chevron-right"
+                        class="w-3.5 h-3.5"></i></button>
                   </div>
                 </div>
                 <!-- Selected Date display -->
                 <div class="text-[10px] text-indigo-700 font-semibold flex items-center justify-between">
-                  <span>Tarikh Dipilih: <span id="selected-date-text" class="bg-indigo-100 px-2 py-0.5 rounded text-indigo-800">Tiada</span></span>
+                  <span>Tarikh Dipilih: <span id="selected-date-text"
+                      class="bg-indigo-100 px-2 py-0.5 rounded text-indigo-800">Tiada</span></span>
                   <span class="text-slate-400 font-normal">*Tarikh kelabu telah ditempah</span>
                 </div>
                 <!-- Calendar grid headers -->
-                <div class="grid grid-cols-7 gap-1 text-[9px] font-bold text-slate-400 text-center uppercase tracking-wider">
-                  <div>Ahd</div><div>Isn</div><div>Sel</div><div>Rab</div><div>Kha</div><div>Jum</div><div>Sab</div>
+                <div
+                  class="grid grid-cols-7 gap-1 text-[9px] font-bold text-slate-400 text-center uppercase tracking-wider">
+                  <div>Ahd</div>
+                  <div>Isn</div>
+                  <div>Sel</div>
+                  <div>Rab</div>
+                  <div>Kha</div>
+                  <div>Jum</div>
+                  <div>Sab</div>
                 </div>
                 <!-- Calendar Grid days -->
                 <div id="booking-picker-grid" class="grid grid-cols-7 gap-1 text-[10px]"></div>
@@ -1329,7 +1355,7 @@
           opt.textContent = `${room.name} (${room.capacity} pax - ${room.facilities})`;
           select.appendChild(opt);
         });
-        
+
         // Re-render picker
         renderBookingDatePicker();
       } catch (err) {
