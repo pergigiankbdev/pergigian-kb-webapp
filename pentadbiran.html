@@ -734,10 +734,29 @@
               <input id="booking-applicant" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
                 placeholder="Contoh: Dr. Azmi" required />
             </div>
-            <div class="space-y-1">
-              <label class="text-[11px] font-semibold text-slate-500">Tarikh Tempahan</label>
-              <input id="booking-date" type="date" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
-                required />
+            <div class="space-y-1 sm:col-span-2">
+              <input id="booking-date" type="hidden" required />
+              <div class="space-y-2 border border-slate-200 rounded-xl p-3 bg-slate-50">
+                <div class="flex justify-between items-center text-[11px]">
+                  <span class="font-bold text-navy-800 flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4 text-indigo-600"></i> Tarikh Tempahan</span>
+                  <div class="flex items-center gap-2">
+                    <button type="button" onclick="prevPickerMonth()" class="p-1 hover:bg-slate-200 rounded transition-colors"><i data-lucide="chevron-left" class="w-3.5 h-3.5"></i></button>
+                    <span id="picker-month-year" class="font-semibold text-slate-700">Julai 2026</span>
+                    <button type="button" onclick="nextPickerMonth()" class="p-1 hover:bg-slate-200 rounded transition-colors"><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button>
+                  </div>
+                </div>
+                <!-- Selected Date display -->
+                <div class="text-[10px] text-indigo-700 font-semibold flex items-center justify-between">
+                  <span>Tarikh Dipilih: <span id="selected-date-text" class="bg-indigo-100 px-2 py-0.5 rounded text-indigo-800">Tiada</span></span>
+                  <span class="text-slate-400 font-normal">*Tarikh kelabu telah ditempah</span>
+                </div>
+                <!-- Calendar grid headers -->
+                <div class="grid grid-cols-7 gap-1 text-[9px] font-bold text-slate-400 text-center uppercase tracking-wider">
+                  <div>Ahd</div><div>Isn</div><div>Sel</div><div>Rab</div><div>Kha</div><div>Jum</div><div>Sab</div>
+                </div>
+                <!-- Calendar Grid days -->
+                <div id="booking-picker-grid" class="grid grid-cols-7 gap-1 text-[10px]"></div>
+              </div>
             </div>
             <div class="space-y-1">
               <label class="text-[11px] font-semibold text-slate-500">Masa Mula (Format 24 jam)</label>
@@ -1386,15 +1405,21 @@
     }
 
     // --- TEMPAHAN BILIK MESYUARAT LOGIC ---
+    let pickerYear = 2026;
+    let pickerMonth = 6; // July (0-indexed)
+    let activeBookings = [];
+
     async function fetchBookings() {
       try {
         const res = await fetch('/api/tempahan');
         const data = await res.json();
+        activeBookings = data;
         const list = document.getElementById('upcoming-bookings');
         list.innerHTML = '';
 
         if (data.length === 0) {
           list.innerHTML = '<p class="text-xs text-slate-400 italic">Tiada tempahan aktif buat masa ini.</p>';
+          renderBookingDatePicker();
           return;
         }
 
@@ -1411,9 +1436,90 @@
             `;
           list.appendChild(item);
         });
+
+        // Render date picker grid
+        renderBookingDatePicker();
       } catch (err) {
         console.error("Error fetching bookings:", err);
       }
+    }
+
+    function renderBookingDatePicker() {
+      const room_name = document.getElementById('booking-room').value;
+      const grid = document.getElementById('booking-picker-grid');
+      const monthYearText = document.getElementById('picker-month-year');
+      const selectedDateInput = document.getElementById('booking-date');
+
+      if (!grid || !monthYearText) return;
+
+      grid.innerHTML = '';
+      monthYearText.textContent = `${monthNames[pickerMonth]} ${pickerYear}`;
+
+      // Get all booked dates for the selected room
+      const bookedDates = new Set();
+      activeBookings.forEach(b => {
+        if (b.room_name === room_name) {
+          bookedDates.add(b.booking_date);
+        }
+      });
+
+      const firstDayIndex = new Date(pickerYear, pickerMonth, 1).getDay();
+      const totalDays = new Date(pickerYear, pickerMonth + 1, 0).getDate();
+
+      // Render padding empty days
+      for (let i = 0; i < firstDayIndex; i++) {
+        const emptyCell = document.createElement('div');
+        grid.appendChild(emptyCell);
+      }
+
+      // Render actual days of month
+      for (let d = 1; d <= totalDays; d++) {
+        const dateStr = `${pickerYear}-${String(pickerMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const isBooked = bookedDates.has(dateStr);
+        const isSelected = selectedDateInput.value === dateStr;
+
+        const dayBtn = document.createElement('button');
+        dayBtn.type = 'button';
+        dayBtn.textContent = d;
+
+        if (isBooked) {
+          dayBtn.className = 'w-full py-1 text-center bg-slate-100 text-slate-300 border border-slate-200/50 rounded-lg cursor-not-allowed select-none font-semibold';
+          dayBtn.disabled = true;
+        } else if (isSelected) {
+          dayBtn.className = 'w-full py-1 text-center bg-indigo-600 text-white border border-indigo-600 rounded-lg font-bold shadow-sm';
+          dayBtn.onclick = () => selectPickerDate(dateStr);
+        } else {
+          dayBtn.className = 'w-full py-1 text-center bg-white hover:bg-indigo-50 text-slate-700 border border-slate-200 rounded-lg font-semibold hover:border-indigo-300 transition-all';
+          dayBtn.onclick = () => selectPickerDate(dateStr);
+        }
+        grid.appendChild(dayBtn);
+      }
+    }
+
+    function selectPickerDate(dateStr) {
+      document.getElementById('booking-date').value = dateStr;
+      const displaySpan = document.getElementById('selected-date-text');
+      displaySpan.textContent = dateStr;
+      displaySpan.className = "bg-indigo-600 px-2 py-0.5 rounded text-white font-bold";
+      renderBookingDatePicker();
+    }
+
+    function prevPickerMonth() {
+      pickerMonth--;
+      if (pickerMonth < 0) {
+        pickerMonth = 11;
+        pickerYear--;
+      }
+      renderBookingDatePicker();
+    }
+
+    function nextPickerMonth() {
+      pickerMonth++;
+      if (pickerMonth > 11) {
+        pickerMonth = 0;
+        pickerYear++;
+      }
+      renderBookingDatePicker();
     }
 
     async function submitBooking(e) {
@@ -1424,6 +1530,11 @@
       const start_time = document.getElementById('booking-start').value;
       const end_time = document.getElementById('booking-end').value;
       const meeting_title = document.getElementById('booking-title').value;
+
+      if (!booking_date) {
+        alert('Sila pilih tarikh mesyuarat daripada kalendar.');
+        return;
+      }
 
       try {
         const res = await fetch('/api/tempahan', {
@@ -1444,6 +1555,9 @@
           alert('Tempahan bilik mesyuarat berjaya didaftarkan!');
           document.getElementById('booking-applicant').value = '';
           document.getElementById('booking-date').value = '';
+          const displaySpan = document.getElementById('selected-date-text');
+          displaySpan.textContent = 'Tiada';
+          displaySpan.className = 'bg-indigo-100 px-2 py-0.5 rounded text-indigo-800';
           document.getElementById('booking-start').value = '';
           document.getElementById('booking-end').value = '';
           document.getElementById('booking-title').value = '';
@@ -1589,6 +1703,12 @@
       fetchPergerakan();
       fetchBookings();
       fetchCalendarEvents();
+
+      // Bind change listener for room availability picker updates
+      const roomSelect = document.getElementById('booking-room');
+      if (roomSelect) {
+        roomSelect.addEventListener('change', renderBookingDatePicker);
+      }
     });
   </script>
 </body>
