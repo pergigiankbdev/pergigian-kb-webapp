@@ -935,95 +935,6 @@
         box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
       }
 
-      /* NDOP Submodule styles */
-      .ndop-doc-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        margin-top: 4px;
-      }
-
-      .ndop-doc-row {
-        background: #ffffff;
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        border-radius: 8px;
-        padding: 12px 16px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-        transition: all 0.2s ease;
-      }
-
-      .ndop-doc-row:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.05);
-        border-color: rgba(37, 99, 235, 0.2);
-      }
-
-      .ndop-row-left {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        min-width: 0;
-      }
-
-      .status-dot-container {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: var(--accent-lime-light);
-        border: 1px solid rgba(16, 185, 129, 0.15);
-        padding: 4px 8px;
-        border-radius: 50px;
-        flex-shrink: 0;
-      }
-
-      .status-dot-green {
-        width: 6px;
-        height: 6px;
-        background-color: var(--accent-lime);
-        border-radius: 50%;
-        animation: pulse-glow 1.5s infinite;
-      }
-
-      .status-dot-text {
-        font-size: 0.68rem;
-        font-weight: 600;
-        color: var(--accent-lime);
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-      }
-
-      .ndop-doc-name {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--accent-navy);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .ndop-dl-btn {
-        background: #f1f5f9;
-        border: 1px solid #e2e8f0;
-        color: var(--text-secondary);
-        padding: 6px 14px;
-        border-radius: 50px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.2s ease;
-        white-space: nowrap;
-      }
-
-      .ndop-dl-btn:hover {
-        background: var(--accent-blue);
-        border-color: var(--accent-blue);
-        color: #ffffff;
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
-      }
     </style>
   </head>
   <body>
@@ -1176,88 +1087,136 @@
                   <h4 class="card-title">Buku Log NDOP</h4>
                   <p class="card-desc">Borang log perkhidmatan harian pergigian (NDOP) dan borang penilaian bagi pelbagai pengkhususan klinikal.</p>
                 </div>
-                <div class="ndop-doc-list">
+                <div class="doc-list">
                   
                   <!-- Doc 1 -->
-                  <div class="ndop-doc-row">
-                    <div class="ndop-row-left">
-                      <span class="status-dot-container">
-                        <span class="status-dot-green"></span>
-                        <span class="status-dot-text">Muat Turun</span>
-                      </span>
-                      <span class="ndop-doc-name">Logbook Paeds</span>
+                  <div class="doc-row">
+                    <div class="doc-row-icon" style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
                     </div>
-                    <a href="documents/buku-log-ndop/Logbook-Paeds.pdf" download class="ndop-dl-btn">
+                    <div class="doc-row-info">
+                      <span class="doc-row-name">Logbook Paeds</span>
+                      <span class="doc-row-meta">PDF &middot; Pergigian Kanak-kanak (Paeds)</span>
+                    </div>
+                    <a
+                      href="documents/buku-log-ndop/Logbook-Paeds.pdf"
+                      download
+                      class="doc-row-btn"
+                      style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
+                      onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
+                      onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'"
+                    >
+                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
                       Muat Turun
                     </a>
                   </div>
 
                   <!-- Doc 2 -->
-                  <div class="ndop-doc-row">
-                    <div class="ndop-row-left">
-                      <span class="status-dot-container">
-                        <span class="status-dot-green"></span>
-                        <span class="status-dot-text">Muat Turun</span>
-                      </span>
-                      <span class="ndop-doc-name">Logbook Primer</span>
+                  <div class="doc-row">
+                    <div class="doc-row-icon" style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
                     </div>
-                    <a href="documents/buku-log-ndop/Logbook-Primer.pdf" download class="ndop-dl-btn">
+                    <div class="doc-row-info">
+                      <span class="doc-row-name">Logbook Primer</span>
+                      <span class="doc-row-meta">PDF &middot; Pergigian Penjagaan Primer</span>
+                    </div>
+                    <a
+                      href="documents/buku-log-ndop/Logbook-Primer.pdf"
+                      download
+                      class="doc-row-btn"
+                      style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
+                      onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
+                      onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'"
+                    >
+                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
                       Muat Turun
                     </a>
                   </div>
 
                   <!-- Doc 3 -->
-                  <div class="ndop-doc-row">
-                    <div class="ndop-row-left">
-                      <span class="status-dot-container">
-                        <span class="status-dot-green"></span>
-                        <span class="status-dot-text">Muat Turun</span>
-                      </span>
-                      <span class="ndop-doc-name">Logbook OMFS</span>
+                  <div class="doc-row">
+                    <div class="doc-row-icon" style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
                     </div>
-                    <a href="documents/buku-log-ndop/Logbook-OMFS.pdf" download class="ndop-dl-btn">
+                    <div class="doc-row-info">
+                      <span class="doc-row-name">Logbook OMFS</span>
+                      <span class="doc-row-meta">PDF &middot; Bedah Mulut & Maksilofasial</span>
+                    </div>
+                    <a
+                      href="documents/buku-log-ndop/Logbook-OMFS.pdf"
+                      download
+                      class="doc-row-btn"
+                      style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
+                      onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
+                      onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'"
+                    >
+                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
                       Muat Turun
                     </a>
                   </div>
 
                   <!-- Doc 4 -->
-                  <div class="ndop-doc-row">
-                    <div class="ndop-row-left">
-                      <span class="status-dot-container">
-                        <span class="status-dot-green"></span>
-                        <span class="status-dot-text">Muat Turun</span>
-                      </span>
-                      <span class="ndop-doc-name">Appraisal Form OMFS</span>
+                  <div class="doc-row">
+                    <div class="doc-row-icon" style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
                     </div>
-                    <a href="documents/buku-log-ndop/Appraisal-Form-OMFS.pdf" download class="ndop-dl-btn">
+                    <div class="doc-row-info">
+                      <span class="doc-row-name">Appraisal Form OMFS</span>
+                      <span class="doc-row-meta">PDF &middot; Borang Penilaian OMFS</span>
+                    </div>
+                    <a
+                      href="documents/buku-log-ndop/Appraisal-Form-OMFS.pdf"
+                      download
+                      class="doc-row-btn"
+                      style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
+                      onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
+                      onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'"
+                    >
+                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
                       Muat Turun
                     </a>
                   </div>
 
                   <!-- Doc 5 -->
-                  <div class="ndop-doc-row">
-                    <div class="ndop-row-left">
-                      <span class="status-dot-container">
-                        <span class="status-dot-green"></span>
-                        <span class="status-dot-text">Muat Turun</span>
-                      </span>
-                      <span class="ndop-doc-name">Appraisal Form Paeds</span>
+                  <div class="doc-row">
+                    <div class="doc-row-icon" style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
                     </div>
-                    <a href="documents/buku-log-ndop/Appraisal-Form-Paeds.pdf" download class="ndop-dl-btn">
+                    <div class="doc-row-info">
+                      <span class="doc-row-name">Appraisal Form Paeds</span>
+                      <span class="doc-row-meta">PDF &middot; Borang Penilaian Paeds</span>
+                    </div>
+                    <a
+                      href="documents/buku-log-ndop/Appraisal-Form-Paeds.pdf"
+                      download
+                      class="doc-row-btn"
+                      style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
+                      onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
+                      onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'"
+                    >
+                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
                       Muat Turun
                     </a>
                   </div>
 
                   <!-- Doc 6 -->
-                  <div class="ndop-doc-row">
-                    <div class="ndop-row-left">
-                      <span class="status-dot-container">
-                        <span class="status-dot-green"></span>
-                        <span class="status-dot-text">Muat Turun</span>
-                      </span>
-                      <span class="ndop-doc-name">Appraisal Form Primer</span>
+                  <div class="doc-row">
+                    <div class="doc-row-icon" style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                      <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
                     </div>
-                    <a href="documents/buku-log-ndop/Appraisal-Form-Primer.pdf" download class="ndop-dl-btn">
+                    <div class="doc-row-info">
+                      <span class="doc-row-name">Appraisal Form Primer</span>
+                      <span class="doc-row-meta">PDF &middot; Borang Penilaian Penjagaan Primer</span>
+                    </div>
+                    <a
+                      href="documents/buku-log-ndop/Appraisal-Form-Primer.pdf"
+                      download
+                      class="doc-row-btn"
+                      style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
+                      onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
+                      onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'"
+                    >
+                      <i data-lucide="download" style="width: 12px; height: 12px;"></i>
                       Muat Turun
                     </a>
                   </div>
