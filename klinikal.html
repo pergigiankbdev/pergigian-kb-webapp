@@ -136,19 +136,19 @@
       }
 
       .app-container {
-        max-width: 1440px;
+        max-width: 1024px;
         width: 100%;
         margin: 0 auto;
         padding: 24px;
-        display: grid;
-        grid-template-columns: 2fr 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 24px;
         flex-grow: 1;
       }
 
       @media (max-width: 968px) {
         .app-container {
-          grid-template-columns: 1fr;
+          padding: 16px;
         }
       }
 
@@ -878,187 +878,7 @@
       </div>
     </header>
 
-    <div class="app-container">
-      <!-- Main Content Area: SOP and metrics -->
-      <div class="clinical-panel">
-        <div class="panel-header">
-          <h2>
-            <i data-lucide="stethoscope" style="width: 20px; height: 20px; color: var(--accent-teal)"></i>
-            Panduan & Prosedur Operasi Klinikal (SOP)
-          </h2>
-          <span style="font-size: 0.75rem; color: var(--accent-blue); font-weight: 600;">DOKUMEN & PEKELILING TERKINI</span>
-        </div>
-        <div class="panel-content">
-          <div class="metric-grid">
-            <div class="metric-card">
-              <span class="metric-label">Pesakit Harap Dirawat (Hari ini)</span>
-              <span class="metric-val">42</span>
-            </div>
-            <div class="metric-card">
-              <span class="metric-label">Peratusan Kejayaan Sterilisasi</span>
-              <span class="metric-val">100%</span>
-            </div>
-          </div>
-
-          <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: var(--accent-navy); font-weight: 700; text-transform: uppercase;">Panduan Standard</h3>
-          <div class="sop-list">
-            <div class="sop-item">
-              <div class="sop-info">
-                <i data-lucide="shield-alert" class="sop-icon"></i>
-                <span class="sop-title">Protokol Kawalan Jangkitan Silang (Cross-infection Control)</span>
-              </div>
-              <button class="sop-btn" onclick="alert('Memuat turun PDF SOP Kawalan Jangkitan...')">
-                <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
-              </button>
-            </div>
-            <div class="sop-item">
-              <div class="sop-info">
-                <i data-lucide="heart" class="sop-icon" style="color: var(--accent-teal);"></i>
-                <span class="sop-title">Panduan Dos Ubat Bius Tempatan (Local Anaesthetic Dosage Guidelines)</span>
-              </div>
-              <button class="sop-btn" onclick="alert('Memuat turun PDF Panduan Bius...')">
-                <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
-              </button>
-            </div>
-            <div class="sop-item">
-              <div class="sop-info">
-                <i data-lucide="file-check-2" class="sop-icon" style="color: #ea580c;"></i>
-                <span class="sop-title">SOP Pelupusan Sisa Klinikal & Bahan Merkuri Pergigian</span>
-              </div>
-              <button class="sop-btn" onclick="alert('Memuat turun PDF SOP Pelupusan Sisa...')">
-                <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
-              </button>
-            </div>
-          </div>
-
-          <!-- PDF Document Repository Tabs -->
-          <div class="tabs-container">
-            <h3 style="font-size: 0.95rem; margin-bottom: 16px; color: var(--accent-navy); font-weight: 700; text-transform: uppercase;">
-              <i data-lucide="folder-open" style="width: 16px; height: 16px; color: var(--accent-teal); vertical-align: middle; margin-right: 4px;"></i>
-              Arkib Muat Turun Dokumen
-            </h3>
-            
-            <div class="tab-buttons">
-              <button class="tab-btn active" onclick="switchTab('surat-rujukan', this)">
-                <i data-lucide="file-text" style="width: 16px; height: 16px"></i> Surat Rujukan
-              </button>
-              <button class="tab-btn" onclick="switchTab('kertas-kerja', this)">
-                <i data-lucide="briefcase" style="width: 16px; height: 16px"></i> Kertas Kerja (Program/Kursus)
-              </button>
-            </div>
-
-            <!-- Tab content: Surat Rujukan -->
-            <div id="surat-rujukan" class="tab-content active">
-              <div class="pdf-grid" id="surat-rujukan-grid">
-                <div class="pdf-card">
-                  <div class="pdf-info">
-                    <i data-lucide="file-text" class="pdf-icon" style="width: 24px; height: 24px"></i>
-                    <div class="pdf-meta">
-                      <span class="pdf-title">Surat Rujukan Pesakit Ke Pakar Bedah Mulut (OMFS)</span>
-                      <span class="pdf-size">PDF • 1.2 MB • Dimuat naik oleh Pentadbir</span>
-                    </div>
-                  </div>
-                  <button class="sop-btn" onclick="alert('Memuat turun Surat Rujukan OMFS...')">
-                    <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
-                  </button>
-                </div>
-                <div class="pdf-card">
-                  <div class="pdf-info">
-                    <i data-lucide="file-text" class="pdf-icon" style="width: 24px; height: 24px"></i>
-                    <div class="pdf-meta">
-                      <span class="pdf-title">Borang Rujukan Klinik Ortodontik Hospital KB</span>
-                      <span class="pdf-size">PDF • 850 KB • Dimuat naik oleh Pentadbir</span>
-                    </div>
-                  </div>
-                  <button class="sop-btn" onclick="alert('Memuat turun Borang Rujukan Ortodontik...')">
-                    <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tab content: Kertas Kerja -->
-            <div id="kertas-kerja" class="tab-content">
-              <div class="pdf-grid" id="kertas-kerja-grid">
-                <div class="pdf-card">
-                  <div class="pdf-info">
-                    <i data-lucide="file-text" class="pdf-icon" style="width: 24px; height: 24px"></i>
-                    <div class="pdf-meta">
-                      <span class="pdf-title">Kertas Kerja Program Kesihatan Pergigian Sekolah Kota Bharu 2026</span>
-                      <span class="pdf-size">PDF • 2.4 MB • Dimuat naik oleh Pentadbir</span>
-                    </div>
-                  </div>
-                  <button class="sop-btn" onclick="alert('Memuat turun Kertas Kerja Sekolah...')">
-                    <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
-                  </button>
-                </div>
-                <div class="pdf-card">
-                  <div class="pdf-info">
-                    <i data-lucide="file-text" class="pdf-icon" style="width: 24px; height: 24px"></i>
-                    <div class="pdf-meta">
-                      <span class="pdf-title">Kertas Kerja Bengkel Endodontik & Teknik Rotary KKP 2026</span>
-                      <span class="pdf-size">PDF • 3.1 MB • Dimuat naik oleh Pentadbir</span>
-                    </div>
-                  </div>
-                  <button class="sop-btn" onclick="alert('Memuat turun Kertas Kerja Bengkel...')">
-                    <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Interactive File Upload Widget -->
-            <div class="upload-widget">
-              <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-navy); text-transform: uppercase;">
-                <i data-lucide="upload-cloud" style="width: 14px; height: 14px; color: var(--accent-teal); vertical-align: middle; margin-right: 4px;"></i>
-                Muat Naik Dokumen PDF Baharu (Simulasi)
-              </span>
-              <form id="pdf-upload-form" onsubmit="uploadPDF(event)">
-                <div class="upload-form-row">
-                  <input type="text" id="pdf-title" class="upload-input-text" placeholder="Masukkan nama/tajuk dokumen PDF..." required />
-                  <input type="file" id="pdf-file" class="upload-input-file" accept=".pdf" required />
-                  <button type="submit" class="btn-upload">
-                    <i data-lucide="plus" style="width: 14px; height: 14px"></i> Muat Naik
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Side Area: Checklist Pensterilan -->
-      <div class="clinical-panel">
-        <div class="panel-header">
-          <h2>
-            <i data-lucide="check-square" style="width: 20px; height: 20px; color: var(--accent-teal)"></i>
-            Semakan Bilik Rawatan Sterile
-          </h2>
-        </div>
-        <div class="panel-content">
-          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px;">
-            Sila pastikan senarai semak keselamatan dan kebersihan di bawah lengkap sebelum memulakan sesi rawatan harian.
-          </p>
-          <div class="checklist-group">
-            <div class="checklist-item" onclick="toggleChecklist(this)">
-              <div class="checkbox-custom"><i data-lucide="check" style="width: 12px; height: 12px"></i></div>
-              <span class="item-text">Bilik Bedah & Unit Pergigian dinyahjangkit</span>
-            </div>
-            <div class="checklist-item" onclick="toggleChecklist(this)">
-              <div class="checkbox-custom"><i data-lucide="check" style="width: 12px; height: 12px"></i></div>
-              <span class="item-text">Peralatan Autoklaf dinyahjangkit & bersedia</span>
-            </div>
-            <div class="checklist-item" onclick="toggleChecklist(this)">
-              <div class="checkbox-custom"><i data-lucide="check" style="width: 12px; height: 12px"></i></div>
-              <span class="item-text">Semakan stok sarung tangan, topeng, & PPE</span>
-            </div>
-            <div class="checklist-item" onclick="toggleChecklist(this)">
-              <div class="checkbox-custom"><i data-lucide="check" style="width: 12px; height: 12px"></i></div>
-              <span class="item-text">Sistem sedutan & saliran diuji berfungsi</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="app-container" style="display: flex; flex-direction: column; gap: 20px;">
 
       <!-- ── Announcement Banner ───────────────────── -->
       <div class="glass-announcement" id="klinikal-announcement">
@@ -1212,10 +1032,6 @@
       setInterval(updateClock, 1000);
       updateClock();
 
-      function toggleChecklist(el) {
-        el.classList.toggle('checked');
-      }
-
       // Dismiss announcement banner with smooth fade+collapse
       function dismissAnnouncement() {
         const el = document.getElementById('klinikal-announcement');
@@ -1224,57 +1040,6 @@
         setTimeout(() => {
           el.style.display = 'none';
         }, 380);
-      }
-
-      // Tab switcher function
-      let currentActiveTab = 'surat-rujukan';
-      function switchTab(tabId, btn) {
-        currentActiveTab = tabId;
-        document.querySelectorAll('.tab-content').forEach(content => {
-          content.classList.remove('active');
-        });
-        document.querySelectorAll('.tab-btn').forEach(button => {
-          button.classList.remove('active');
-        });
-        document.getElementById(tabId).classList.add('active');
-        btn.classList.add('active');
-      }
-
-      // Mock upload PDF function
-      function uploadPDF(event) {
-        event.preventDefault();
-        const title = document.getElementById('pdf-title').value;
-        const fileInput = document.getElementById('pdf-file');
-        const filename = fileInput.files[0] ? fileInput.files[0].name : 'dokumen.pdf';
-        
-        // Random file size for realism
-        const sizeKB = Math.floor(Math.random() * 2000) + 200;
-        const sizeStr = sizeKB > 1000 ? (sizeKB / 1000).toFixed(1) + ' MB' : sizeKB + ' KB';
-
-        const gridId = `${currentActiveTab}-grid`;
-        const grid = document.getElementById(gridId);
-        
-        const newCard = document.createElement('div');
-        newCard.className = 'pdf-card';
-        newCard.innerHTML = `
-          <div class="pdf-info">
-            <i data-lucide="file-text" class="pdf-icon" style="width: 24px; height: 24px"></i>
-            <div class="pdf-meta">
-              <span class="pdf-title">${title}</span>
-              <span class="pdf-size">PDF • ${sizeStr} • Dimuat naik sebentar tadi</span>
-            </div>
-          </div>
-          <button class="sop-btn" onclick="alert('Memuat turun ${title}...')">
-            <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
-          </button>
-        `;
-
-        grid.insertBefore(newCard, grid.firstChild);
-        lucide.createIcons();
-
-        // Reset form
-        document.getElementById('pdf-upload-form').reset();
-        alert(`Dokumen "${title}" berjaya dimuat naik ke tab "${currentActiveTab === 'surat-rujukan' ? 'Surat Rujukan' : 'Kertas Kerja'}".`);
       }
     </script>
   </body>
