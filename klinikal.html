@@ -352,6 +352,253 @@
           display: none;
         }
       }
+      /* Tab Layout for PDF uploads/downloads */
+      .tabs-container {
+        margin-top: 32px;
+        border-top: 1px solid var(--border-sterile);
+        padding-top: 24px;
+      }
+
+      .tab-buttons {
+        display: flex;
+        gap: 8px;
+        border-bottom: 2px solid var(--border-sterile);
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+      }
+
+      .tab-btn {
+        background: none;
+        border: none;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        cursor: pointer;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .tab-btn:hover {
+        color: var(--accent-teal);
+        background: var(--accent-teal-light);
+      }
+
+      .tab-btn.active {
+        color: var(--accent-teal);
+        background: var(--accent-teal-light);
+        box-shadow: inset 0 -2px 0 var(--accent-teal);
+      }
+
+      .tab-content {
+        display: none;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .tab-content.active {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      /* PDF card styling */
+      .pdf-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .pdf-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 18px;
+        border: 1px solid var(--border-sterile);
+        border-radius: 6px;
+        background: #ffffff;
+        transition: all 0.2s ease;
+      }
+
+      .pdf-card:hover {
+        border-color: var(--border-sterile-hover);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .pdf-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .pdf-icon {
+        color: #ef4444; /* red for PDF */
+      }
+
+      .pdf-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .pdf-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--accent-navy);
+      }
+
+      .pdf-size {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      /* Upload widget styling */
+      .upload-widget {
+        background: #f8fafc;
+        border: 2px dashed var(--border-sterile);
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .upload-form-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .upload-input-text {
+        flex: 2;
+        min-width: 200px;
+        padding: 10px 14px;
+        border: 1px solid var(--border-sterile);
+        border-radius: 6px;
+        font-size: 0.85rem;
+        outline: none;
+      }
+
+      .upload-input-file {
+        flex: 1;
+        min-width: 150px;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+
+      .btn-upload {
+        background: var(--accent-teal);
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: background 0.2s ease;
+      }
+
+      .btn-upload:hover {
+        background: #0b7a70;
+      }
+
+      /* Glass Shell Wrapper & Design System */
+      .glass-shell-wrapper {
+        grid-column: span 2;
+        max-width: 1024px;
+        width: 100%;
+        margin: 24px auto;
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+      }
+
+      .glass-shell-gradients {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .radial-gradient {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(40px);
+        opacity: 0.15;
+      }
+
+      .blob-1 {
+        background: radial-gradient(circle, #0d9488 0%, rgba(13, 148, 136, 0) 70%);
+        width: 300px;
+        height: 300px;
+        top: -100px;
+        left: -100px;
+      }
+
+      .blob-2 {
+        background: radial-gradient(circle, #3b82f6 0%, rgba(59, 130, 246, 0) 70%);
+        width: 300px;
+        height: 300px;
+        bottom: -100px;
+        right: -100px;
+      }
+
+      .glass-shell {
+        position: relative;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 16px;
+        box-shadow: 
+          0 8px 32px 0 rgba(15, 23, 42, 0.06),
+          inset 0 8px 32px 0 rgba(255, 255, 255, 0.3),
+          0 1px 2px 0 rgba(0, 0, 0, 0.02);
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .glass-shell-header {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .glass-shell-header h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .glass-shell-header p {
+        font-size: 0.9rem;
+        color: #475569;
+        line-height: 1.5;
+      }
+
+      .glass-shell-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+      }
     </style>
   </head>
   <body>
@@ -435,6 +682,100 @@
               </button>
             </div>
           </div>
+
+          <!-- PDF Document Repository Tabs -->
+          <div class="tabs-container">
+            <h3 style="font-size: 0.95rem; margin-bottom: 16px; color: var(--accent-navy); font-weight: 700; text-transform: uppercase;">
+              <i data-lucide="folder-open" style="width: 16px; height: 16px; color: var(--accent-teal); vertical-align: middle; margin-right: 4px;"></i>
+              Arkib Muat Turun Dokumen
+            </h3>
+            
+            <div class="tab-buttons">
+              <button class="tab-btn active" onclick="switchTab('surat-rujukan', this)">
+                <i data-lucide="file-text" style="width: 16px; height: 16px"></i> Surat Rujukan
+              </button>
+              <button class="tab-btn" onclick="switchTab('kertas-kerja', this)">
+                <i data-lucide="briefcase" style="width: 16px; height: 16px"></i> Kertas Kerja (Program/Kursus)
+              </button>
+            </div>
+
+            <!-- Tab content: Surat Rujukan -->
+            <div id="surat-rujukan" class="tab-content active">
+              <div class="pdf-grid" id="surat-rujukan-grid">
+                <div class="pdf-card">
+                  <div class="pdf-info">
+                    <i data-lucide="file-text" class="pdf-icon" style="width: 24px; height: 24px"></i>
+                    <div class="pdf-meta">
+                      <span class="pdf-title">Surat Rujukan Pesakit Ke Pakar Bedah Mulut (OMFS)</span>
+                      <span class="pdf-size">PDF • 1.2 MB • Dimuat naik oleh Pentadbir</span>
+                    </div>
+                  </div>
+                  <button class="sop-btn" onclick="alert('Memuat turun Surat Rujukan OMFS...')">
+                    <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
+                  </button>
+                </div>
+                <div class="pdf-card">
+                  <div class="pdf-info">
+                    <i data-lucide="file-text" class="pdf-icon" style="width: 24px; height: 24px"></i>
+                    <div class="pdf-meta">
+                      <span class="pdf-title">Borang Rujukan Klinik Ortodontik Hospital KB</span>
+                      <span class="pdf-size">PDF • 850 KB • Dimuat naik oleh Pentadbir</span>
+                    </div>
+                  </div>
+                  <button class="sop-btn" onclick="alert('Memuat turun Borang Rujukan Ortodontik...')">
+                    <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab content: Kertas Kerja -->
+            <div id="kertas-kerja" class="tab-content">
+              <div class="pdf-grid" id="kertas-kerja-grid">
+                <div class="pdf-card">
+                  <div class="pdf-info">
+                    <i data-lucide="file-text" class="pdf-icon" style="width: 24px; height: 24px"></i>
+                    <div class="pdf-meta">
+                      <span class="pdf-title">Kertas Kerja Program Kesihatan Pergigian Sekolah Kota Bharu 2026</span>
+                      <span class="pdf-size">PDF • 2.4 MB • Dimuat naik oleh Pentadbir</span>
+                    </div>
+                  </div>
+                  <button class="sop-btn" onclick="alert('Memuat turun Kertas Kerja Sekolah...')">
+                    <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
+                  </button>
+                </div>
+                <div class="pdf-card">
+                  <div class="pdf-info">
+                    <i data-lucide="file-text" class="pdf-icon" style="width: 24px; height: 24px"></i>
+                    <div class="pdf-meta">
+                      <span class="pdf-title">Kertas Kerja Bengkel Endodontik & Teknik Rotary KKP 2026</span>
+                      <span class="pdf-size">PDF • 3.1 MB • Dimuat naik oleh Pentadbir</span>
+                    </div>
+                  </div>
+                  <button class="sop-btn" onclick="alert('Memuat turun Kertas Kerja Bengkel...')">
+                    <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive File Upload Widget -->
+            <div class="upload-widget">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-navy); text-transform: uppercase;">
+                <i data-lucide="upload-cloud" style="width: 14px; height: 14px; color: var(--accent-teal); vertical-align: middle; margin-right: 4px;"></i>
+                Muat Naik Dokumen PDF Baharu (Simulasi)
+              </span>
+              <form id="pdf-upload-form" onsubmit="uploadPDF(event)">
+                <div class="upload-form-row">
+                  <input type="text" id="pdf-title" class="upload-input-text" placeholder="Masukkan nama/tajuk dokumen PDF..." required />
+                  <input type="file" id="pdf-file" class="upload-input-file" accept=".pdf" required />
+                  <button type="submit" class="btn-upload">
+                    <i data-lucide="plus" style="width: 14px; height: 14px"></i> Muat Naik
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -470,6 +811,26 @@
           </div>
         </div>
       </div>
+
+      <!-- Submodules Glass Shell Container -->
+      <div class="glass-shell-wrapper">
+        <div class="glass-shell-gradients">
+          <div class="radial-gradient blob-1"></div>
+          <div class="radial-gradient blob-2"></div>
+        </div>
+        <div class="glass-shell">
+          <div class="glass-shell-header">
+            <h3>
+              <i data-lucide="layout-grid" style="width: 20px; height: 20px; color: var(--accent-teal)"></i>
+              Submodul & Ciri Klinikal Bersepadu
+            </h3>
+            <p>Akses pantas kepada alatan sokongan rawatan, analisis diagnosis, dan pengurusan preskripsi digital.</p>
+          </div>
+          <div class="glass-shell-content">
+            <!-- Features will be added here -->
+          </div>
+        </div>
+      </div>
     </div>
 
     <footer>
@@ -500,6 +861,57 @@
 
       function toggleChecklist(el) {
         el.classList.toggle('checked');
+      }
+
+      // Tab switcher function
+      let currentActiveTab = 'surat-rujukan';
+      function switchTab(tabId, btn) {
+        currentActiveTab = tabId;
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-btn').forEach(button => {
+          button.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+      }
+
+      // Mock upload PDF function
+      function uploadPDF(event) {
+        event.preventDefault();
+        const title = document.getElementById('pdf-title').value;
+        const fileInput = document.getElementById('pdf-file');
+        const filename = fileInput.files[0] ? fileInput.files[0].name : 'dokumen.pdf';
+        
+        // Random file size for realism
+        const sizeKB = Math.floor(Math.random() * 2000) + 200;
+        const sizeStr = sizeKB > 1000 ? (sizeKB / 1000).toFixed(1) + ' MB' : sizeKB + ' KB';
+
+        const gridId = `${currentActiveTab}-grid`;
+        const grid = document.getElementById(gridId);
+        
+        const newCard = document.createElement('div');
+        newCard.className = 'pdf-card';
+        newCard.innerHTML = `
+          <div class="pdf-info">
+            <i data-lucide="file-text" class="pdf-icon" style="width: 24px; height: 24px"></i>
+            <div class="pdf-meta">
+              <span class="pdf-title">${title}</span>
+              <span class="pdf-size">PDF • ${sizeStr} • Dimuat naik sebentar tadi</span>
+            </div>
+          </div>
+          <button class="sop-btn" onclick="alert('Memuat turun ${title}...')">
+            <i data-lucide="download" style="width: 12px; height: 12px"></i> Muat Turun
+          </button>
+        `;
+
+        grid.insertBefore(newCard, grid.firstChild);
+        lucide.createIcons();
+
+        // Reset form
+        document.getElementById('pdf-upload-form').reset();
+        alert(`Dokumen "${title}" berjaya dimuat naik ke tab "${currentActiveTab === 'surat-rujukan' ? 'Surat Rujukan' : 'Kertas Kerja'}".`);
       }
     </script>
   </body>
