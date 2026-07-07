@@ -425,8 +425,8 @@
         const localRooms = localStorage.getItem('rooms');
         if (!localRooms) {
           const defaults = [
-            { id: "r1", name: "Bilik Anggerik", capacity: 10, facilities: "Projektor, Papan Putih" },
-            { id: "r2", name: "Bilik Mawar", capacity: 15, facilities: "Smart TV, Projektor, Papan Putih" }
+            { id: "r1", name: "Bilik Mesyuarat KPKB", capacity: 15, facilities: "Projektor & Smart TV" },
+            { id: "r2", name: "Bilik Mesyuarat Kubang Kerian", capacity: 8, facilities: "Whiteboard sahaja" }
           ];
           localStorage.setItem('rooms', JSON.stringify(defaults));
           adminRooms = defaults;
