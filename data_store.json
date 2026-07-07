@@ -137,5 +137,19 @@
       "category_tag": "Borang",
       "file_size": "850 KB"
     }
+  ],
+  "rooms": [
+    {
+      "id": "r1",
+      "name": "Bilik Mesyuarat KPKB",
+      "capacity": 15,
+      "facilities": "Projektor & Smart TV"
+    },
+    {
+      "id": "r2",
+      "name": "Bilik Mesyuarat Kubang Kerian",
+      "capacity": 8,
+      "facilities": "Whiteboard sahaja"
+    }
   ]
 }

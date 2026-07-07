@@ -405,6 +405,232 @@
         }
       };
 
+      let adminRooms = [];
+      let adminBookings = [];
+
+      async function fetchRoomsAdmin() {
+        try {
+          const res = await fetch('/api/rooms');
+          if (res.ok) {
+            adminRooms = await res.json();
+            renderAdminRoomsList();
+            return;
+          }
+        } catch (err) {
+          console.warn("Error fetching rooms, falling back to localStorage:", err);
+        }
+        const localRooms = localStorage.getItem('rooms');
+        if (!localRooms) {
+          const defaults = [
+            { id: "r1", name: "Bilik Anggerik", capacity: 10, facilities: "Projektor, Papan Putih" },
+            { id: "r2", name: "Bilik Mawar", capacity: 15, facilities: "Smart TV, Projektor, Papan Putih" }
+          ];
+          localStorage.setItem('rooms', JSON.stringify(defaults));
+          adminRooms = defaults;
+        } else {
+          adminRooms = JSON.parse(localRooms);
+        }
+        renderAdminRoomsList();
+      }
+
+      async function fetchBookingsAdmin() {
+        try {
+          const res = await fetch('/api/tempahan');
+          if (res.ok) {
+            adminBookings = await res.json();
+            renderAdminBookingsList();
+            return;
+          }
+        } catch (err) {
+          console.warn("Error fetching bookings, falling back to localStorage:", err);
+        }
+        adminBookings = JSON.parse(localStorage.getItem('tempahan') || '[]');
+        renderAdminBookingsList();
+      }
+
+      function renderAdminRoomsList() {
+        const tbody = document.getElementById('admin-rooms-list');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        if (adminRooms.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-slate-400 italic">Tiada bilik mesyuarat berdaftar.</td></tr>`;
+          return;
+        }
+        adminRooms.forEach(room => {
+          const tr = document.createElement('tr');
+          tr.className = 'border-b border-slate-100 hover:bg-slate-50/50 text-[11px]';
+          tr.innerHTML = `
+            <td class="py-2.5 px-3 font-semibold text-navy-900">${room.name}</td>
+            <td class="py-2.5 px-3 text-slate-600">${room.capacity} pax</td>
+            <td class="py-2.5 px-3 text-slate-500">${room.facilities || '-'}</td>
+            <td class="py-2.5 px-3 text-right space-x-2">
+              <button onclick="window.editRoomModal('${room.id}')" class="text-indigo-650 hover:text-indigo-850 font-bold hover:underline">Edit</button>
+              <button onclick="window.deleteRoom('${room.id}')" class="text-rose-600 hover:text-rose-800 font-bold hover:underline">Padam</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function renderAdminBookingsList() {
+        const tbody = document.getElementById('admin-bookings-list');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        if (adminBookings.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-slate-400 italic">Tiada slot tempahan bilik mesyuarat aktif.</td></tr>`;
+          return;
+        }
+        adminBookings.forEach(b => {
+          const tr = document.createElement('tr');
+          tr.className = 'border-b border-slate-100 hover:bg-slate-50/50 text-[11px]';
+          tr.innerHTML = `
+            <td class="py-2.5 px-3 font-semibold text-indigo-950">${b.meeting_title}</td>
+            <td class="py-2.5 px-3"><span class="px-2 py-0.5 bg-slate-100 text-slate-600 border border-slate-200 rounded font-semibold text-[9px]">${b.room_name}</span></td>
+            <td class="py-2.5 px-3 font-mono text-slate-500">${b.booking_date}</td>
+            <td class="py-2.5 px-3 font-mono text-slate-500">${b.start_time} - ${b.end_time}</td>
+            <td class="py-2.5 px-3 font-medium text-slate-600">${b.applicant_name}</td>
+            <td class="py-2.5 px-3 text-right">
+              <button onclick="window.cancelBooking('${b.id}')" class="text-rose-600 hover:text-rose-800 font-bold hover:underline">Batalkan</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Modal Triggers
+      function showRoomModal() {
+        document.getElementById('room-modal-title').textContent = "Tambah Bilik Baru";
+        document.getElementById('edit-room-id').value = "";
+        document.getElementById('room-name-input').value = "";
+        document.getElementById('room-capacity-input').value = "";
+        document.getElementById('room-facilities-input').value = "";
+        document.getElementById('room-crud-modal').classList.remove('hidden');
+      }
+      window.showRoomModal = showRoomModal;
+
+      function closeRoomModal() {
+        document.getElementById('room-crud-modal').classList.add('hidden');
+      }
+      window.closeRoomModal = closeRoomModal;
+
+      function editRoomModal(id) {
+        const room = adminRooms.find(r => r.id === id);
+        if (!room) return;
+        document.getElementById('room-modal-title').textContent = "Edit Butiran Bilik";
+        document.getElementById('edit-room-id').value = room.id;
+        document.getElementById('room-name-input').value = room.name;
+        document.getElementById('room-capacity-input').value = room.capacity;
+        document.getElementById('room-facilities-input').value = room.facilities;
+        document.getElementById('room-crud-modal').classList.remove('hidden');
+      }
+      window.editRoomModal = editRoomModal;
+
+      // API Actions
+      async function saveRoom(e) {
+        e.preventDefault();
+        const id = document.getElementById('edit-room-id').value;
+        const name = document.getElementById('room-name-input').value;
+        const capacity = document.getElementById('room-capacity-input').value;
+        const facilities = document.getElementById('room-facilities-input').value;
+
+        const url = id ? `/api/rooms/edit/${id}` : '/api/rooms';
+        try {
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, capacity, facilities })
+          });
+          if (res.ok) {
+            alert('Butiran bilik berjaya disimpan!');
+            closeRoomModal();
+            fetchRoomsAdmin();
+            return;
+          }
+        } catch (err) {
+          console.warn("API room save failed, using local fallback:", err);
+        }
+
+        // Local Storage Fallback
+        let rooms = JSON.parse(localStorage.getItem('rooms') || '[]');
+        if (id) {
+          rooms = rooms.map(r => r.id === id ? { ...r, name, capacity: parseInt(capacity), facilities } : r);
+        } else {
+          rooms.push({
+            id: "r_" + Date.now(),
+            name,
+            capacity: parseInt(capacity),
+            facilities
+          });
+        }
+        localStorage.setItem('rooms', JSON.stringify(rooms));
+        adminRooms = rooms;
+        alert('Butiran bilik berjaya disimpan!');
+        closeRoomModal();
+        renderAdminRoomsList();
+      }
+      window.saveRoom = saveRoom;
+
+      async function deleteRoom(id) {
+        if (!confirm('Adakah anda pasti mahu memadam bilik mesyuarat ini? Semua tempahan aktif yang dikaitkan dengan bilik ini juga akan dipadamkan secara automatik.')) return;
+        try {
+          const res = await fetch(`/api/rooms/delete/${id}`, {
+            method: 'POST'
+          });
+          if (res.ok) {
+            alert('Bilik mesyuarat berjaya dipadam.');
+            fetchRoomsAdmin();
+            fetchBookingsAdmin();
+            return;
+          }
+        } catch (err) {
+          console.warn("API room delete failed, using local fallback:", err);
+        }
+
+        // Local Storage Fallback
+        let rooms = JSON.parse(localStorage.getItem('rooms') || '[]');
+        const deletedRoom = rooms.find(r => r.id === id);
+        if (deletedRoom) {
+          rooms = rooms.filter(r => r.id !== id);
+          localStorage.setItem('rooms', JSON.stringify(rooms));
+          
+          let bookings = JSON.parse(localStorage.getItem('tempahan') || '[]');
+          bookings = bookings.filter(b => b.room_name !== deletedRoom.name);
+          localStorage.setItem('tempahan', JSON.stringify(bookings));
+          
+          adminRooms = rooms;
+          adminBookings = bookings;
+          alert('Bilik mesyuarat berjaya dipadam.');
+          renderAdminRoomsList();
+          renderAdminBookingsList();
+        }
+      }
+      window.deleteRoom = deleteRoom;
+
+      async function cancelBooking(id) {
+        if (!confirm('Adakah anda pasti mahu membatalkan tempahan bilik mesyuarat ini?')) return;
+        try {
+          const res = await fetch(`/api/tempahan/delete/${id}`, {
+            method: 'POST'
+          });
+          if (res.ok) {
+            alert('Tempahan bilik mesyuarat berjaya dibatalkan.');
+            fetchBookingsAdmin();
+            return;
+          }
+        } catch (err) {
+          console.warn("API booking delete failed, using local fallback:", err);
+        }
+
+        // Local Storage Fallback
+        let bookings = JSON.parse(localStorage.getItem('tempahan') || '[]');
+        bookings = bookings.filter(b => b.id !== id);
+        localStorage.setItem('tempahan', JSON.stringify(bookings));
+        adminBookings = bookings;
+        alert('Tempahan bilik mesyuarat berjaya dibatalkan.');
+        renderAdminBookingsList();
+      }
+      window.cancelBooking = cancelBooking;
+
       function switchSubAdminTab(subId) {
         const subData = subAdminData[subId];
         if (!subData) return;
@@ -430,6 +656,123 @@
         // Render content
         const pane = document.getElementById('sub-admin-content-pane');
         if (pane) {
+          if (subId === 'tempahan') {
+            pane.innerHTML = `
+              <div class="space-y-6 text-xs">
+                
+                <!-- 1. Room Management CRUD Section -->
+                <div class="space-y-3">
+                  <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+                    <div>
+                      <h4 class="font-extrabold text-sm text-navy-900 flex items-center gap-1.5"><i data-lucide="door-open" class="w-4 h-4 text-indigo-600"></i> Pengurusan Bilik Mesyuarat</h4>
+                      <p class="text-[10px] text-slate-500">Tambah, kemas kini, atau padam bilik mesyuarat yang diuruskan dalam sistem.</p>
+                    </div>
+                    <button id="add-room-btn" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold flex items-center gap-1.5 shadow-sm transition-colors">
+                      <i data-lucide="plus" class="w-3.5 h-3.5"></i> Tambah Bilik Baru
+                    </button>
+                  </div>
+                  
+                  <!-- Rooms Table -->
+                  <div class="overflow-x-auto border border-slate-150 rounded-xl bg-white">
+                    <table class="w-full text-left border-collapse">
+                      <thead>
+                        <tr class="bg-slate-50 border-b border-slate-100 text-slate-500 font-bold text-[10px]">
+                          <th class="py-2.5 px-3">Nama Bilik</th>
+                          <th class="py-2.5 px-3">Kapasiti (Pax)</th>
+                          <th class="py-2.5 px-3">Fasiliti / Kelengkapan</th>
+                          <th class="py-2.5 px-3 text-right">Tindakan</th>
+                        </tr>
+                      </thead>
+                      <tbody id="admin-rooms-list">
+                        <!-- Populated dynamically -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- 2. Admin Booking Calendar & Slots List -->
+                <div class="space-y-3 border-t border-slate-100 pt-6">
+                  <div>
+                    <h4 class="font-extrabold text-sm text-navy-900 flex items-center gap-1.5"><i data-lucide="calendar-days" class="w-4 h-4 text-indigo-600"></i> Kalendar Tempahan & Jadual Slots</h4>
+                    <p class="text-[10px] text-slate-500">Semak senarai tempahan aktif merentasi semua bilik dan batalkan tempahan jika perlu.</p>
+                  </div>
+                  
+                  <!-- Slots Table -->
+                  <div class="overflow-x-auto border border-slate-150 rounded-xl bg-white">
+                    <table class="w-full text-left border-collapse">
+                      <thead>
+                        <tr class="bg-slate-50 border-b border-slate-100 text-slate-500 font-bold text-[10px]">
+                          <th class="py-2.5 px-3">Tajuk Mesyuarat</th>
+                          <th class="py-2.5 px-3">Bilik</th>
+                          <th class="py-2.5 px-3">Tarikh</th>
+                          <th class="py-2.5 px-3">Masa</th>
+                          <th class="py-2.5 px-3">Pemohon</th>
+                          <th class="py-2.5 px-3 text-right">Tindakan</th>
+                        </tr>
+                      </thead>
+                      <tbody id="admin-bookings-list">
+                        <!-- Populated dynamically -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- 3. Dynamic Inline Modal for Adding/Editing Room -->
+              <div id="room-crud-modal" class="fixed inset-0 z-[70] flex items-center justify-center bg-navy-950/40 p-4 hidden">
+                <div class="bg-white w-full max-w-sm rounded-2xl shadow-xl border border-navy-200 overflow-hidden flex flex-col">
+                  <div class="p-4 bg-indigo-600 text-white flex justify-between items-center">
+                    <h3 id="room-modal-title" class="font-bold text-xs">Tambah Bilik Baru</h3>
+                    <button type="button" id="close-room-modal-btn" class="p-1 rounded hover:bg-indigo-700 text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+                  </div>
+                  <form id="room-crud-form" class="p-5 space-y-4 text-xs">
+                    <input type="hidden" id="edit-room-id" value="" />
+                    <div class="space-y-1">
+                      <label class="font-semibold text-slate-600">Nama Bilik</label>
+                      <input type="text" id="room-name-input" class="w-full border border-slate-200 rounded-lg p-2 bg-slate-50 text-slate-800" placeholder="Contoh: Bilik Melati" required />
+                    </div>
+                    <div class="space-y-1">
+                      <label class="font-semibold text-slate-600">Kapasiti (Orang)</label>
+                      <input type="number" id="room-capacity-input" class="w-full border border-slate-200 rounded-lg p-2 bg-slate-50 text-slate-800" placeholder="Contoh: 15" required />
+                    </div>
+                    <div class="space-y-1">
+                      <label class="font-semibold text-slate-600">Fasiliti / Kelengkapan</label>
+                      <input type="text" id="room-facilities-input" class="w-full border border-slate-200 rounded-lg p-2 bg-slate-50 text-slate-800" placeholder="Contoh: Projektor, Whiteboard" required />
+                    </div>
+                    <button type="submit" class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors">Simpan Rekod Bilik</button>
+                  </form>
+                </div>
+              </div>
+            `;
+            lucide.createIcons();
+            fetchRoomsAdmin();
+            fetchBookingsAdmin();
+
+            // Programmatic Event Binding
+            const addBtn = document.getElementById('add-room-btn');
+            if (addBtn) {
+              addBtn.addEventListener('click', function() {
+                showRoomModal();
+              });
+            }
+
+            const closeBtn = document.getElementById('close-room-modal-btn');
+            if (closeBtn) {
+              closeBtn.addEventListener('click', function() {
+                closeRoomModal();
+              });
+            }
+
+            const roomForm = document.getElementById('room-crud-form');
+            if (roomForm) {
+              roomForm.addEventListener('submit', function(e) {
+                saveRoom(e);
+              });
+            }
+            return;
+          }
+
           pane.innerHTML = `
             <div class="space-y-4">
               <div class="flex items-center gap-2 text-indigo-900 font-extrabold text-xs pb-3 border-b border-slate-100">
