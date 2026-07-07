@@ -100,157 +100,73 @@
     }
   </style>
 </head>
-
-<body class="bg-[#f8fafc] text-navy-900 min-h-screen font-sans flex overflow-hidden">
-
-  <!-- MOBILE SIDEBAR TOGGLE BACKDROP -->
-  <div id="sidebar-backdrop" class="fixed inset-0 bg-navy-950/40 z-40 hidden transition-opacity duration-300 md:hidden"
-    onclick="toggleSidebar()"></div>
-
-  <!-- RESPONSIVE SIDEBAR -->
-  <aside id="sidebar"
-    class="fixed inset-y-0 left-0 w-72 bg-navy-900 text-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:flex md:flex-col flex-shrink-0 border-r border-navy-800">
-    <!-- Sidebar Header / Brand -->
-    <div class="h-20 flex items-center px-6 border-b border-navy-800 gap-3">
-      <div class="w-10 h-10 rounded-xl bg-brand-500 flex items-center justify-center shadow-lg shadow-brand-500/20">
-        <i data-lucide="shield-check" class="text-white w-6 h-6"></i>
-      </div>
-      <div>
-        <h1 class="font-extrabold text-sm tracking-wider uppercase text-white leading-none">Pergigian KB</h1>
-        <span class="text-[10px] text-brand-500 font-semibold tracking-widest uppercase">Pusat Pentadbiran</span>
-      </div>
-    </div>
-
-    <!-- Admin Profile Section -->
-    <div class="p-6 border-b border-navy-800">
-      <div class="flex items-center gap-3 bg-navy-800/50 p-3 rounded-xl border border-navy-800">
-        <div class="w-10 h-10 rounded-full bg-brand-600 flex items-center justify-center font-bold text-white text-sm">
-          AD
-        </div>
-        <div>
-          <h4 class="text-xs font-semibold text-white">Administrator</h4>
-          <p class="text-[10px] text-slate-400">Pegawai Tadbir N41</p>
-          <span
-            class="inline-flex items-center gap-1 text-[8px] bg-emerald-500/20 text-emerald-400 font-semibold px-1.5 py-0.5 rounded-full mt-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Bersambung
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Navigation Links -->
-    <nav class="flex-1 px-4 py-6 space-y-8 overflow-y-auto custom-scrollbar">
-      <!-- Main Modules Group -->
-      <div>
-        <span class="px-3 text-[10px] font-semibold text-slate-500 tracking-wider uppercase">Modul Utama</span>
-        <div class="mt-2 space-y-1">
-          <a href="index.html"
-            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group">
-            <i data-lucide="layout-dashboard" class="w-4.5 h-4.5 group-hover:scale-110 transition-transform"></i> Utama
-          </a>
-          <a href="direktori.html"
-            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group">
-            <i data-lucide="users" class="w-4.5 h-4.5 group-hover:scale-110 transition-transform"></i> Direktori Staf
-          </a>
-          <a href="klinikal.html"
-            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group">
-            <i data-lucide="stethoscope" class="w-4.5 h-4.5 group-hover:scale-110 transition-transform"></i> Klinikal
-          </a>
-          <a href="pentadbiran.html"
-            class="flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-white bg-brand-600 rounded-lg shadow-md shadow-brand-500/10 transition-all">
-            <i data-lucide="clipboard-list" class="w-4.5 h-4.5"></i> Pentadbiran
-          </a>
-        </div>
-      </div>
-
-      <!-- Sub-Modules Shortcuts -->
-      <div>
-        <span class="px-3 text-[10px] font-semibold text-slate-500 tracking-wider uppercase">Sub-Modul
-          Pentadbiran</span>
-        <div class="mt-2 space-y-1">
-          <button onclick="openSubModal('banjir')"
-            class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
-            <span class="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform"></span> Banjir &
-            Bencana
-          </button>
-          <button onclick="openSubModal('pergerakan')"
-            class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
-            <span class="w-2 h-2 rounded-full bg-teal-500 group-hover:scale-125 transition-transform"></span> Log
-            Pergerakan Staf
-          </button>
-          <button onclick="openSubModal('mesyuarat')"
-            class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
-            <span class="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform"></span> Tempahan
-            Bilik Mesyuarat
-          </button>
-          <button onclick="openSubModal('kalendar')"
-            class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
-            <span class="w-2 h-2 rounded-full bg-amber-500 group-hover:scale-125 transition-transform"></span> Kalendar
-            Aktiviti
-          </button>
-          <button onclick="openSubModal('surat')"
-            class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform"></span> Surat &
-            Dokumentasi
-          </button>
-          <button onclick="openSubModal('program')"
-            class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
-            <span class="w-2 h-2 rounded-full bg-rose-500 group-hover:scale-125 transition-transform"></span> Kertas
-            Kerja Program
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Sidebar Footer / Clock -->
-    <div class="p-6 border-t border-navy-800 text-center space-y-2">
-      <span class="text-[10px] text-slate-500 uppercase tracking-widest block font-medium">Masa Sistem</span>
-      <div id="live-clock"
-        class="font-mono text-sm bg-navy-950 border border-navy-800 text-brand-500 font-bold py-1.5 px-3 rounded-lg shadow-inner">
-        00:00:00 AM
-      </div>
-    </div>
-  </aside>
+<body class="bg-[#f8fafc] text-navy-900 min-h-screen font-sans flex flex-col">
 
   <!-- MAIN CONTENT AREA -->
-  <main class="flex-1 flex flex-col h-screen overflow-hidden">
+  <main class="flex-1 flex flex-col">
 
     <!-- Top header bar -->
-    <header class="h-20 bg-white border-b border-navy-200 px-6 flex items-center justify-between flex-shrink-0 z-30">
-      <!-- Sidebar Toggle & Title -->
-      <div class="flex items-center gap-4">
-        <button onclick="toggleSidebar()"
-          class="md:hidden p-2 rounded-lg bg-navy-50 text-navy-800 hover:bg-navy-100 transition-colors">
-          <i data-lucide="menu" class="w-5 h-5"></i>
-        </button>
-        <div>
-          <h2 class="text-lg font-bold text-navy-900 leading-tight">Hab Pentadbiran</h2>
-          <p class="text-xs text-slate-500">Urus dan pantau pengoperasian pentadbiran Pejabat Pergigian Kota Bharu</p>
+    <header class="bg-white border-b border-navy-200 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 flex-shrink-0 z-30">
+      <!-- Logo & Title / Navigation -->
+      <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 w-full md:w-auto">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-brand-500 flex items-center justify-center shadow-lg shadow-brand-500/20">
+            <i data-lucide="shield-check" class="text-white w-6 h-6"></i>
+          </div>
+          <div>
+            <h1 class="font-extrabold text-sm tracking-wider uppercase text-navy-900 leading-none">Pergigian KB</h1>
+            <span class="text-[10px] text-brand-500 font-semibold tracking-widest uppercase">Hab Pentadbiran</span>
+          </div>
         </div>
+        
+        <!-- Navigation Links -->
+        <nav class="flex items-center gap-1 overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0 scrollbar-none whitespace-nowrap">
+          <a href="index.html" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-500 hover:text-navy-900 rounded-lg hover:bg-slate-50 transition-all shrink-0">
+            <i data-lucide="layout-dashboard" class="w-4.5 h-4.5"></i> Utama
+          </a>
+          <a href="direktori.html" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-500 hover:text-navy-900 rounded-lg hover:bg-slate-50 transition-all shrink-0">
+            <i data-lucide="users" class="w-4.5 h-4.5"></i> Direktori Staf
+          </a>
+          <a href="klinikal.html" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-500 hover:text-navy-900 rounded-lg hover:bg-slate-50 transition-all shrink-0">
+            <i data-lucide="stethoscope" class="w-4.5 h-4.5"></i> Klinikal
+          </a>
+          <a href="pentadbiran.html" class="flex items-center gap-2 px-3 py-2 text-xs font-bold text-brand-600 bg-brand-50 rounded-lg transition-all shrink-0">
+            <i data-lucide="clipboard-list" class="w-4.5 h-4.5"></i> Pentadbiran
+          </a>
+        </nav>
       </div>
 
       <!-- Quick actions & info -->
-      <div class="flex items-center gap-4">
-        <!-- Notification Bell -->
-        <div class="relative">
-          <button
-            class="p-2 rounded-xl bg-navy-50 text-slate-600 hover:bg-brand-50 hover:text-brand-500 transition-all">
-            <i data-lucide="bell" class="w-5 h-5"></i>
-            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full animate-ping"></span>
-          </button>
+      <div class="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto">
+        <!-- Live Clock -->
+        <div>
+          <div id="live-clock" class="font-mono text-xs bg-slate-50 border border-slate-200 text-slate-700 font-bold py-1.5 px-3 rounded-lg">
+            00:00:00 AM
+          </div>
         </div>
-        <!-- Quick Status info -->
-        <div class="hidden sm:flex items-center gap-2 border-l border-navy-200 pl-4">
-          <div class="text-right">
-            <span class="text-[10px] text-slate-500 uppercase font-semibold">Tugasan Aktif</span>
-            <p id="system-status-counter" class="text-xs font-bold text-brand-600">3 Menunggu Tindakan</p>
+        
+        <div class="flex items-center gap-4">
+          <!-- Notification Bell -->
+          <div class="relative">
+            <button
+              class="p-2 rounded-xl bg-navy-50 text-slate-600 hover:bg-brand-50 hover:text-brand-500 transition-all">
+              <i data-lucide="bell" class="w-5 h-5"></i>
+              <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full animate-ping"></span>
+            </button>
+          </div>
+          <!-- Quick Status info -->
+          <div class="hidden sm:flex items-center gap-2 border-l border-navy-200 pl-4">
+            <div class="text-right">
+              <span class="text-[10px] text-slate-500 uppercase font-semibold">Tugasan Aktif</span>
+              <p id="system-status-counter" class="text-xs font-bold text-brand-600">3 Menunggu Tindakan</p>
+            </div>
           </div>
         </div>
       </div>
     </header>
 
     <!-- Scrollable Main Container -->
-    <div class="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
+    <div class="flex-1 p-6 space-y-8">
 
       <!-- Tab Pengumuman (Announcement Bar) -->
       <section
@@ -1080,16 +996,7 @@
 
     // Sidebar responsive toggle
     function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const backdrop = document.getElementById('sidebar-backdrop');
-
-      if (sidebar.classList.contains('-translate-x-full')) {
-        sidebar.classList.remove('-translate-x-full');
-        backdrop.classList.remove('hidden');
-      } else {
-        sidebar.classList.add('-translate-x-full');
-        backdrop.classList.add('hidden');
-      }
+      // Sidebar has been removed
     }
 
     // System Live Clock
