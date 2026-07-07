@@ -1,0 +1,141 @@
+{
+  "banjir": [
+    {
+      "id": "b1",
+      "location": "Sungai Kelantan (Jambatan Guillemard)",
+      "water_level_status": "Normal",
+      "water_level_meters": 14.2,
+      "reported_at": "2026-07-07T09:00:00+08:00",
+      "reporter_name": "En. Roslan bin Hashim",
+      "notes": "Keadaan semasa terkawal dan paras air menurun."
+    },
+    {
+      "id": "b2",
+      "location": "Klinik Pergigian Pengkalan Chepa",
+      "water_level_status": "Normal",
+      "water_level_meters": 0.0,
+      "reported_at": "2026-07-07T10:15:00+08:00",
+      "reporter_name": "Dr. Fairuz bin Ahmad",
+      "notes": "Tiada limpahan air dikesan di sekitar kawasan klinik."
+    }
+  ],
+  "pergerakan": [
+    {
+      "id": "p1",
+      "staff_name": "Dr. Khadijah Sulaiman",
+      "destination": "JKN Kelantan",
+      "purpose": "Mesyuarat Pengarah JKN Kelantan",
+      "time_out": "09:00 AM",
+      "expected_time_in": "01:00 PM",
+      "actual_time_in": null,
+      "status": "Keluar"
+    },
+    {
+      "id": "p2",
+      "staff_name": "En. Ahmad Shahrir",
+      "destination": "Klinik Pergigian Kubang Kerian",
+      "purpose": "Penyelenggaraan Autoklaf PPK",
+      "time_out": "10:30 AM",
+      "expected_time_in": "03:30 PM",
+      "actual_time_in": null,
+      "status": "Keluar"
+    }
+  ],
+  "tempahan": [
+    {
+      "id": "t1",
+      "room_name": "Bilik Mesyuarat Utama (Aras 2)",
+      "booking_date": "2026-07-08",
+      "start_time": "09:00",
+      "end_time": "11:30",
+      "meeting_title": "Mesyuarat Kewangan Suku Ke-2 Jawatankuasa",
+      "applicant_name": "Dr. Azmi"
+    },
+    {
+      "id": "t2",
+      "room_name": "Bilik Perbincangan Mawar (Aras 1)",
+      "booking_date": "2026-07-07",
+      "start_time": "14:00",
+      "end_time": "16:00",
+      "meeting_title": "Perbincangan Pengurusan MyPortfolio Pentadbiran",
+      "applicant_name": "Pn. Siti"
+    }
+  ],
+  "kalendar": [
+    {
+      "id": "k1",
+      "event_name": "Kursus Peningkatan Mutu Sterilisasi",
+      "department_involved": "Klinikal",
+      "event_date": "2026-07-14",
+      "venue": "Dewan Utama JKN Kelantan",
+      "description": "Latihan wajib sterilisasi alat pergigian untuk semua jururawat pergigian."
+    },
+    {
+      "id": "k2",
+      "event_name": "Hari Kesihatan Mulut Peringkat Negeri Kelantan",
+      "department_involved": "Semua Unit",
+      "event_date": "2026-07-22",
+      "venue": "Dataran Stadium Sultan Muhammad IV",
+      "description": "Program khidmat masyarakat untuk pemeriksaan gigi percuma."
+    }
+  ],
+  "surat": [
+    {
+      "id": "s1",
+      "letter_ref_number": "KKM.600-4/1/12 (32)",
+      "sender_receiver": "Kementerian Kesihatan Malaysia",
+      "category": "Incoming",
+      "date_received": "2026-07-06",
+      "subject": "Pindaan Peruntukan Kewangan Klinik Pergigian KB Utama",
+      "status": "Completed"
+    },
+    {
+      "id": "s2",
+      "letter_ref_number": "JKNK.100-3/2/1 (08)",
+      "sender_receiver": "Jabatan Kesihatan Negeri Kelantan",
+      "category": "Incoming",
+      "date_received": "2026-07-03",
+      "subject": "Jemputan Mesyuarat Kolaborasi Awam-Swasta Bil.3",
+      "status": "Pending"
+    },
+    {
+      "id": "s3",
+      "letter_ref_number": "PPKB.200-1/1/2 (05)",
+      "sender_receiver": "Klinik Pergigian Pengkalan Chepa",
+      "category": "Outgoing",
+      "date_received": "2026-07-05",
+      "subject": "Laporan Bulanan Pemantauan Suhu Peti Sejuk Vaksin",
+      "status": "Pending"
+    }
+  ],
+  "kertas_kerja": [
+    {
+      "id": "w1",
+      "title": "Templat Kertas Cadangan Program Kesihatan Mulut",
+      "file_name": "Templat_Kertas_Cadangan_Promosi.docx",
+      "category_tag": "Kertas Kerja",
+      "file_size": "2.4 MB"
+    },
+    {
+      "id": "w2",
+      "title": "Templat Borang Belanjawan & Anggaran Kos Aktiviti",
+      "file_name": "Borang_Anggaran_Belanjawan_Klinik.xlsx",
+      "category_tag": "Bajet",
+      "file_size": "1.1 MB"
+    },
+    {
+      "id": "w3",
+      "title": "Kertas Kerja Program Sukan Jabatan Pergigian 2026",
+      "file_name": "Kertas_Kerja_Program_Sukan_Jabatan.docx",
+      "category_tag": "Kertas Kerja",
+      "file_size": "3.5 MB"
+    },
+    {
+      "id": "w4",
+      "title": "Borang Permohonan Peruntukan Khas Aktiviti",
+      "file_name": "Borang_Permohonan_Peruntukan_Khas.pdf",
+      "category_tag": "Borang",
+      "file_size": "850 KB"
+    }
+  ]
+}
