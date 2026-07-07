@@ -412,11 +412,9 @@
       align-items: center;
       justify-content: flex-start;
       position: relative;
-      background: radial-gradient(
-        circle at center,
-        rgba(13, 148, 136, 0.06) 0%,
-        transparent 85%
-      );
+      background: radial-gradient(circle at center,
+          rgba(13, 148, 136, 0.06) 0%,
+          transparent 85%);
       padding: 20px;
       overflow-x: auto;
       width: 100%;
@@ -428,7 +426,8 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-      min-width: 780px; /* Maintains hierarchical layout on smaller screens via swipe scroll */
+      min-width: 780px;
+      /* Maintains hierarchical layout on smaller screens via swipe scroll */
       margin: 0 auto;
     }
 
@@ -471,8 +470,10 @@
       content: '';
       position: absolute;
       top: 0;
-      left: 16.66%; /* Center of first column */
-      right: 16.66%; /* Center of third column */
+      left: 16.66%;
+      /* Center of first column */
+      right: 16.66%;
+      /* Center of third column */
       height: 2px;
       background: rgba(13, 148, 136, 0.3);
     }
@@ -520,8 +521,8 @@
       gap: 6px;
       cursor: pointer;
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.03), 
-                  inset 0 1px 1px rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.03),
+        inset 0 1px 1px rgba(255, 255, 255, 0.85);
       position: relative;
       z-index: 2;
     }
@@ -532,8 +533,8 @@
       padding: 14px;
       background: rgba(255, 255, 255, 0.7);
       border: 1.5px solid rgba(13, 148, 136, 0.3);
-      box-shadow: 0 6px 24px rgba(13, 148, 136, 0.05), 
-                  inset 0 1px 2px rgba(255, 255, 255, 1);
+      box-shadow: 0 6px 24px rgba(13, 148, 136, 0.05),
+        inset 0 1px 2px rgba(255, 255, 255, 1);
     }
 
     .org-card:hover {
@@ -541,14 +542,14 @@
       background: rgba(255, 255, 255, 0.95);
       border-color: var(--accent-teal);
       box-shadow: 0 10px 24px rgba(13, 148, 136, 0.1),
-                  0 2px 4px rgba(0, 0, 0, 0.01);
+        0 2px 4px rgba(0, 0, 0, 0.01);
     }
 
     .org-card.active {
       background: rgba(240, 253, 250, 0.8);
       border-color: var(--accent-teal);
       box-shadow: 0 6px 20px rgba(13, 148, 136, 0.12),
-                  inset 0 0 0 1px rgba(13, 148, 136, 0.15);
+        inset 0 0 0 1px rgba(13, 148, 136, 0.15);
     }
 
     /* Avatar inside card */
@@ -1480,418 +1481,91 @@
         </a>
       </div>
     </section>
-
-          <!-- Stat Card 2 -->
-          <div class="stat-card">
-            <div class="stat-info">
-              <span class="stat-title">KPI Sasaran Klinik</span>
-              <span class="stat-value">96.8%</span>
-            </div>
-            <span class="stat-trend trend-up">OPTIMAL</span>
-          </div>
-
-          <!-- Stat Card 3 -->
-          <div class="stat-card">
-            <div class="stat-info">
-              <span class="stat-title">Indeks Kepuasan Am</span>
-              <span class="stat-value">4.92 / 5</span>
-            </div>
-            <span class="stat-trend trend-up">STABIL</span>
-          </div>
-
-          <div style="border-top: 1px solid var(--border-sterile); margin: 4px 0"></div>
-
-          <div class="announcements-container">
-            <span class="telemetry-label">Pengumuman Penting</span>
-
-            <div class="announcement-item">
-              <div class="announcement-meta">
-                <span>PENTADBIRAN</span>
-                <span>KINI</span>
-              </div>
-              <div class="announcement-title">
-                Audit Kualiti Perkhidmatan KKM
-              </div>
-              <div class="announcement-text">
-                Mohon semua kakitangan memastikan fail pematuhan keselamatan
-                disegerakan sebelum hari Khamis.
-              </div>
-            </div>
-
-            <div class="announcement-item" style="border-left-color: var(--accent-lime)">
-              <div class="announcement-meta" style="color: var(--accent-lime)">
-                <span>LATIHAN</span>
-                <span>2 HARI LEPAS</span>
-              </div>
-              <div class="announcement-title">Slaid Endodontik Baharu</div>
-              <div class="announcement-text">
-                Bahan taklimat teknik rawatan akar gigi moden kini boleh
-                diakses di Arkib Dokumen.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Column 2: Carta Organisasi -->
-      <div class="clinical-panel">
+    <!-- Document Preview Modal -->
+    <div class="modal" id="preview-modal">
+      <div class="clinical-panel modal-content">
         <div class="panel-header">
-          <h2>
-            <i data-lucide="network" style="width: 16px; height: 16px"></i>
-            Struktur Kepimpinan & Staf
+          <h2 id="modal-title-text">
+            <i data-lucide="file-text" style="width: 16px; height: 16px"></i>
+            Paparan Dokumen
           </h2>
-          <span style="
-                font-size: 0.65rem;
-                color: var(--accent-teal);
-                font-weight: 600;
-              ">PAPARAN INTERAKTIF</span>
-        </div>
-        <div class="panel-content">
-          <div class="org-chart-viewport">
-            <div class="org-container">
-              <!-- Level 1 (Top / Root) -->
-              <div class="org-root-row">
-                <div class="org-card master-card active" onclick="selectStaff('owner_pengarah', this)">
-                  <div class="card-avatar-wrapper">
-                    AF<span class="status-indicator status-online"></span>
-                  </div>
-                  <div class="card-name">Dr. Amirul Fird</div>
-                  <div class="card-role">Owner / Pengarah</div>
-                </div>
-              </div>
-
-              <!-- Main vertical connector from Level 1 to Level 2 horizontal connector -->
-              <div class="org-line-v"></div>
-
-              <!-- Level 2 and Level 3 Branches -->
-              <div class="org-branches-row">
-                
-                <!-- Left Column: Klinikal -->
-                <div class="org-branch-column">
-                  <div class="org-card" onclick="selectStaff('clinical_lead', this)">
-                    <div class="card-avatar-wrapper">
-                      NA<span class="status-indicator status-online"></span>
-                    </div>
-                    <div class="card-name">Dr. Nur Ainiah</div>
-                    <div class="card-role">Ketua Bahagian Klinikal</div>
-                  </div>
-                  
-                  <div class="org-line-sub-v"></div>
-                  
-                  <div class="org-leaf-cards">
-                    <!-- Dentists -->
-                    <div class="org-card" onclick="selectStaff('dentists', this)">
-                      <div class="card-avatar-wrapper">
-                        SZ<span class="status-indicator status-busy"></span>
-                      </div>
-                      <div class="card-name">Dr. Syahrul Zaki</div>
-                      <div class="card-role">Pegawai Pergigian</div>
-                    </div>
-                    
-                    <!-- Dental Nurses -->
-                    <div class="org-card" onclick="selectStaff('dental_nurses', this)">
-                      <div class="card-avatar-wrapper">
-                        MI<span class="status-indicator status-online"></span>
-                      </div>
-                      <div class="card-name">Sister Maznah</div>
-                      <div class="card-role">Jururawat Pergigian</div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Middle Column: Pengurusan -->
-                <div class="org-branch-column">
-                  <div class="org-card" onclick="selectStaff('management_lead', this)">
-                    <div class="card-avatar-wrapper">
-                      RN<span class="status-indicator status-online"></span>
-                    </div>
-                    <div class="card-name">Puan Hajah Rohana</div>
-                    <div class="card-role">Ketua Bahagian Pengurusan</div>
-                  </div>
-                  
-                  <div class="org-line-sub-v"></div>
-                  
-                  <div class="org-leaf-cards">
-                    <!-- Admin Officers -->
-                    <div class="org-card" onclick="selectStaff('admin_officers', this)">
-                      <div class="card-avatar-wrapper">
-                        KA<span class="status-indicator status-online"></span>
-                      </div>
-                      <div class="card-name">En. Khairul Anuar</div>
-                      <div class="card-role">Pegawai Pentadbiran</div>
-                    </div>
-                    
-                    <!-- Clerks -->
-                    <div class="org-card" onclick="selectStaff('clerks', this)">
-                      <div class="card-avatar-wrapper">
-                        SA<span class="status-indicator status-away"></span>
-                      </div>
-                      <div class="card-name">Pn. Siti Noraisyah</div>
-                      <div class="card-role">Kerani</div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Right Column: Sokongan -->
-                <div class="org-branch-column">
-                  <div class="org-card" onclick="selectStaff('support_lead', this)">
-                    <div class="card-avatar-wrapper">
-                      RA<span class="status-indicator status-online"></span>
-                    </div>
-                    <div class="card-name">En. Roslan Ahmad</div>
-                    <div class="card-role">Ketua Bahagian Sokongan</div>
-                  </div>
-                  
-                  <div class="org-line-sub-v"></div>
-                  
-                  <div class="org-leaf-cards">
-                    <!-- DSA -->
-                    <div class="org-card" onclick="selectStaff('dsa', this)">
-                      <div class="card-avatar-wrapper">
-                        FS<span class="status-indicator status-online"></span>
-                      </div>
-                      <div class="card-name">En. Fadhil Sulaiman</div>
-                      <div class="card-role">Pembantu Pergigian (DSA)</div>
-                    </div>
-                    
-                    <!-- Cleaners / Support -->
-                    <div class="org-card" onclick="selectStaff('cleaners', this)">
-                      <div class="card-avatar-wrapper">
-                        AK<span class="status-indicator status-online"></span>
-                      </div>
-                      <div class="card-name">En. Ahmad Kamaruddin</div>
-                      <div class="card-role">Staf Sokongan / Kebersihan</div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- Live Profile Detail -->
-            <div class="detail-panel" id="staff-detail-panel">
-              <div class="detail-avatar" id="detail-avatar">AF</div>
-              <div class="detail-info">
-                <h3 id="detail-name">Dr. Amirul Fird</h3>
-                <div class="detail-role" id="detail-role">
-                  Owner / Pengarah Pergigian (Gred UD56)
-                </div>
-                <div class="detail-contact">
-                  <span>E-mel:</span>
-                  <span id="detail-email" style="color: var(--text-primary)">amirul.fird@moh.gov.my</span>
-                  <span>Telefon:</span>
-                  <span id="detail-phone" style="color: var(--text-primary)">Ext. 301 / Pejabat Pengarah</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Column 3: Hab Dokumen -->
-      <div class="clinical-panel" style="display: flex; flex-direction: column">
-        <div class="panel-header">
-          <h2>
-            <i data-lucide="files" style="width: 16px; height: 16px"></i>
-            Arkib Tekndokumen
-          </h2>
-          <span style="
-                font-size: 0.65rem;
-                color: var(--text-muted);
-                font-weight: 600;
-              ">DOKUMEN RASMI</span>
-        </div>
-        <div class="panel-content">
-          <div class="search-wrapper">
-            <i data-lucide="search" class="search-icon" style="width: 14px; height: 14px"></i>
-            <input type="text" id="doc-search" class="search-input" placeholder="Cari dokumen/prosedur..."
-              onkeyup="filterDocs()" />
-          </div>
-
-          <div class="doc-filters">
-            <button class="filter-btn active" onclick="filterCategory('all', this)">
-              Semua
-            </button>
-            <button class="filter-btn" onclick="filterCategory('manual', this)">
-              Manual
-            </button>
-            <button class="filter-btn" onclick="filterCategory('pekeliling', this)">
-              Pekeliling
-            </button>
-            <button class="filter-btn" onclick="filterCategory('borang', this)">
-              Borang
-            </button>
-          </div>
-
-          <div class="docs-list" id="docs-list">
-            <!-- Doc Item 1 -->
-            <div class="doc-card" data-category="manual">
-              <div class="doc-meta">
-                <div class="doc-icon">
-                  <i data-lucide="file-text" style="width: 16px; height: 16px"></i>
-                </div>
-                <div class="doc-details">
-                  <span class="doc-name">Manual Kawalan Infeksi 2026</span>
-                  <span class="doc-size">PDF • 4.2 MB</span>
-                </div>
-              </div>
-              <div class="doc-actions">
-                <button class="doc-btn secondary" onclick="
-                      viewDoc(
-                        'Manual Kawalan Infeksi 2026',
-                        'Panduan klinikal lengkap kawalan jangkitan termasuk penyediaan bilik bedah mulut, pensterilan alatan berautoklaf, serta pematuhan PPE terkini.',
-                      )
-                    ">
-                  <i data-lucide="eye" style="width: 12px; height: 12px"></i>
-                </button>
-                <button class="doc-btn" onclick="downloadDoc('Manual Kawalan Infeksi 2026')">
-                  <i data-lucide="download" style="width: 12px; height: 12px"></i>
-                </button>
-              </div>
-            </div>
-
-            <!-- Doc Item 2 -->
-            <div class="doc-card" data-category="pekeliling">
-              <div class="doc-meta">
-                <div class="doc-icon">
-                  <i data-lucide="info" style="width: 16px; height: 16px"></i>
-                </div>
-                <div class="doc-details">
-                  <span class="doc-name">Pekeliling Waktu Bekerja Syif</span>
-                  <span class="doc-size">PDF • 1.8 MB</span>
-                </div>
-              </div>
-              <div class="doc-actions">
-                <button class="doc-btn secondary" onclick="
-                      viewDoc(
-                        'Pekeliling Waktu Bekerja Syif',
-                        'Struktur baharu syif bertugas bagi kakitangan klinik pergigian daerah Kota Bharu bermula pertengahan tahun.',
-                      )
-                    ">
-                  <i data-lucide="eye" style="width: 12px; height: 12px"></i>
-                </button>
-                <button class="doc-btn" onclick="downloadDoc('Pekeliling Waktu Bekerja Syif')">
-                  <i data-lucide="download" style="width: 12px; height: 12px"></i>
-                </button>
-              </div>
-            </div>
-
-            <!-- Doc Item 3 -->
-            <div class="doc-card" data-category="borang">
-              <div class="doc-meta">
-                <div class="doc-icon">
-                  <i data-lucide="file-check-2" style="width: 16px; height: 16px"></i>
-                </div>
-                <div class="doc-details">
-                  <span class="doc-name">Borang Keizinan Pembedahan</span>
-                  <span class="doc-size">DOCX • 520 KB</span>
-                </div>
-              </div>
-              <div class="doc-actions">
-                <button class="doc-btn secondary" onclick="
-                      viewDoc(
-                        'Borang Keizinan Rawatan Pembedahan Mulut',
-                        'Borang keizinan rasmi pesakit untuk prosedur pembedahan pergigian minor. Perlu disimpan dalam fail rekod pesakit.',
-                      )
-                    ">
-                  <i data-lucide="eye" style="width: 12px; height: 12px"></i>
-                </button>
-                <button class="doc-btn" onclick="downloadDoc('Borang Keizinan Pembedahan')">
-                  <i data-lucide="download" style="width: 12px; height: 12px"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
-
-  <!-- Document Preview Modal -->
-  <div class="modal" id="preview-modal">
-    <div class="clinical-panel modal-content">
-      <div class="panel-header">
-        <h2 id="modal-title-text">
-          <i data-lucide="file-text" style="width: 16px; height: 16px"></i>
-          Paparan Dokumen
-        </h2>
-        <button onclick="closeModal()" style="
+          <button onclick="closeModal()" style="
               background: transparent;
               border: none;
               color: var(--text-secondary);
               cursor: pointer;
             ">
-          <i data-lucide="x" style="width: 18px; height: 18px"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h3 id="modal-doc-title" style="color: var(--accent-teal)">
-          Nama Fail
-        </h3>
-        <p id="modal-doc-description" style="
+            <i data-lucide="x" style="width: 18px; height: 18px"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h3 id="modal-doc-title" style="color: var(--accent-teal)">
+            Nama Fail
+          </h3>
+          <p id="modal-doc-description" style="
               color: var(--text-secondary);
               line-height: 1.5;
               font-size: 0.88rem;
             ">
-          Deskripsi fail.
-        </p>
-        <div style="
+            Deskripsi fail.
+          </p>
+          <div style="
               background: var(--bg-clinical);
               border: 1px solid var(--border-sterile);
               padding: 12px;
               border-radius: 6px;
             ">
-          <span class="telemetry-label" style="display: block; margin-bottom: 4px">PENGESAHAN DOKUMEN</span>
-          <p style="
+            <span class="telemetry-label" style="display: block; margin-bottom: 4px">PENGESAHAN DOKUMEN</span>
+            <p style="
                 font-size: 0.75rem;
                 color: var(--accent-teal);
                 font-weight: 500;
               ">
-            Akses terkawal dibenarkan untuk kakitangan bertugas sahaja.
-          </p>
+              Akses terkawal dibenarkan untuk kakitangan bertugas sahaja.
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button class="doc-btn secondary" onclick="closeModal()">
-          Tutup
-        </button>
-        <button class="doc-btn" id="modal-download-btn" style="
+        <div class="modal-footer">
+          <button class="doc-btn secondary" onclick="closeModal()">
+            Tutup
+          </button>
+          <button class="doc-btn" id="modal-download-btn" style="
               background: var(--accent-teal);
               color: #ffffff;
               border-color: var(--accent-teal);
             ">
-          <i data-lucide="download" style="width: 12px; height: 12px"></i>
-          Muat Turun
-        </button>
+            <i data-lucide="download" style="width: 12px; height: 12px"></i>
+            Muat Turun
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Live Toast Alert -->
-  <div class="toast" id="system-toast">
-    <i data-lucide="check" style="color: var(--accent-lime); width: 16px; height: 16px"></i>
-    <span id="toast-text">Notifikasi sistem.</span>
-  </div>
-
-  <footer>
-    <div class="footer-terminal">
-      STATUS PINTAR // KELAYAKAN TERKAWAL // KOTA BHARU
+    <!-- Live Toast Alert -->
+    <div class="toast" id="system-toast">
+      <i data-lucide="check" style="color: var(--accent-lime); width: 16px; height: 16px"></i>
+      <span id="toast-text">Notifikasi sistem.</span>
     </div>
-    <div>
-      &copy; 2026 Pergigian Kota Bharu. Reka Bentuk Minimalis Perubatan.
-    </div>
-  </footer>
 
-  <!-- Initialize icons -->
-  <script>
-    lucide.createIcons();
+    <footer>
+      <div class="footer-terminal">
+        STATUS PINTAR // KELAYAKAN TERKAWAL // KOTA BHARU
+      </div>
+      <div>
+        &copy; 2026 Pergigian Kota Bharu. Reka Bentuk Minimalis Perubatan.
+      </div>
+    </footer>
 
-    // Auth Check & Header Switch
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-    if (isLoggedIn === 'true') {
-      const container = document.getElementById('auth-header-container');
-      if (container) {
-        container.innerHTML = `
+    <!-- Initialize icons -->
+    <script>
+      lucide.createIcons();
+
+      // Auth Check & Header Switch
+      const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+      if (isLoggedIn === 'true') {
+        const container = document.getElementById('auth-header-container');
+        if (container) {
+          container.innerHTML = `
             <div class="flex items-center gap-3">
               <a href="pentadbiran.html" style="display: inline-flex; align-items: center; justify-content: center; padding: 8px 16px; font-size: 0.85rem; font-weight: 600; color: white; background-color: var(--accent-teal); border-radius: 6px; text-decoration: none; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#0b7a70'" onmouseout="this.style.backgroundColor='var(--accent-teal)'">
                 <i data-lucide="clipboard-list" style="width: 14px; height: 14px; margin-right: 6px;"></i> Pentadbiran
@@ -1901,228 +1575,228 @@
               </button>
             </div>
           `;
-        lucide.createIcons();
-      }
-    }
-
-    function handleLogout() {
-      sessionStorage.removeItem('isLoggedIn');
-      sessionStorage.removeItem('username');
-      window.location.reload();
-    }
-
-    // System Time Clock
-    function updateClock() {
-      const clockEl = document.getElementById('live-clock');
-      const now = new Date();
-      let hours = now.getHours();
-      let minutes = now.getMinutes();
-      let seconds = now.getSeconds();
-      const ampm = hours >= 12 ? 'PM' : 'AM';
-
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-      minutes = minutes < 10 ? '0' + minutes : minutes;
-      seconds = seconds < 10 ? '0' + seconds : seconds;
-
-      if (clockEl) {
-        clockEl.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
-      }
-
-      // Randomly update telemetry numbers slightly to look "live"
-      if (seconds % 15 === 0) {
-        const patientVal = document.getElementById('val-patients');
-        const lastUpdateVal = document.getElementById('last-update');
-
-        if (patientVal) {
-          const currentVal = parseInt(patientVal.textContent.replace(/,/g, ''));
-          const newVal = currentVal + (Math.random() > 0.5 ? 1 : -1);
-          patientVal.textContent = newVal.toLocaleString();
-        }
-
-        if (lastUpdateVal) {
-          const hour24 =
-            now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
-          const min24 =
-            now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
-          const sec24 =
-            now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
-          lastUpdateVal.textContent = `${hour24}:${min24}:${sec24}`;
+          lucide.createIcons();
         }
       }
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
 
-    // Org Chart Selection Data
-    const staffData = {
-      owner_pengarah: {
-        name: 'Dr. Amirul Fird',
-        role: 'Owner / Pengarah Pergigian (Gred UD56)',
-        email: 'amirul.fird@moh.gov.my',
-        phone: 'Ext. 301 / Pejabat Pengarah',
-        avatar: 'AF',
-      },
-      clinical_lead: {
-        name: 'Dr. Nur Ainiah binti Yusof',
-        role: 'Ketua Bahagian Klinikal (Gred UD48)',
-        email: 'nurainiah@moh.gov.my',
-        phone: 'Ext. 305 / Bilik Rawatan Khas',
-        avatar: 'NA',
-      },
-      dentists: {
-        name: 'Dr. Syahrul Zaki bin Harun',
-        role: 'Pegawai Pergigian (Gred UD44)',
-        email: 'syahrul.z@moh.gov.my',
-        phone: 'Ext. 308 / Klinik Rawatan B',
-        avatar: 'SZ',
-      },
-      dental_nurses: {
-        name: 'Sister Maznah binti Ibrahim',
-        role: 'Jururawat Pergigian Kanan (Gred U32)',
-        email: 'maznah.ibrahim@moh.gov.my',
-        phone: 'Ext. 310 / Bilik Penyelia',
-        avatar: 'MI',
-      },
-      management_lead: {
-        name: 'Puan Hajah Rohana binti Md. Noor',
-        role: 'Ketua Bahagian Pengurusan (Gred N32)',
-        email: 'rohana.mn@moh.gov.my',
-        phone: 'Ext. 302 / Pejabat Pentadbiran',
-        avatar: 'RN',
-      },
-      admin_officers: {
-        name: 'Encik Khairul Anuar bin Basri',
-        role: 'Pegawai Pentadbiran (Gred N29)',
-        email: 'k.anuar@moh.gov.my',
-        phone: 'Ext. 303 / Bahagian Kewangan',
-        avatar: 'KA',
-      },
-      clerks: {
-        name: 'Puan Siti Noraisyah binti Ali',
-        role: 'Kerani Kanan N19',
-        email: 'siti.noraisyah@moh.gov.my',
-        phone: 'Ext. 304 / Kaunter Hasil',
-        avatar: 'SA',
-      },
-      support_lead: {
-        name: 'Encik Roslan bin Ahmad',
-        role: 'Ketua Bahagian Sokongan (Gred U29)',
-        email: 'roslan.ahmad@moh.gov.my',
-        phone: 'Ext. 311 / Unit Sokongan',
-        avatar: 'RA',
-      },
-      dsa: {
-        name: 'Encik Fadhil bin Sulaiman',
-        role: 'Pembantu Pembedahan Pergigian (Gred U19)',
-        email: 'fadhil.s@moh.gov.my',
-        phone: 'Ext. 315 / Bilik Pensterilan',
-        avatar: 'FS',
-      },
-      cleaners: {
-        name: 'Encik Ahmad Kamaruddin bin Din',
-        role: 'Pembantu Am & Kebersihan (Gred H11)',
-        email: 'kamaruddin.din@moh.gov.my',
-        phone: 'Ext. 300 / Blok Operasi',
-        avatar: 'AK',
-      },
-    };
-
-    function selectStaff(key, element) {
-      document.querySelectorAll('.org-card').forEach((node) => {
-        node.classList.remove('active');
-      });
-
-      element.classList.add('active');
-
-      const info = staffData[key];
-      if (info) {
-        const avatarEl = document.getElementById('detail-avatar');
-        if (avatarEl) avatarEl.textContent = info.avatar;
-        const nameEl = document.getElementById('detail-name');
-        if (nameEl) nameEl.textContent = info.name;
-        const roleEl = document.getElementById('detail-role');
-        if (roleEl) roleEl.textContent = info.role;
-        const emailEl = document.getElementById('detail-email');
-        if (emailEl) emailEl.textContent = info.email;
-        const phoneEl = document.getElementById('detail-phone');
-        if (phoneEl) phoneEl.textContent = info.phone;
-
-        showToast(`Maklumat kakitangan ${info.avatar} dimuatkan.`);
+      function handleLogout() {
+        sessionStorage.removeItem('isLoggedIn');
+        sessionStorage.removeItem('username');
+        window.location.reload();
       }
-    }
 
-    // Search & Filter Document Library
-    let selectedCategory = 'all';
+      // System Time Clock
+      function updateClock() {
+        const clockEl = document.getElementById('live-clock');
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let seconds = now.getSeconds();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
 
-    function filterCategory(cat, btn) {
-      selectedCategory = cat;
-      document
-        .querySelectorAll('.filter-btn')
-        .forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      runFiltering();
-    }
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
 
-    function filterDocs() {
-      runFiltering();
-    }
-
-    function runFiltering() {
-      const searchEl = document.getElementById('doc-search');
-      if (!searchEl) return;
-      const query = searchEl.value.toLowerCase();
-      const cards = document.querySelectorAll('.doc-card');
-
-      cards.forEach((card) => {
-        const name = card
-          .querySelector('.doc-name')
-          .textContent.toLowerCase();
-        const category = card.getAttribute('data-category');
-
-        const matchesSearch = name.includes(query);
-        const matchesCategory =
-          selectedCategory === 'all' || category === selectedCategory;
-
-        if (matchesSearch && matchesCategory) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
+        if (clockEl) {
+          clockEl.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
         }
-      });
-    }
 
-    function downloadDoc(docName) {
-      showToast(`Memulakan muat turun: ${docName}...`);
-    }
+        // Randomly update telemetry numbers slightly to look "live"
+        if (seconds % 15 === 0) {
+          const patientVal = document.getElementById('val-patients');
+          const lastUpdateVal = document.getElementById('last-update');
 
-    function showToast(message) {
-      const toast = document.getElementById('system-toast');
-      document.getElementById('toast-text').textContent = message;
-      toast.classList.add('active');
+          if (patientVal) {
+            const currentVal = parseInt(patientVal.textContent.replace(/,/g, ''));
+            const newVal = currentVal + (Math.random() > 0.5 ? 1 : -1);
+            patientVal.textContent = newVal.toLocaleString();
+          }
 
-      setTimeout(() => {
-        toast.classList.remove('active');
-      }, 3000);
-    }
+          if (lastUpdateVal) {
+            const hour24 =
+              now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
+            const min24 =
+              now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
+            const sec24 =
+              now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
+            lastUpdateVal.textContent = `${hour24}:${min24}:${sec24}`;
+          }
+        }
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
 
-    function viewDoc(name, desc) {
-      const modal = document.getElementById('preview-modal');
-      document.getElementById('modal-doc-title').textContent = name;
-      document.getElementById('modal-doc-description').textContent = desc;
-
-      document.getElementById('modal-download-btn').onclick = function () {
-        closeModal();
-        downloadDoc(name);
+      // Org Chart Selection Data
+      const staffData = {
+        owner_pengarah: {
+          name: 'Dr. Amirul Fird',
+          role: 'Owner / Pengarah Pergigian (Gred UD56)',
+          email: 'amirul.fird@moh.gov.my',
+          phone: 'Ext. 301 / Pejabat Pengarah',
+          avatar: 'AF',
+        },
+        clinical_lead: {
+          name: 'Dr. Nur Ainiah binti Yusof',
+          role: 'Ketua Bahagian Klinikal (Gred UD48)',
+          email: 'nurainiah@moh.gov.my',
+          phone: 'Ext. 305 / Bilik Rawatan Khas',
+          avatar: 'NA',
+        },
+        dentists: {
+          name: 'Dr. Syahrul Zaki bin Harun',
+          role: 'Pegawai Pergigian (Gred UD44)',
+          email: 'syahrul.z@moh.gov.my',
+          phone: 'Ext. 308 / Klinik Rawatan B',
+          avatar: 'SZ',
+        },
+        dental_nurses: {
+          name: 'Sister Maznah binti Ibrahim',
+          role: 'Jururawat Pergigian Kanan (Gred U32)',
+          email: 'maznah.ibrahim@moh.gov.my',
+          phone: 'Ext. 310 / Bilik Penyelia',
+          avatar: 'MI',
+        },
+        management_lead: {
+          name: 'Puan Hajah Rohana binti Md. Noor',
+          role: 'Ketua Bahagian Pengurusan (Gred N32)',
+          email: 'rohana.mn@moh.gov.my',
+          phone: 'Ext. 302 / Pejabat Pentadbiran',
+          avatar: 'RN',
+        },
+        admin_officers: {
+          name: 'Encik Khairul Anuar bin Basri',
+          role: 'Pegawai Pentadbiran (Gred N29)',
+          email: 'k.anuar@moh.gov.my',
+          phone: 'Ext. 303 / Bahagian Kewangan',
+          avatar: 'KA',
+        },
+        clerks: {
+          name: 'Puan Siti Noraisyah binti Ali',
+          role: 'Kerani Kanan N19',
+          email: 'siti.noraisyah@moh.gov.my',
+          phone: 'Ext. 304 / Kaunter Hasil',
+          avatar: 'SA',
+        },
+        support_lead: {
+          name: 'Encik Roslan bin Ahmad',
+          role: 'Ketua Bahagian Sokongan (Gred U29)',
+          email: 'roslan.ahmad@moh.gov.my',
+          phone: 'Ext. 311 / Unit Sokongan',
+          avatar: 'RA',
+        },
+        dsa: {
+          name: 'Encik Fadhil bin Sulaiman',
+          role: 'Pembantu Pembedahan Pergigian (Gred U19)',
+          email: 'fadhil.s@moh.gov.my',
+          phone: 'Ext. 315 / Bilik Pensterilan',
+          avatar: 'FS',
+        },
+        cleaners: {
+          name: 'Encik Ahmad Kamaruddin bin Din',
+          role: 'Pembantu Am & Kebersihan (Gred H11)',
+          email: 'kamaruddin.din@moh.gov.my',
+          phone: 'Ext. 300 / Blok Operasi',
+          avatar: 'AK',
+        },
       };
 
-      modal.classList.add('active');
-    }
+      function selectStaff(key, element) {
+        document.querySelectorAll('.org-card').forEach((node) => {
+          node.classList.remove('active');
+        });
 
-    function closeModal() {
-      document.getElementById('preview-modal').classList.remove('active');
-    }
-  </script>
+        element.classList.add('active');
+
+        const info = staffData[key];
+        if (info) {
+          const avatarEl = document.getElementById('detail-avatar');
+          if (avatarEl) avatarEl.textContent = info.avatar;
+          const nameEl = document.getElementById('detail-name');
+          if (nameEl) nameEl.textContent = info.name;
+          const roleEl = document.getElementById('detail-role');
+          if (roleEl) roleEl.textContent = info.role;
+          const emailEl = document.getElementById('detail-email');
+          if (emailEl) emailEl.textContent = info.email;
+          const phoneEl = document.getElementById('detail-phone');
+          if (phoneEl) phoneEl.textContent = info.phone;
+
+          showToast(`Maklumat kakitangan ${info.avatar} dimuatkan.`);
+        }
+      }
+
+      // Search & Filter Document Library
+      let selectedCategory = 'all';
+
+      function filterCategory(cat, btn) {
+        selectedCategory = cat;
+        document
+          .querySelectorAll('.filter-btn')
+          .forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        runFiltering();
+      }
+
+      function filterDocs() {
+        runFiltering();
+      }
+
+      function runFiltering() {
+        const searchEl = document.getElementById('doc-search');
+        if (!searchEl) return;
+        const query = searchEl.value.toLowerCase();
+        const cards = document.querySelectorAll('.doc-card');
+
+        cards.forEach((card) => {
+          const name = card
+            .querySelector('.doc-name')
+            .textContent.toLowerCase();
+          const category = card.getAttribute('data-category');
+
+          const matchesSearch = name.includes(query);
+          const matchesCategory =
+            selectedCategory === 'all' || category === selectedCategory;
+
+          if (matchesSearch && matchesCategory) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+
+      function downloadDoc(docName) {
+        showToast(`Memulakan muat turun: ${docName}...`);
+      }
+
+      function showToast(message) {
+        const toast = document.getElementById('system-toast');
+        document.getElementById('toast-text').textContent = message;
+        toast.classList.add('active');
+
+        setTimeout(() => {
+          toast.classList.remove('active');
+        }, 3000);
+      }
+
+      function viewDoc(name, desc) {
+        const modal = document.getElementById('preview-modal');
+        document.getElementById('modal-doc-title').textContent = name;
+        document.getElementById('modal-doc-description').textContent = desc;
+
+        document.getElementById('modal-download-btn').onclick = function () {
+          closeModal();
+          downloadDoc(name);
+        };
+
+        modal.classList.add('active');
+      }
+
+      function closeModal() {
+        document.getElementById('preview-modal').classList.remove('active');
+      }
+    </script>
 </body>
 
 </html>
