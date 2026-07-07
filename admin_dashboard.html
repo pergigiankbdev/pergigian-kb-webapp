@@ -447,8 +447,8 @@
             <td class="py-2.5 px-3 text-slate-600">${room.capacity} pax</td>
             <td class="py-2.5 px-3 text-slate-500">${room.facilities || '-'}</td>
             <td class="py-2.5 px-3 text-right space-x-2">
-              <button onclick="editRoomModal('${room.id}')" class="text-indigo-650 hover:text-indigo-850 font-bold hover:underline">Edit</button>
-              <button onclick="deleteRoom('${room.id}')" class="text-rose-600 hover:text-rose-800 font-bold hover:underline">Padam</button>
+              <button onclick="window.editRoomModal('${room.id}')" class="text-indigo-650 hover:text-indigo-850 font-bold hover:underline">Edit</button>
+              <button onclick="window.deleteRoom('${room.id}')" class="text-rose-600 hover:text-rose-800 font-bold hover:underline">Padam</button>
             </td>
           `;
           tbody.appendChild(tr);
@@ -473,7 +473,7 @@
             <td class="py-2.5 px-3 font-mono text-slate-500">${b.start_time} - ${b.end_time}</td>
             <td class="py-2.5 px-3 font-medium text-slate-600">${b.applicant_name}</td>
             <td class="py-2.5 px-3 text-right">
-              <button onclick="cancelBooking('${b.id}')" class="text-rose-600 hover:text-rose-800 font-bold hover:underline">Batalkan</button>
+              <button onclick="window.cancelBooking('${b.id}')" class="text-rose-600 hover:text-rose-800 font-bold hover:underline">Batalkan</button>
             </td>
           `;
           tbody.appendChild(tr);
@@ -610,7 +610,7 @@
                       <h4 class="font-extrabold text-sm text-navy-900 flex items-center gap-1.5"><i data-lucide="door-open" class="w-4 h-4 text-indigo-600"></i> Pengurusan Bilik Mesyuarat</h4>
                       <p class="text-[10px] text-slate-500">Tambah, kemas kini, atau padam bilik mesyuarat yang diuruskan dalam sistem.</p>
                     </div>
-                    <button onclick="showRoomModal()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold flex items-center gap-1.5 shadow-sm transition-colors">
+                    <button onclick="window.showRoomModal()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold flex items-center gap-1.5 shadow-sm transition-colors">
                       <i data-lucide="plus" class="w-3.5 h-3.5"></i> Tambah Bilik Baru
                     </button>
                   </div>
@@ -667,9 +667,9 @@
                 <div class="bg-white w-full max-w-sm rounded-2xl shadow-xl border border-navy-200 overflow-hidden flex flex-col">
                   <div class="p-4 bg-indigo-600 text-white flex justify-between items-center">
                     <h3 id="room-modal-title" class="font-bold text-xs">Tambah Bilik Baru</h3>
-                    <button type="button" onclick="closeRoomModal()" class="p-1 rounded hover:bg-indigo-700 text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+                    <button type="button" onclick="window.closeRoomModal()" class="p-1 rounded hover:bg-indigo-700 text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
                   </div>
-                  <form id="room-crud-form" onsubmit="saveRoom(event)" class="p-5 space-y-4 text-xs">
+                  <form id="room-crud-form" onsubmit="window.saveRoom(event)" class="p-5 space-y-4 text-xs">
                     <input type="hidden" id="edit-room-id" value="" />
                     <div class="space-y-1">
                       <label class="font-semibold text-slate-600">Nama Bilik</label>
