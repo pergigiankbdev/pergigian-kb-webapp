@@ -872,6 +872,37 @@
         backdrop-filter 0.28s ease;
       overflow: hidden;
     }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo-section">
+        <i data-lucide="shield-check" class="logo-icon" style="width: 28px; height: 28px"></i>
+        <div class="logo-text">
+          <h1>PERGIGIAN KOTA BHARU</h1>
+          <p>Pusat Hab Maklumat Pentadbiran</p>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link">
+          <i data-lucide="layout-dashboard" style="width: 14px; height: 14px"></i> Utama
+        </a>
+        <a href="direktori.html" class="nav-link">
+          <i data-lucide="users" style="width: 14px; height: 14px"></i> Direktori
+        </a>
+        <a href="klinikal.html" class="nav-link active">
+          <i data-lucide="stethoscope" style="width: 14px; height: 14px"></i> Klinikal
+        </a>
+        <a href="pentadbiran.html" class="nav-link">
+          <i data-lucide="clipboard-list" style="width: 14px; height: 14px"></i> Pentadbiran
+        </a>
+      </nav>
+      <div class="system-time" id="auth-header-container">
+        <a href="login.html" style="display: inline-flex; align-items: center; justify-content: center; padding: 8px 20px; font-size: 0.85rem; font-weight: 600; color: white; background-color: var(--accent-teal); border-radius: 6px; text-decoration: none; transition: background-color 0.2s; box-shadow: 0 4px 6px -1px rgba(13, 148, 136, 0.2);" onmouseover="this.style.backgroundColor='#0b7a70'" onmouseout="this.style.backgroundColor='var(--accent-teal)'">
+          <i data-lucide="log-in" style="width: 14px; height: 14px; margin-right: 6px;"></i> Log Masuk
+        </a>
+      </div>
+    </header>
 
     .submodule-card::before {
       content: '';
@@ -1105,7 +1136,6 @@
         <i data-lucide="x" style="width: 15px; height: 15px"></i>
       </button>
     </div>
-
     <!-- ── Submodules Glass Shell ────────────────── -->
     <div class="glass-shell-wrapper">
       <div class="glass-shell-gradients">
@@ -1329,6 +1359,31 @@
 
   <script>
     lucide.createIcons();
+
+    // Auth Check & Header Switch
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    if (isLoggedIn === 'true') {
+      const container = document.getElementById('auth-header-container');
+      if (container) {
+        container.innerHTML = `
+          <div class="flex items-center gap-3">
+            <a href="pentadbiran.html" style="display: inline-flex; align-items: center; justify-content: center; padding: 8px 16px; font-size: 0.85rem; font-weight: 600; color: white; background-color: var(--accent-teal); border-radius: 6px; text-decoration: none; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#0b7a70'" onmouseout="this.style.backgroundColor='var(--accent-teal)'">
+              <i data-lucide="clipboard-list" style="width: 14px; height: 14px; margin-right: 6px;"></i> Pentadbiran
+            </a>
+            <button onclick="handleLogout()" style="display: inline-flex; align-items: center; justify-content: center; padding: 8px 12px; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); background-color: var(--bg-clinical); border: 1px solid var(--border-sterile); border-radius: 6px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.color='#ef4444'; this.style.borderColor='#ef4444'" onmouseout="this.style.color='var(--text-secondary)'; this.style.borderColor='var(--border-sterile)'">
+              <i data-lucide="log-out" style="width: 14px; height: 14px; margin-right: 4px;"></i> Keluar
+            </button>
+          </div>
+        `;
+        lucide.createIcons();
+      }
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem('isLoggedIn');
+      sessionStorage.removeItem('username');
+      window.location.reload();
+    }
 
     // System Time Clock
     function updateClock() {
