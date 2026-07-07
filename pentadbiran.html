@@ -414,53 +414,63 @@
           <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl flex items-start gap-3">
             <i data-lucide="alert-triangle" class="text-blue-600 w-5 h-5 mt-0.5 flex-shrink-0"></i>
             <div>
-              <h4 class="font-bold text-blue-800 text-xs">Status Semasa: Bersiap Sedia</h4>
-              <p class="text-xs text-blue-600 mt-0.5">Pemantauan paras air Sungai Kelantan berada di paras normal (Bahaya: 25m, Semasa: 18.4m). Pasukan petugas banjir jabatan diletakkan dalam mod siap sedia.</p>
+              <h4 class="font-bold text-blue-800 text-xs">Status Semasa</h4>
+              <p class="text-xs text-blue-600 mt-0.5">Sila pantau amaran banjir di kawasan cawangan Pejabat Pergigian Kota Bharu. Kemas kini status dengan segera jika terdapat limpahan air.</p>
             </div>
           </div>
-          <!-- Grid Roster -->
+          
+          <!-- Table/List View for Flood Warnings -->
           <div class="space-y-3">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Pasukan Tindakan Bencana Jabatan</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div class="p-3 bg-slate-50 border border-navy-100 rounded-xl flex justify-between items-center">
-                <div>
-                  <p class="font-semibold text-xs">Dr. Fairuz bin Ahmad</p>
-                  <p class="text-[10px] text-slate-500">Ketua Pos Penyelaras</p>
-                </div>
-                <span class="bg-blue-100 text-blue-700 font-bold text-[9px] px-2 py-0.5 rounded-full">Klinikal</span>
-              </div>
-              <div class="p-3 bg-slate-50 border border-navy-100 rounded-xl flex justify-between items-center">
-                <div>
-                  <p class="font-semibold text-xs">En. Roslan bin Hashim</p>
-                  <p class="text-[10px] text-slate-500">Pemandu Ambulans / Logistik</p>
-                </div>
-                <span class="bg-brand-100 text-brand-700 font-bold text-[9px] px-2 py-0.5 rounded-full">Sokongan</span>
-              </div>
+            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Senarai Amaran & Status Kawasan</h4>
+            <div class="border border-navy-100 rounded-xl overflow-hidden">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-navy-100 text-slate-500 font-bold">
+                    <th class="p-3">Lokasi / Cawangan</th>
+                    <th class="p-3">Status Air</th>
+                    <th class="p-3">Paras (Meter)</th>
+                    <th class="p-3">Masa Laporan</th>
+                    <th class="p-3">Pelapor</th>
+                  </tr>
+                </thead>
+                <tbody id="banjir-warnings-table-body">
+                  <!-- Dynamic Content -->
+                </tbody>
+              </table>
             </div>
           </div>
+
           <!-- Report form -->
-          <form onsubmit="event.preventDefault(); alert('Laporan banjir berjaya dihantar ke Bilik Gerakan!'); closeSubModal('banjir');" class="space-y-4 border-t border-navy-100 pt-4">
+          <form onsubmit="submitBanjirReport(event)" class="space-y-4 border-t border-navy-100 pt-4">
             <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Hantar Laporan Keadaan Premis</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Nama Klinik Cawangan</label>
-                <select class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
-                  <option>Klinik Pergigian KB Utama</option>
-                  <option>Klinik Pergigian Pengkalan Chepa</option>
-                  <option>Klinik Pergigian Kubang Kerian</option>
-                </select>
+                <label class="text-[11px] font-semibold text-slate-500">Nama Klinik Cawangan / Lokasi</label>
+                <input id="banjir-location" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="cth: Klinik Pergigian Pengkalan Chepa" required />
               </div>
               <div class="space-y-1">
                 <label class="text-[11px] font-semibold text-slate-500">Status Semasa Premis</label>
-                <select class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
-                  <option>Selamat / Tiada Limpahan</option>
-                  <option>Limpahan Air Rendah (Bawah 0.3m)</option>
-                  <option>Dinaiki Air / Operasi Ditangguhkan</option>
+                <select id="banjir-status" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
+                  <option value="Normal">Normal / Selamat</option>
+                  <option value="Amaran">Amaran (Air Meningkat)</option>
+                  <option value="Bahaya">Bahaya (Limpahan Air)</option>
                 </select>
+              </div>
+              <div class="space-y-1">
+                <label class="text-[11px] font-semibold text-slate-500">Paras Air (Meter)</label>
+                <input id="banjir-meters" type="number" step="0.1" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="cth: 18.5" required />
+              </div>
+              <div class="space-y-1">
+                <label class="text-[11px] font-semibold text-slate-500">Nama Pelapor</label>
+                <input id="banjir-reporter" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Nama anda" required />
+              </div>
+              <div class="space-y-1 sm:col-span-2">
+                <label class="text-[11px] font-semibold text-slate-500">Catatan Tambahan</label>
+                <input id="banjir-notes" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Catatan keadaan cuaca dll." />
               </div>
             </div>
             <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-blue-500/10">
-              Hantar Laporan Siap Sedia
+              Hantar Laporan Status Banjir
             </button>
           </form>
         </div>
@@ -483,11 +493,23 @@
           </button>
         </div>
         <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
+          <!-- Manager Dashboard Statistics -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-slate-50 border border-navy-100 text-center">
+              <span class="text-[10px] text-slate-500 uppercase font-semibold">Staf Di Pejabat (In)</span>
+              <p id="stats-staff-in" class="text-xl font-bold text-emerald-600 mt-1">--</p>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-navy-100 text-center">
+              <span class="text-[10px] text-slate-500 uppercase font-semibold">Staf Di Luar (Out)</span>
+              <p id="stats-staff-out" class="text-xl font-bold text-rose-500 mt-1">--</p>
+            </div>
+          </div>
+
           <!-- Active Table -->
           <div class="space-y-3">
             <div class="flex justify-between items-center">
               <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Status Staf Di Luar Pejabat Hari Ini</h4>
-              <span class="text-[10px] text-teal-600 font-bold bg-teal-50 px-2 py-0.5 rounded-full" id="staff-out-count">2 Orang</span>
+              <span class="text-[10px] text-teal-600 font-bold bg-teal-50 px-2 py-0.5 rounded-full" id="staff-out-count">--</span>
             </div>
             <div class="border border-navy-100 rounded-xl overflow-hidden">
               <table class="w-full text-left text-xs border-collapse">
@@ -495,29 +517,20 @@
                   <tr class="bg-slate-50 border-b border-navy-100 text-slate-500 font-bold">
                     <th class="p-3">Nama</th>
                     <th class="p-3">Tujuan / Destinasi</th>
+                    <th class="p-3">Status</th>
                     <th class="p-3">Masa Keluar</th>
-                    <th class="p-3">Anggaran Pulang</th>
+                    <th class="p-3">Anggaran Pulang / Masuk</th>
+                    <th class="p-3 text-center">Tindakan</th>
                   </tr>
                 </thead>
                 <tbody id="staff-log-table-body">
-                  <tr class="border-b border-navy-50">
-                    <td class="p-3 font-semibold">Dr. Khadijah Sulaiman</td>
-                    <td class="p-3">Mesyuarat Pengarah JKN Kelantan</td>
-                    <td class="p-3">09:00 AM</td>
-                    <td class="p-3 text-slate-500">01:00 PM</td>
-                  </tr>
-                  <tr class="border-b border-navy-50">
-                    <td class="p-3 font-semibold">En. Ahmad Shahrir</td>
-                    <td class="p-3">Penyelenggaraan Autoklaf PPK</td>
-                    <td class="p-3">10:30 AM</td>
-                    <td class="p-3 text-slate-500">03:30 PM</td>
-                  </tr>
+                  <!-- Dynamic Content -->
                 </tbody>
               </table>
             </div>
           </div>
           <!-- Log submission -->
-          <form onsubmit="submitStaffLog(event)" class="space-y-4 border-t border-navy-100 pt-4">
+          <form id="staff-checkout-form" onsubmit="submitStaffLog(event)" class="space-y-4 border-t border-navy-100 pt-4">
             <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Daftar Keluar Pejabat Baharu</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="space-y-1">
@@ -561,52 +574,43 @@
           </button>
         </div>
         <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
-          <!-- Availability state -->
+          <!-- Availability state / Upcoming List -->
           <div class="space-y-3">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Ketersediaan Bilik Hari Ini</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div class="p-4 rounded-xl border border-emerald-200 bg-emerald-50/20 flex items-center gap-3">
-                <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                <div>
-                  <h5 class="font-bold text-xs">Bilik Mesyuarat Utama (Aras 2)</h5>
-                  <p class="text-[10px] text-slate-500">Status: Kosong (Sesuai untuk 20 Pax)</p>
-                </div>
-              </div>
-              <div class="p-4 rounded-xl border border-amber-200 bg-amber-50/20 flex items-center gap-3">
-                <div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>
-                <div>
-                  <h5 class="font-bold text-xs">Bilik Perbincangan Mawar (Aras 1)</h5>
-                  <p class="text-[10px] text-slate-500">Status: Ditempah (11:00 AM - 01:00 PM)</p>
-                </div>
-              </div>
+            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Tempahan Akan Datang</h4>
+            <div id="upcoming-bookings" class="space-y-2 max-h-[160px] overflow-y-auto pr-1 custom-scrollbar">
+              <!-- Rendered Dynamically -->
             </div>
           </div>
           <!-- Booking Form -->
-          <form onsubmit="event.preventDefault(); alert('Tempahan bilik mesyuarat berjaya didaftarkan!'); closeSubModal('mesyuarat');" class="space-y-4 border-t border-navy-100 pt-4">
+          <form onsubmit="submitBooking(event)" class="space-y-4 border-t border-navy-100 pt-4">
             <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Borang Tempahan Bilik</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="space-y-1">
                 <label class="text-[11px] font-semibold text-slate-500">Pilih Bilik</label>
-                <select class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
-                  <option>Bilik Mesyuarat Utama (Aras 2)</option>
-                  <option>Bilik Perbincangan Mawar (Aras 1)</option>
+                <select id="booking-room" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
+                  <option value="Bilik Mesyuarat Utama (Aras 2)">Bilik Mesyuarat Utama (Aras 2)</option>
+                  <option value="Bilik Perbincangan Mawar (Aras 1)">Bilik Perbincangan Mawar (Aras 1)</option>
                 </select>
               </div>
               <div class="space-y-1">
                 <label class="text-[11px] font-semibold text-slate-500">Nama Pemohon</label>
-                <input type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Dr. Azmi" required />
+                <input id="booking-applicant" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Dr. Azmi" required />
               </div>
               <div class="space-y-1">
                 <label class="text-[11px] font-semibold text-slate-500">Tarikh Tempahan</label>
-                <input type="date" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
+                <input id="booking-date" type="date" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
               </div>
               <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Masa (Mula - Tamat)</label>
-                <input type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: 02:00 PM - 04:00 PM" required />
+                <label class="text-[11px] font-semibold text-slate-500">Masa Mula (Format 24 jam)</label>
+                <input id="booking-start" type="time" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
+              </div>
+              <div class="space-y-1">
+                <label class="text-[11px] font-semibold text-slate-500">Masa Tamat (Format 24 jam)</label>
+                <input id="booking-end" type="time" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
               </div>
               <div class="space-y-1 sm:col-span-2">
-                <label class="text-[11px] font-semibold text-slate-500">Tujuan Mesyuarat</label>
-                <input type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Mesyuarat Penyelarasan MyPortfolio Pentadbiran" required />
+                <label class="text-[11px] font-semibold text-slate-500">Tujuan Mesyuarat / Tajuk</label>
+                <input id="booking-title" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Mesyuarat Penyelarasan MyPortfolio Pentadbiran" required />
               </div>
             </div>
             <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-indigo-500/10">
@@ -625,7 +629,7 @@
             <i data-lucide="calendar" class="w-6 h-6"></i>
             <div>
               <h3 class="font-bold text-base">Kalendar Aktiviti Jabatan</h3>
-              <p class="text-[10px] text-amber-100">Takwim Acara & Hari Penting</p>
+              <p class="text-[10px] text-amber-100">Takwim Acara & Hari Penting Bulanan</p>
             </div>
           </div>
           <button onclick="closeSubModal('kalendar')" class="p-1 rounded-lg hover:bg-amber-600 transition-colors">
@@ -633,41 +637,62 @@
           </button>
         </div>
         <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
-          <!-- Calendar list -->
-          <div class="space-y-3">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Aktiviti Akan Datang (Julai 2026)</h4>
-            <div class="space-y-3">
-              <div class="p-3 bg-slate-50 border-l-4 border-amber-500 border border-navy-100 rounded-r-xl flex items-center justify-between">
-                <div>
-                  <h5 class="font-bold text-xs">Kursus Peningkatan Mutu Sterilisasi</h5>
-                  <p class="text-[10px] text-slate-500"><i data-lucide="calendar" class="w-3.5 h-3.5 inline mr-1 text-amber-500"></i>14 Julai 2026 | Dewan Utama JKN</p>
-                </div>
-                <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Latihan</span>
+          
+          <!-- Monthly Interactive Calendar View -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <button onclick="changeMonth(-1)" class="p-1 bg-slate-100 hover:bg-slate-200 rounded text-slate-700"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+              <h4 id="calendar-month-year" class="font-bold text-sm text-navy-900">Julai 2026</h4>
+              <button onclick="changeMonth(1)" class="p-1 bg-slate-100 hover:bg-slate-200 rounded text-slate-700"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+            </div>
+            
+            <!-- Calendar Grid -->
+            <div class="border border-navy-100 rounded-xl p-3 bg-slate-50">
+              <div class="grid grid-cols-7 gap-2 text-center font-bold text-[10px] text-slate-500 mb-2">
+                <span>Ahd</span><span>Isn</span><span>Sel</span><span>Rab</span><span>Kha</span><span>Jum</span><span>Sab</span>
               </div>
-              <div class="p-3 bg-slate-50 border-l-4 border-brand-500 border border-navy-100 rounded-r-xl flex items-center justify-between">
-                <div>
-                  <h5 class="font-bold text-xs">Hari Kesihatan Mulut Peringkat Negeri</h5>
-                  <p class="text-[10px] text-slate-500"><i data-lucide="calendar" class="w-3.5 h-3.5 inline mr-1 text-brand-500"></i>22 Julai 2026 | Dataran Stadium KB</p>
-                </div>
-                <span class="bg-brand-100 text-brand-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Komuniti</span>
+              <div id="calendar-days-grid" class="grid grid-cols-7 gap-2">
+                <!-- Days will render here -->
               </div>
             </div>
           </div>
+
+          <!-- Clicked Event Detail Panel -->
+          <div id="event-detail-box" class="bg-amber-50/30 border border-amber-200 p-4 rounded-xl hidden">
+            <h5 id="event-detail-title" class="font-bold text-xs text-amber-800">Nama Acara</h5>
+            <p class="text-xs text-slate-600 mt-1"><strong class="text-amber-900">Tempat:</strong> <span id="event-detail-venue">--</span></p>
+            <p class="text-xs text-slate-600"><strong class="text-amber-900">Unit Terlibat:</strong> <span id="event-detail-dept">--</span></p>
+            <p class="text-xs text-slate-600"><strong class="text-amber-900">Tarikh:</strong> <span id="event-detail-date">--</span></p>
+            <p id="event-detail-desc" class="text-xs text-slate-500 mt-2 italic">--</p>
+          </div>
+
           <!-- Register event form -->
-          <form onsubmit="event.preventDefault(); alert('Cadangan aktiviti berjaya dihantar ke takwim jabatan!'); closeSubModal('kalendar');" class="space-y-4 border-t border-navy-100 pt-4">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Cadangkan Acara / Aktiviti</h4>
+          <form onsubmit="submitCalendarEvent(event)" class="space-y-4 border-t border-navy-100 pt-4">
+            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Daftar Cadangan Aktiviti Baharu</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="space-y-1">
                 <label class="text-[11px] font-semibold text-slate-500">Nama Acara</label>
-                <input type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Taklimat Audit Keselamatan" required />
+                <input id="event-name" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Taklimat Audit Keselamatan" required />
+              </div>
+              <div class="space-y-1">
+                <label class="text-[11px] font-semibold text-slate-500">Unit / Jabatan Terlibat</label>
+                <input id="event-dept" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Klinikal, Sokongan, Semua" required />
               </div>
               <div class="space-y-1">
                 <label class="text-[11px] font-semibold text-slate-500">Tarikh Acara</label>
-                <input type="date" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
+                <input id="event-date" type="date" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
+              </div>
+              <div class="space-y-1">
+                <label class="text-[11px] font-semibold text-slate-500">Tempat (Venue)</label>
+                <input id="event-venue" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Dewan Utama JKN" required />
+              </div>
+              <div class="space-y-1 sm:col-span-2">
+                <label class="text-[11px] font-semibold text-slate-500">Catatan / Penerangan Ringkas</label>
+                <input id="event-desc" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Ringkasan aktiviti" />
               </div>
             </div>
             <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-amber-500/10">
-              Daftar Cadangan Aktiviti
+              Daftar Acara
             </button>
           </form>
         </div>
@@ -690,53 +715,66 @@
           </button>
         </div>
         <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
-          <!-- Letter logs -->
+          
+          <!-- Search & Filter Bar -->
+          <div class="flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center">
+            <input id="search-surat" oninput="filterSuratList()" type="text" class="w-full sm:w-64 border border-navy-200 rounded-lg p-2 text-xs" placeholder="Cari No Rujukan atau Subjek..." />
+            
+            <div class="flex bg-navy-100 p-1 rounded-lg text-[10px] font-bold gap-1">
+              <button id="filter-surat-all" onclick="setSuratFilter('All')" class="px-3 py-1.5 rounded bg-white text-emerald-700 shadow-sm">Semua</button>
+              <button id="filter-surat-pending" onclick="setSuratFilter('Pending')" class="px-3 py-1.5 rounded text-slate-600 hover:text-navy-900">Pending</button>
+              <button id="filter-surat-completed" onclick="setSuratFilter('Completed')" class="px-3 py-1.5 rounded text-slate-600 hover:text-navy-900">Completed</button>
+            </div>
+          </div>
+
+          <!-- Letter logs table -->
           <div class="space-y-3">
             <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Log Surat Rasmi Terkini</h4>
             <div class="border border-navy-100 rounded-xl overflow-hidden text-xs">
-              <div class="p-3 bg-slate-50 border-b border-navy-100 font-bold flex justify-between text-slate-500">
-                <span>Rujukan Fail / Tajuk</span>
-                <span>Tarikh Penerimaan</span>
-              </div>
-              <div class="p-3 border-b border-navy-50 flex justify-between items-center">
-                <div>
-                  <p class="font-semibold">KKM.600-4/1/12 (32)</p>
-                  <p class="text-[10px] text-slate-500">Pindaan Peruntukan Kewangan Klinik Pergigian KB Utama</p>
-                </div>
-                <span class="text-[10px] text-slate-500">06 Julai 2026</span>
-              </div>
-              <div class="p-3 border-b border-navy-50 flex justify-between items-center">
-                <div>
-                  <p class="font-semibold">JKNK.100-3/2/1 (08)</p>
-                  <p class="text-[10px] text-slate-500">Jemputan Mesyuarat Kolaborasi Awam-Swasta Bil.3</p>
-                </div>
-                <span class="text-[10px] text-slate-500">03 Julai 2026</span>
-              </div>
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-navy-100 font-bold text-slate-500">
+                    <th class="p-3">Rujukan / Tajuk</th>
+                    <th class="p-3">Pengirim / Penerima</th>
+                    <th class="p-3">Jenis</th>
+                    <th class="p-3">Tarikh</th>
+                    <th class="p-3">Status</th>
+                    <th class="p-3 text-center">Tindakan</th>
+                  </tr>
+                </thead>
+                <tbody id="surat-log-table-body">
+                  <!-- Dynamic Content -->
+                </tbody>
+              </table>
             </div>
           </div>
-          <!-- Upload form -->
-          <form onsubmit="event.preventDefault(); alert('Surat rasmi berjaya direkodkan dalam sistem fail digital!'); closeSubModal('surat');" class="space-y-4 border-t border-navy-100 pt-4">
+
+          <!-- Register letter form -->
+          <form onsubmit="submitLetter(event)" class="space-y-4 border-t border-navy-100 pt-4">
             <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Daftar Surat Masuk / Keluar Baru</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="space-y-1">
                 <label class="text-[11px] font-semibold text-slate-500">No Rujukan Surat</label>
-                <input type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: KKM.600-2/3..." required />
+                <input id="letter-ref" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: KKM.600-2/3..." required />
               </div>
               <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Tajuk Surat</label>
-                <input type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Tajuk penuh surat rasmi" required />
+                <label class="text-[11px] font-semibold text-slate-500">Pengirim / Penerima (Agensi)</label>
+                <input id="letter-sender" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Kementerian/Jabatan/Syarikat" required />
               </div>
               <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Jenis Dokumen</label>
-                <select class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
-                  <option>Surat Masuk (External)</option>
-                  <option>Surat Keluar (Internal)</option>
-                  <option>Memo / Arahan Pejabat</option>
+                <label class="text-[11px] font-semibold text-slate-500">Kategori Surat</label>
+                <select id="letter-category" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
+                  <option value="Incoming">Surat Masuk (Incoming)</option>
+                  <option value="Outgoing">Surat Keluar (Outgoing)</option>
                 </select>
               </div>
               <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Muat Naik Imbasan Surat (PDF)</label>
-                <input type="file" class="w-full border border-navy-200 rounded-lg p-1.5 text-xs bg-slate-50" />
+                <label class="text-[11px] font-semibold text-slate-500">Tarikh Penerimaan / Dihantar</label>
+                <input id="letter-date" type="date" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
+              </div>
+              <div class="space-y-1 sm:col-span-2">
+                <label class="text-[11px] font-semibold text-slate-500">Tajuk Surat (Subjek)</label>
+                <input id="letter-subject" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Tajuk penuh surat rasmi" required />
               </div>
             </div>
             <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-emerald-500/10">
@@ -766,35 +804,8 @@
           <!-- Template list -->
           <div class="space-y-3">
             <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Senarai Templat Rasmi (KKM/JKN)</h4>
-            <div class="space-y-3">
-              <div class="p-3 bg-slate-50 border border-navy-100 rounded-xl flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-xs">
-                    DOC
-                  </div>
-                  <div>
-                    <h5 class="font-bold text-xs">Templat Kertas Cadangan Program Kesihatan Mulut</h5>
-                    <p class="text-[10px] text-slate-500">Format Standard Jawatankuasa Promosi | Kemas kini Jun 2026</p>
-                  </div>
-                </div>
-                <a href="#" onclick="event.preventDefault(); alert('Fail Word Templat Kertas Kerja berjaya dimuat turun!');" class="p-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg transition-colors">
-                  <i data-lucide="download" class="w-4 h-4"></i>
-                </a>
-              </div>
-              <div class="p-3 bg-slate-50 border border-navy-100 rounded-xl flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-xs">
-                    XLS
-                  </div>
-                  <div>
-                    <h5 class="font-bold text-xs">Templat Borang Belanjawan & Anggaran Kos Aktiviti</h5>
-                    <p class="text-[10px] text-slate-500">Format Excel Kiraan Automatik OS29000 & OS21000</p>
-                  </div>
-                </div>
-                <a href="#" onclick="event.preventDefault(); alert('Fail Excel Anggaran Kos berjaya dimuat turun!');" class="p-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg transition-colors">
-                  <i data-lucide="download" class="w-4 h-4"></i>
-                </a>
-              </div>
+            <div id="paper-templates-list" class="space-y-3">
+              <!-- Rendered Dynamically -->
             </div>
           </div>
           <!-- Guidelines info -->
@@ -805,12 +816,13 @@
             <ol class="list-decimal pl-4 text-xs text-rose-700 mt-2 space-y-1">
               <li>Mestilah diserahkan sekurang-kurangnya 30 hari sebelum program dijalankan.</li>
               <li>Mendapat sokongan bertulis daripada Ketua Jabatan / Pegawai Kanan.</li>
-              <li>Peruntukan bajet melebih RM 5,000 memerlukan persetujuan Pegawai Kewangan JKN.</li>
+              <li>Peruntukan bajet melebihi RM 5,000 memerlukan persetujuan Pegawai Kewangan JKN.</li>
             </ol>
           </div>
         </div>
       </div>
     </div>
+
 
     <!-- DYNAMIC DETAIL MODAL (ANNOUNCEMENT READ FULL) -->
     <div id="modal-announcement-details" class="fixed inset-0 z-[60] flex items-center justify-center bg-navy-950/50 p-4 hidden">
@@ -994,21 +1006,148 @@
       // Sub-module modal handlers
       function openSubModal(id) {
         document.getElementById(`modal-${id}`).classList.remove('hidden');
+        if (id === 'banjir') {
+          fetchBanjir();
+        } else if (id === 'pergerakan') {
+          fetchPergerakan();
+        }
       }
 
       function closeSubModal(id) {
         document.getElementById(`modal-${id}`).classList.add('hidden');
       }
 
-      // Staff Movement Logger Action
-      function submitStaffLog(e) {
+      // --- BANJIR FRONTEND LOGIC ---
+      async function fetchBanjir() {
+        try {
+          const res = await fetch('/api/banjir');
+          const data = await res.json();
+          const tbody = document.getElementById('banjir-warnings-table-body');
+          tbody.innerHTML = '';
+          
+          data.forEach(item => {
+            const row = document.createElement('tr');
+            row.className = 'border-b border-navy-50';
+            
+            let statusBadge = '';
+            if (item.water_level_status === 'Bahaya') {
+              statusBadge = `<span class="bg-rose-100 text-rose-700 font-bold px-2 py-0.5 rounded-full">BAHAYA</span>`;
+            } else if (item.water_level_status === 'Amaran') {
+              statusBadge = `<span class="bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full">AMARAN</span>`;
+            } else {
+              statusBadge = `<span class="bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded-full">NORMAL</span>`;
+            }
+
+            const formattedTime = new Date(item.reported_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            row.innerHTML = `
+              <td class="p-3 font-semibold">${item.location}</td>
+              <td class="p-3">${statusBadge}</td>
+              <td class="p-3 font-mono">${item.water_level_meters} m</td>
+              <td class="p-3 text-slate-500">${formattedTime}</td>
+              <td class="p-3 text-slate-500">${item.reporter_name}</td>
+            `;
+            tbody.appendChild(row);
+          });
+        } catch (err) {
+          console.error("Error fetching banjir status:", err);
+        }
+      }
+
+      async function submitBanjirReport(e) {
+        e.preventDefault();
+        const location = document.getElementById('banjir-location').value;
+        const status = document.getElementById('banjir-status').value;
+        const meters = document.getElementById('banjir-meters').value;
+        const reporter = document.getElementById('banjir-reporter').value;
+        const notes = document.getElementById('banjir-notes').value;
+
+        try {
+          const res = await fetch('/api/banjir', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              location,
+              water_level_status: status,
+              water_level_meters: meters,
+              reporter_name: reporter,
+              notes
+            })
+          });
+          
+          if (res.ok) {
+            alert('Laporan banjir berjaya dihantar!');
+            // Reset form fields
+            document.getElementById('banjir-location').value = '';
+            document.getElementById('banjir-meters').value = '';
+            document.getElementById('banjir-reporter').value = '';
+            document.getElementById('banjir-notes').value = '';
+            // Refresh table
+            fetchBanjir();
+          } else {
+            alert('Gagal menghantar laporan.');
+          }
+        } catch (err) {
+          console.error("Error submitting banjir report:", err);
+        }
+      }
+
+      // --- LOG PERGERAKAN STAF FRONTEND LOGIC ---
+      async function fetchPergerakan() {
+        try {
+          const res = await fetch('/api/pergerakan');
+          const data = await res.json();
+          const tbody = document.getElementById('staff-log-table-body');
+          tbody.innerHTML = '';
+          
+          let outCount = 0;
+          let inCount = 0;
+
+          data.forEach(item => {
+            const row = document.createElement('tr');
+            row.className = 'border-b border-navy-50';
+            
+            const isOut = item.status === 'Keluar';
+            if (isOut) outCount++; else inCount++;
+
+            const statusBadge = isOut 
+              ? `<span class="inline-flex items-center gap-1.5 bg-rose-50 text-rose-700 font-bold px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>Out of Office</span>`
+              : `<span class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>In Office</span>`;
+
+            const actionButton = isOut
+              ? `<button onclick="checkInStaff('${item.id}')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-2 py-1 rounded text-[10px] transition-colors">Check-In</button>`
+              : `<span class="text-slate-400 font-medium text-[10px]">Selesai</span>`;
+
+            row.innerHTML = `
+              <td class="p-3 font-semibold">${item.staff_name}</td>
+              <td class="p-3">${item.destination} <span class="text-slate-400 block text-[10px]">${item.purpose}</span></td>
+              <td class="p-3">${statusBadge}</td>
+              <td class="p-3 text-slate-500">${item.time_out}</td>
+              <td class="p-3 text-slate-500">${isOut ? item.expected_time_in : (item.actual_time_in || '---')}</td>
+              <td class="p-3 text-center">${actionButton}</td>
+            `;
+            tbody.appendChild(row);
+          });
+
+          // Update Dashboard Managers stats
+          document.getElementById('stats-staff-out').textContent = outCount;
+          document.getElementById('stats-staff-in').textContent = inCount;
+          document.getElementById('staff-out-count').textContent = `${outCount} Orang`;
+          
+          // Update status indicator in header
+          document.getElementById('system-status-counter').textContent = `${outCount} Menunggu Tindakan`;
+        } catch (err) {
+          console.error("Error fetching staff movements:", err);
+        }
+      }
+
+      async function submitStaffLog(e) {
         e.preventDefault();
         const name = document.getElementById('log-name').value;
         const purpose = document.getElementById('log-purpose').value;
         const timeOutInput = document.getElementById('log-time-out').value;
         const timeInInput = document.getElementById('log-time-in').value;
 
-        // format times
         const formatTime = (timeStr) => {
           const [hour, min] = timeStr.split(':');
           const h = parseInt(hour);
@@ -1020,38 +1159,262 @@
         const outTime = formatTime(timeOutInput);
         const inTime = formatTime(timeInInput);
 
-        const tbody = document.getElementById('staff-log-table-body');
-        const row = document.createElement('tr');
-        row.className = 'border-b border-navy-50';
-        row.innerHTML = `
-          <td class="p-3 font-semibold">${name}</td>
-          <td class="p-3">${purpose}</td>
-          <td class="p-3">${outTime}</td>
-          <td class="p-3 text-slate-500">${inTime}</td>
-        `;
-        tbody.appendChild(row);
+        try {
+          const res = await fetch('/api/pergerakan/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              staff_name: name,
+              destination: purpose.split(' di ')[1] || 'JKNK',
+              purpose,
+              time_out: outTime,
+              expected_time_in: inTime
+            })
+          });
 
-        // Update counts
-        const count = tbody.querySelectorAll('tr').length;
-        document.getElementById('staff-out-count').textContent = `${count} Orang`;
-        
-        // update system counter for active items
-        document.getElementById('system-status-counter').textContent = `${count + 1} Menunggu Tindakan`;
+          if (res.ok) {
+            alert(`Log pergerakan untuk ${name} berjaya didaftarkan!`);
+            // Reset form fields
+            document.getElementById('log-name').value = '';
+            document.getElementById('log-purpose').value = '';
+            document.getElementById('log-time-out').value = '';
+            document.getElementById('log-time-in').value = '';
+            // Refresh table & stats
+            fetchPergerakan();
+          } else {
+            alert('Gagal mendaftar keluar.');
+          }
+        } catch (err) {
+          console.error("Error checking out staff:", err);
+        }
+      }
 
-        // reset form and close
-        document.getElementById('log-name').value = '';
-        document.getElementById('log-purpose').value = '';
-        document.getElementById('log-time-out').value = '';
-        document.getElementById('log-time-in').value = '';
-        
-        closeSubModal('pergerakan');
-        alert(`Log pergerakan untuk ${name} berjaya didaftarkan!`);
+      async function checkInStaff(id) {
+        try {
+          const res = await fetch(`/api/pergerakan/checkin/${id}`, {
+            method: 'POST'
+          });
+          if (res.ok) {
+            alert('Staf berjaya didaftarkan kembali (Checked In)!');
+            fetchPergerakan();
+          } else {
+            alert('Gagal mendaftar masuk.');
+          }
+        } catch (err) {
+          console.error("Error checking in staff:", err);
+        }
       }
       
       // Close detail announcements
       function closeAnnouncementDetails() {
         document.getElementById('modal-announcement-details').classList.add('hidden');
       }
+
+      // --- TEMPAHAN BILIK MESYUARAT LOGIC ---
+      async function fetchBookings() {
+        try {
+          const res = await fetch('/api/tempahan');
+          const data = await res.json();
+          const list = document.getElementById('upcoming-bookings');
+          list.innerHTML = '';
+          
+          if (data.length === 0) {
+            list.innerHTML = '<p class="text-xs text-slate-400 italic">Tiada tempahan aktif buat masa ini.</p>';
+            return;
+          }
+
+          data.forEach(b => {
+            const item = document.createElement('div');
+            item.className = 'p-3 bg-slate-50 border border-navy-100 rounded-xl flex items-center justify-between';
+            item.innerHTML = `
+              <div>
+                <h5 class="font-bold text-xs text-indigo-900">${b.meeting_title}</h5>
+                <p class="text-[10px] text-slate-500">${b.room_name} | ${b.booking_date} (${b.start_time} - ${b.end_time})</p>
+                <p class="text-[9px] text-slate-400">Ditempah oleh: ${b.applicant_name}</p>
+              </div>
+              <span class="bg-indigo-100 text-indigo-700 text-[9px] font-bold px-2 py-0.5 rounded-full">Ditempah</span>
+            `;
+            list.appendChild(item);
+          });
+        } catch (err) {
+          console.error("Error fetching bookings:", err);
+        }
+      }
+
+      async function submitBooking(e) {
+        e.preventDefault();
+        const room_name = document.getElementById('booking-room').value;
+        const applicant_name = document.getElementById('booking-applicant').value;
+        const booking_date = document.getElementById('booking-date').value;
+        const start_time = document.getElementById('booking-start').value;
+        const end_time = document.getElementById('booking-end').value;
+        const meeting_title = document.getElementById('booking-title').value;
+
+        try {
+          const res = await fetch('/api/tempahan', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              room_name,
+              applicant_name,
+              booking_date,
+              start_time,
+              end_time,
+              meeting_title
+            })
+          });
+
+          const data = await res.json();
+          if (res.ok) {
+            alert('Tempahan bilik mesyuarat berjaya didaftarkan!');
+            document.getElementById('booking-applicant').value = '';
+            document.getElementById('booking-date').value = '';
+            document.getElementById('booking-start').value = '';
+            document.getElementById('booking-end').value = '';
+            document.getElementById('booking-title').value = '';
+            fetchBookings();
+          } else {
+            alert(data.error || 'Gagal membuat tempahan.');
+          }
+        } catch (err) {
+          console.error("Error submitting booking:", err);
+        }
+      }
+
+      // --- KALENDAR AKTIVITI & ACARA JABATAN LOGIC ---
+      let calendarYear = 2026;
+      let calendarMonth = 6; // July (0-indexed is index 6)
+      let allEvents = [];
+      const monthNames = [
+        "Januari", "Februari", "Mac", "April", "Mei", "Jun", 
+        "Julai", "Ogos", "September", "Oktober", "November", "Disember"
+      ];
+
+      async function fetchCalendarEvents() {
+        try {
+          const res = await fetch('/api/kalendar');
+          allEvents = await res.json();
+          renderCalendar();
+        } catch (err) {
+          console.error("Error fetching events:", err);
+        }
+      }
+
+      function renderCalendar() {
+        const grid = document.getElementById('calendar-days-grid');
+        grid.innerHTML = '';
+        
+        // Update Title
+        document.getElementById('calendar-month-year').textContent = `${monthNames[calendarMonth]} ${calendarYear}`;
+
+        // Get first day of month (e.g. Wednesday = index 3, if Sunday is 0)
+        const firstDayIndex = new Date(calendarYear, calendarMonth, 1).getDay();
+        const numDays = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+
+        // Padding days
+        for (let i = 0; i < firstDayIndex; i++) {
+          const pad = document.createElement('div');
+          pad.className = 'h-10';
+          grid.appendChild(pad);
+        }
+
+        // Render month days
+        for (let day = 1; day <= numDays; day++) {
+          const dayBox = document.createElement('div');
+          dayBox.className = 'h-11 bg-white hover:bg-amber-50 border border-navy-100 rounded-lg p-1 flex flex-col justify-between items-center cursor-pointer transition-colors relative';
+          
+          const dayStr = `${calendarYear}-${String(calendarMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          
+          // Check if there are events on this day
+          const dayEvents = allEvents.filter(e => e.event_date === dayStr);
+
+          dayBox.innerHTML = `<span class="text-xs font-semibold text-navy-800">${day}</span>`;
+          
+          if (dayEvents.length > 0) {
+            // Event indicator
+            const dot = document.createElement('span');
+            dot.className = 'w-1.5 h-1.5 rounded-full bg-amber-500 mb-0.5 animate-pulse';
+            dayBox.appendChild(dot);
+            
+            dayBox.onclick = () => showEventDetails(dayEvents[0]);
+          } else {
+            dayBox.onclick = () => {
+              document.getElementById('event-detail-box').classList.add('hidden');
+              // prefill date in form
+              document.getElementById('event-date').value = dayStr;
+            };
+          }
+
+          grid.appendChild(dayBox);
+        }
+      }
+
+      function showEventDetails(evt) {
+        const box = document.getElementById('event-detail-box');
+        document.getElementById('event-detail-title').textContent = evt.event_name;
+        document.getElementById('event-detail-venue').textContent = evt.venue;
+        document.getElementById('event-detail-dept').textContent = evt.department_involved;
+        document.getElementById('event-detail-date').textContent = evt.event_date;
+        document.getElementById('event-detail-desc').textContent = evt.description || 'Tiada huraian tambahan.';
+        box.classList.remove('hidden');
+      }
+
+      function changeMonth(dir) {
+        calendarMonth += dir;
+        if (calendarMonth < 0) {
+          calendarMonth = 11;
+          calendarYear--;
+        } else if (calendarMonth > 11) {
+          calendarMonth = 0;
+          calendarYear++;
+        }
+        renderCalendar();
+      }
+
+      async function submitCalendarEvent(e) {
+        e.preventDefault();
+        const event_name = document.getElementById('event-name').value;
+        const department_involved = document.getElementById('event-dept').value;
+        const event_date = document.getElementById('event-date').value;
+        const venue = document.getElementById('event-venue').value;
+        const description = document.getElementById('event-desc').value;
+
+        try {
+          const res = await fetch('/api/kalendar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              event_name,
+              department_involved,
+              event_date,
+              venue,
+              description
+            })
+          });
+
+          if (res.ok) {
+            alert('Aktiviti baharu berjaya didaftarkan!');
+            document.getElementById('event-name').value = '';
+            document.getElementById('event-dept').value = '';
+            document.getElementById('event-date').value = '';
+            document.getElementById('event-venue').value = '';
+            document.getElementById('event-desc').value = '';
+            fetchCalendarEvents();
+          } else {
+            alert('Gagal mendaftar aktiviti.');
+          }
+        } catch (err) {
+          console.error("Error submitting event:", err);
+        }
+      }
+
+      // Initial Fetch on load
+      window.addEventListener('load', () => {
+        fetchBanjir();
+        fetchPergerakan();
+        fetchBookings();
+        fetchCalendarEvents();
+      });
     </script>
   </body>
 </html>
