@@ -1,983 +1,1131 @@
 <!doctype html>
 <html lang="ms">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistem Pentadbiran - Pergigian Kota Bharu</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet" />
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
-              mono: ['Fira Code', 'monospace'],
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistem Pentadbiran - Pergigian Kota Bharu</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Orbitron:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              500: '#0d9488',
+              600: '#0f766e',
+              700: '#115e59',
+              950: '#042f2e',
             },
-            colors: {
-              brand: {
-                50: '#f0fdfa',
-                100: '#ccfbf1',
-                500: '#0d9488',
-                600: '#0f766e',
-                700: '#115e59',
-                950: '#042f2e',
-              },
-              navy: {
-                50: '#f8fafc',
-                100: '#f1f5f9',
-                200: '#e2e8f0',
-                700: '#334155',
-                800: '#1e293b',
-                900: '#0f172a',
-                950: '#020617',
-              }
+            navy: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+              950: '#020617',
             }
           }
         }
       }
-    </script>
-    <style>
-      .custom-scrollbar::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-      }
-      .custom-scrollbar::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 3px;
-      }
-      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: #0d9488;
-      }
-      .glassmorphism {
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-      }
-    </style>
-  </head>
-  <body class="bg-[#f8fafc] text-navy-900 min-h-screen font-sans flex overflow-hidden">
+    }
+  </script>
+  <style>
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
 
-    <!-- MOBILE SIDEBAR TOGGLE BACKDROP -->
-    <div id="sidebar-backdrop" class="fixed inset-0 bg-navy-950/40 z-40 hidden transition-opacity duration-300 md:hidden" onclick="toggleSidebar()"></div>
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
-    <!-- RESPONSIVE SIDEBAR -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 w-72 bg-navy-900 text-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:flex md:flex-col flex-shrink-0 border-r border-navy-800">
-      <!-- Sidebar Header / Brand -->
-      <div class="h-20 flex items-center px-6 border-b border-navy-800 gap-3">
-        <div class="w-10 h-10 rounded-xl bg-brand-500 flex items-center justify-center shadow-lg shadow-brand-500/20">
-          <i data-lucide="shield-check" class="text-white w-6 h-6"></i>
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #0d9488;
+    }
+
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+
+<body class="bg-[#f8fafc] text-navy-900 min-h-screen font-sans flex overflow-hidden">
+
+  <!-- MOBILE SIDEBAR TOGGLE BACKDROP -->
+  <div id="sidebar-backdrop" class="fixed inset-0 bg-navy-950/40 z-40 hidden transition-opacity duration-300 md:hidden"
+    onclick="toggleSidebar()"></div>
+
+  <!-- RESPONSIVE SIDEBAR -->
+  <aside id="sidebar"
+    class="fixed inset-y-0 left-0 w-72 bg-navy-900 text-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:flex md:flex-col flex-shrink-0 border-r border-navy-800">
+    <!-- Sidebar Header / Brand -->
+    <div class="h-20 flex items-center px-6 border-b border-navy-800 gap-3">
+      <div class="w-10 h-10 rounded-xl bg-brand-500 flex items-center justify-center shadow-lg shadow-brand-500/20">
+        <i data-lucide="shield-check" class="text-white w-6 h-6"></i>
+      </div>
+      <div>
+        <h1 class="font-extrabold text-sm tracking-wider uppercase text-white leading-none">Pergigian KB</h1>
+        <span class="text-[10px] text-brand-500 font-semibold tracking-widest uppercase">Pusat Pentadbiran</span>
+      </div>
+    </div>
+
+    <!-- Admin Profile Section -->
+    <div class="p-6 border-b border-navy-800">
+      <div class="flex items-center gap-3 bg-navy-800/50 p-3 rounded-xl border border-navy-800">
+        <div class="w-10 h-10 rounded-full bg-brand-600 flex items-center justify-center font-bold text-white text-sm">
+          AD
         </div>
         <div>
-          <h1 class="font-extrabold text-sm tracking-wider uppercase text-white leading-none">Pergigian KB</h1>
-          <span class="text-[10px] text-brand-500 font-semibold tracking-widest uppercase">Pusat Pentadbiran</span>
+          <h4 class="text-xs font-semibold text-white">Administrator</h4>
+          <p class="text-[10px] text-slate-400">Pegawai Tadbir N41</p>
+          <span
+            class="inline-flex items-center gap-1 text-[8px] bg-emerald-500/20 text-emerald-400 font-semibold px-1.5 py-0.5 rounded-full mt-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Bersambung
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex-1 px-4 py-6 space-y-8 overflow-y-auto custom-scrollbar">
+      <!-- Main Modules Group -->
+      <div>
+        <span class="px-3 text-[10px] font-semibold text-slate-500 tracking-wider uppercase">Modul Utama</span>
+        <div class="mt-2 space-y-1">
+          <a href="index.html"
+            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group">
+            <i data-lucide="layout-dashboard" class="w-4.5 h-4.5 group-hover:scale-110 transition-transform"></i> Utama
+          </a>
+          <a href="direktori.html"
+            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group">
+            <i data-lucide="users" class="w-4.5 h-4.5 group-hover:scale-110 transition-transform"></i> Direktori Staf
+          </a>
+          <a href="klinikal.html"
+            class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group">
+            <i data-lucide="stethoscope" class="w-4.5 h-4.5 group-hover:scale-110 transition-transform"></i> Klinikal
+          </a>
+          <a href="pentadbiran.html"
+            class="flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-white bg-brand-600 rounded-lg shadow-md shadow-brand-500/10 transition-all">
+            <i data-lucide="clipboard-list" class="w-4.5 h-4.5"></i> Pentadbiran
+          </a>
         </div>
       </div>
 
-      <!-- Admin Profile Section -->
-      <div class="p-6 border-b border-navy-800">
-        <div class="flex items-center gap-3 bg-navy-800/50 p-3 rounded-xl border border-navy-800">
-          <div class="w-10 h-10 rounded-full bg-brand-600 flex items-center justify-center font-bold text-white text-sm">
-            AD
-          </div>
-          <div>
-            <h4 class="text-xs font-semibold text-white">Administrator</h4>
-            <p class="text-[10px] text-slate-400">Pegawai Tadbir N41</p>
-            <span class="inline-flex items-center gap-1 text-[8px] bg-emerald-500/20 text-emerald-400 font-semibold px-1.5 py-0.5 rounded-full mt-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Bersambung
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Navigation Links -->
-      <nav class="flex-1 px-4 py-6 space-y-8 overflow-y-auto custom-scrollbar">
-        <!-- Main Modules Group -->
-        <div>
-          <span class="px-3 text-[10px] font-semibold text-slate-500 tracking-wider uppercase">Modul Utama</span>
-          <div class="mt-2 space-y-1">
-            <a href="index.html" class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group">
-              <i data-lucide="layout-dashboard" class="w-4.5 h-4.5 group-hover:scale-110 transition-transform"></i> Utama
-            </a>
-            <a href="direktori.html" class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group">
-              <i data-lucide="users" class="w-4.5 h-4.5 group-hover:scale-110 transition-transform"></i> Direktori Staf
-            </a>
-            <a href="klinikal.html" class="flex items-center gap-3 px-3 py-2.5 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group">
-              <i data-lucide="stethoscope" class="w-4.5 h-4.5 group-hover:scale-110 transition-transform"></i> Klinikal
-            </a>
-            <a href="pentadbiran.html" class="flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-white bg-brand-600 rounded-lg shadow-md shadow-brand-500/10 transition-all">
-              <i data-lucide="clipboard-list" class="w-4.5 h-4.5"></i> Pentadbiran
-            </a>
-          </div>
-        </div>
-
-        <!-- Sub-Modules Shortcuts -->
-        <div>
-          <span class="px-3 text-[10px] font-semibold text-slate-500 tracking-wider uppercase">Sub-Modul Pentadbiran</span>
-          <div class="mt-2 space-y-1">
-            <button onclick="openSubModal('banjir')" class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
-              <span class="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform"></span> Banjir & Bencana
-            </button>
-            <button onclick="openSubModal('pergerakan')" class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
-              <span class="w-2 h-2 rounded-full bg-teal-500 group-hover:scale-125 transition-transform"></span> Log Pergerakan Staf
-            </button>
-            <button onclick="openSubModal('mesyuarat')" class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
-              <span class="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform"></span> Tempahan Bilik Mesyuarat
-            </button>
-            <button onclick="openSubModal('kalendar')" class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
-              <span class="w-2 h-2 rounded-full bg-amber-500 group-hover:scale-125 transition-transform"></span> Kalendar Aktiviti
-            </button>
-            <button onclick="openSubModal('surat')" class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform"></span> Surat & Dokumentasi
-            </button>
-            <button onclick="openSubModal('program')" class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
-              <span class="w-2 h-2 rounded-full bg-rose-500 group-hover:scale-125 transition-transform"></span> Kertas Kerja Program
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      <!-- Sidebar Footer / Clock -->
-      <div class="p-6 border-t border-navy-800 text-center space-y-2">
-        <span class="text-[10px] text-slate-500 uppercase tracking-widest block font-medium">Masa Sistem</span>
-        <div id="live-clock" class="font-mono text-sm bg-navy-950 border border-navy-800 text-brand-500 font-bold py-1.5 px-3 rounded-lg shadow-inner">
-          00:00:00 AM
-        </div>
-      </div>
-    </aside>
-
-    <!-- MAIN CONTENT AREA -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden">
-      
-      <!-- Top header bar -->
-      <header class="h-20 bg-white border-b border-navy-200 px-6 flex items-center justify-between flex-shrink-0 z-30">
-        <!-- Sidebar Toggle & Title -->
-        <div class="flex items-center gap-4">
-          <button onclick="toggleSidebar()" class="md:hidden p-2 rounded-lg bg-navy-50 text-navy-800 hover:bg-navy-100 transition-colors">
-            <i data-lucide="menu" class="w-5 h-5"></i>
+      <!-- Sub-Modules Shortcuts -->
+      <div>
+        <span class="px-3 text-[10px] font-semibold text-slate-500 tracking-wider uppercase">Sub-Modul
+          Pentadbiran</span>
+        <div class="mt-2 space-y-1">
+          <button onclick="openSubModal('banjir')"
+            class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
+            <span class="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform"></span> Banjir &
+            Bencana
           </button>
-          <div>
-            <h2 class="text-lg font-bold text-navy-900 leading-tight">Hab Pentadbiran</h2>
-            <p class="text-xs text-slate-500">Urus dan pantau pengoperasian pentadbiran Pejabat Pergigian Kota Bharu</p>
+          <button onclick="openSubModal('pergerakan')"
+            class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
+            <span class="w-2 h-2 rounded-full bg-teal-500 group-hover:scale-125 transition-transform"></span> Log
+            Pergerakan Staf
+          </button>
+          <button onclick="openSubModal('mesyuarat')"
+            class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
+            <span class="w-2 h-2 rounded-full bg-indigo-500 group-hover:scale-125 transition-transform"></span> Tempahan
+            Bilik Mesyuarat
+          </button>
+          <button onclick="openSubModal('kalendar')"
+            class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
+            <span class="w-2 h-2 rounded-full bg-amber-500 group-hover:scale-125 transition-transform"></span> Kalendar
+            Aktiviti
+          </button>
+          <button onclick="openSubModal('surat')"
+            class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform"></span> Surat &
+            Dokumentasi
+          </button>
+          <button onclick="openSubModal('program')"
+            class="w-full flex items-center gap-3 px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all group text-left">
+            <span class="w-2 h-2 rounded-full bg-rose-500 group-hover:scale-125 transition-transform"></span> Kertas
+            Kerja Program
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sidebar Footer / Clock -->
+    <div class="p-6 border-t border-navy-800 text-center space-y-2">
+      <span class="text-[10px] text-slate-500 uppercase tracking-widest block font-medium">Masa Sistem</span>
+      <div id="live-clock"
+        class="font-mono text-sm bg-navy-950 border border-navy-800 text-brand-500 font-bold py-1.5 px-3 rounded-lg shadow-inner">
+        00:00:00 AM
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-1 flex flex-col h-screen overflow-hidden">
+
+    <!-- Top header bar -->
+    <header class="h-20 bg-white border-b border-navy-200 px-6 flex items-center justify-between flex-shrink-0 z-30">
+      <!-- Sidebar Toggle & Title -->
+      <div class="flex items-center gap-4">
+        <button onclick="toggleSidebar()"
+          class="md:hidden p-2 rounded-lg bg-navy-50 text-navy-800 hover:bg-navy-100 transition-colors">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+        <div>
+          <h2 class="text-lg font-bold text-navy-900 leading-tight">Hab Pentadbiran</h2>
+          <p class="text-xs text-slate-500">Urus dan pantau pengoperasian pentadbiran Pejabat Pergigian Kota Bharu</p>
+        </div>
+      </div>
+
+      <!-- Quick actions & info -->
+      <div class="flex items-center gap-4">
+        <!-- Notification Bell -->
+        <div class="relative">
+          <button
+            class="p-2 rounded-xl bg-navy-50 text-slate-600 hover:bg-brand-50 hover:text-brand-500 transition-all">
+            <i data-lucide="bell" class="w-5 h-5"></i>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full animate-ping"></span>
+          </button>
+        </div>
+        <!-- Quick Status info -->
+        <div class="hidden sm:flex items-center gap-2 border-l border-navy-200 pl-4">
+          <div class="text-right">
+            <span class="text-[10px] text-slate-500 uppercase font-semibold">Tugasan Aktif</span>
+            <p id="system-status-counter" class="text-xs font-bold text-brand-600">3 Menunggu Tindakan</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Scrollable Main Container -->
+    <div class="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
+
+      <!-- Tab Pengumuman (Announcement Bar) -->
+      <section
+        class="bg-white rounded-2xl border border-navy-200 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md">
+        <!-- Section Header / Tabs -->
+        <div
+          class="px-6 py-4 border-b border-navy-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-slate-50/50">
+          <div class="flex items-center gap-2">
+            <div class="p-1.5 rounded-lg bg-brand-50 text-brand-500">
+              <i data-lucide="megaphone" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-bold text-sm text-navy-900">Tab Pengumuman & Pekeliling</h3>
+          </div>
+
+          <!-- Tabs -->
+          <div class="flex bg-navy-100 p-1 rounded-lg text-xs font-semibold gap-1 self-start sm:self-auto">
+            <button onclick="filterAnnouncements('semua')" id="tab-semua"
+              class="px-3 py-1.5 rounded-md transition-all bg-white text-brand-600 shadow-sm">Semua</button>
+            <button onclick="filterAnnouncements('penting')" id="tab-penting"
+              class="px-3 py-1.5 rounded-md transition-all text-slate-600 hover:text-navy-900">Penting</button>
+            <button onclick="filterAnnouncements('am')" id="tab-am"
+              class="px-3 py-1.5 rounded-md transition-all text-slate-600 hover:text-navy-900">Pekeliling Am</button>
           </div>
         </div>
 
-        <!-- Quick actions & info -->
-        <div class="flex items-center gap-4">
-          <!-- Notification Bell -->
-          <div class="relative">
-            <button class="p-2 rounded-xl bg-navy-50 text-slate-600 hover:bg-brand-50 hover:text-brand-500 transition-all">
-              <i data-lucide="bell" class="w-5 h-5"></i>
-              <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full animate-ping"></span>
-            </button>
-          </div>
-          <!-- Quick Status info -->
-          <div class="hidden sm:flex items-center gap-2 border-l border-navy-200 pl-4">
-            <div class="text-right">
-              <span class="text-[10px] text-slate-500 uppercase font-semibold">Tugasan Aktif</span>
-              <p id="system-status-counter" class="text-xs font-bold text-brand-600">3 Menunggu Tindakan</p>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <!-- Scrollable Main Container -->
-      <div class="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
-
-        <!-- Tab Pengumuman (Announcement Bar) -->
-        <section class="bg-white rounded-2xl border border-navy-200 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md">
-          <!-- Section Header / Tabs -->
-          <div class="px-6 py-4 border-b border-navy-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-slate-50/50">
-            <div class="flex items-center gap-2">
-              <div class="p-1.5 rounded-lg bg-brand-50 text-brand-500">
-                <i data-lucide="megaphone" class="w-5 h-5"></i>
-              </div>
-              <h3 class="font-bold text-sm text-navy-900">Tab Pengumuman & Pekeliling</h3>
-            </div>
-            
-            <!-- Tabs -->
-            <div class="flex bg-navy-100 p-1 rounded-lg text-xs font-semibold gap-1 self-start sm:self-auto">
-              <button onclick="filterAnnouncements('semua')" id="tab-semua" class="px-3 py-1.5 rounded-md transition-all bg-white text-brand-600 shadow-sm">Semua</button>
-              <button onclick="filterAnnouncements('penting')" id="tab-penting" class="px-3 py-1.5 rounded-md transition-all text-slate-600 hover:text-navy-900">Penting</button>
-              <button onclick="filterAnnouncements('am')" id="tab-am" class="px-3 py-1.5 rounded-md transition-all text-slate-600 hover:text-navy-900">Pekeliling Am</button>
-            </div>
-          </div>
-
-          <!-- Announcement Content / List -->
-          <div class="p-6">
-            <div class="space-y-4 max-h-[220px] overflow-y-auto pr-2 custom-scrollbar" id="announcement-container">
-              <!-- Item 1: Penting -->
-              <div class="announcement-item-card flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl border-l-4 border-l-rose-500 border border-navy-100 bg-rose-50/10 hover:bg-slate-50 transition-all duration-200" data-category="penting">
-                <div class="space-y-1">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="inline-flex items-center gap-1 text-[10px] bg-rose-100 text-rose-700 font-bold px-2 py-0.5 rounded-full">
-                      <i data-lucide="alert-circle" class="w-3 h-3"></i> SEGERA
-                    </span>
-                    <span class="text-xs text-slate-400 font-medium">07 Julai 2026</span>
-                  </div>
-                  <h4 class="font-bold text-sm text-navy-900">Arahan Pematuhan Audit Kebersihan dan Sterilisasi Klinik Kesihatan 2026</h4>
-                  <p class="text-xs text-slate-500">Semua ketua unit dikehendaki mengemas kini fail audit keselamatan biologi dan pensterilan sebelum 15 Julai.</p>
+        <!-- Announcement Content / List -->
+        <div class="p-6">
+          <div class="space-y-4 max-h-[220px] overflow-y-auto pr-2 custom-scrollbar" id="announcement-container">
+            <!-- Item 1: Penting -->
+            <div
+              class="announcement-item-card flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl border-l-4 border-l-rose-500 border border-navy-100 bg-rose-50/10 hover:bg-slate-50 transition-all duration-200"
+              data-category="penting">
+              <div class="space-y-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span
+                    class="inline-flex items-center gap-1 text-[10px] bg-rose-100 text-rose-700 font-bold px-2 py-0.5 rounded-full">
+                    <i data-lucide="alert-circle" class="w-3 h-3"></i> SEGERA
+                  </span>
+                  <span class="text-xs text-slate-400 font-medium">07 Julai 2026</span>
                 </div>
-                <button onclick="viewAnnouncementDetails('Audit Sterilisasi', 'Arahan Pematuhan Audit Kebersihan dan Sterilisasi Klinik Kesihatan 2026. Fail mestilah lengkap dan dihantar kepada Unit Kualiti sebelum tarikh tutup.')" class="flex-shrink-0 text-xs font-semibold text-brand-600 hover:text-brand-700 hover:underline flex items-center gap-1 self-start md:self-auto">
-                  Baca Penuh <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </button>
+                <h4 class="font-bold text-sm text-navy-900">Arahan Pematuhan Audit Kebersihan dan Sterilisasi Klinik
+                  Kesihatan 2026</h4>
+                <p class="text-xs text-slate-500">Semua ketua unit dikehendaki mengemas kini fail audit keselamatan
+                  biologi dan pensterilan sebelum 15 Julai.</p>
               </div>
-
-              <!-- Item 2: Am -->
-              <div class="announcement-item-card flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl border-l-4 border-l-brand-500 border border-navy-100 bg-brand-50/5 hover:bg-slate-50 transition-all duration-200" data-category="am">
-                <div class="space-y-1">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="inline-flex items-center gap-1 text-[10px] bg-teal-100 text-brand-700 font-bold px-2 py-0.5 rounded-full">
-                      <i data-lucide="info" class="w-3 h-3"></i> PEKELILING
-                    </span>
-                    <span class="text-xs text-slate-400 font-medium">05 Julai 2026</span>
-                  </div>
-                  <h4 class="font-bold text-sm text-navy-900">Tatacara Permohonan Cuti Sakit Melalui Sistem Baharu</h4>
-                  <p class="text-xs text-slate-500">Pemberitahuan panduan terperinci penggunaan modul Cuti Sakit (E-Leave) bagi kakitangan klinikal dan pentadbiran.</p>
-                </div>
-                <button onclick="viewAnnouncementDetails('Panduan E-Leave', 'Tatacara Permohonan Cuti Sakit Melalui Sistem Baharu. Pastikan sijil sakit (MC) dimuat naik dalam format PDF resolusi tinggi berserta tandatangan doktor.')" class="flex-shrink-0 text-xs font-semibold text-brand-600 hover:text-brand-700 hover:underline flex items-center gap-1 self-start md:self-auto">
-                  Baca Penuh <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-
-              <!-- Item 3: Penting -->
-              <div class="announcement-item-card flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl border-l-4 border-l-blue-500 border border-navy-100 hover:bg-slate-50 transition-all duration-200" data-category="penting">
-                <div class="space-y-1">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="inline-flex items-center gap-1 text-[10px] bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded-full">
-                      <i data-lucide="umbrella" class="w-3 h-3"></i> BANJIR
-                    </span>
-                    <span class="text-xs text-slate-400 font-medium">02 Julai 2026</span>
-                  </div>
-                  <h4 class="font-bold text-sm text-navy-900">Persediaan Pelan Tindakan Awal Bencana Banjir Jabatan 2026/2027</h4>
-                  <p class="text-xs text-slate-500">Arahan pengemaskinian status aset penting luar pejabat dan persediaan pusat pemindahan logistik klinik.</p>
-                </div>
-                <button onclick="viewAnnouncementDetails('Pelan Bencana Banjir', 'Persediaan Pelan Tindakan Bencana Banjir. Mesyuarat jawatankuasa bencana banjir akan diadakan minggu depan bagi menyelaraskan pengedaran kotak pertolongan cemas.')" class="flex-shrink-0 text-xs font-semibold text-brand-600 hover:text-brand-700 hover:underline flex items-center gap-1 self-start md:self-auto">
-                  Baca Penuh <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
+              <button
+                onclick="viewAnnouncementDetails('Audit Sterilisasi', 'Arahan Pematuhan Audit Kebersihan dan Sterilisasi Klinik Kesihatan 2026. Fail mestilah lengkap dan dihantar kepada Unit Kualiti sebelum tarikh tutup.')"
+                class="flex-shrink-0 text-xs font-semibold text-brand-600 hover:text-brand-700 hover:underline flex items-center gap-1 self-start md:self-auto">
+                Baca Penuh <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
             </div>
 
-            <!-- Add announcement option (Dynamic Demo) -->
-            <div class="mt-4 pt-4 border-t border-navy-100 flex justify-end">
-              <button onclick="openNewAnnouncementModal()" class="inline-flex items-center gap-2 text-xs font-semibold bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-xl shadow-md shadow-brand-500/10 transition-all">
-                <i data-lucide="plus" class="w-4 h-4"></i> Tambah Pengumuman Baru
+            <!-- Item 2: Am -->
+            <div
+              class="announcement-item-card flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl border-l-4 border-l-brand-500 border border-navy-100 bg-brand-50/5 hover:bg-slate-50 transition-all duration-200"
+              data-category="am">
+              <div class="space-y-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span
+                    class="inline-flex items-center gap-1 text-[10px] bg-teal-100 text-brand-700 font-bold px-2 py-0.5 rounded-full">
+                    <i data-lucide="info" class="w-3 h-3"></i> PEKELILING
+                  </span>
+                  <span class="text-xs text-slate-400 font-medium">05 Julai 2026</span>
+                </div>
+                <h4 class="font-bold text-sm text-navy-900">Tatacara Permohonan Cuti Sakit Melalui Sistem Baharu</h4>
+                <p class="text-xs text-slate-500">Pemberitahuan panduan terperinci penggunaan modul Cuti Sakit (E-Leave)
+                  bagi kakitangan klinikal dan pentadbiran.</p>
+              </div>
+              <button
+                onclick="viewAnnouncementDetails('Panduan E-Leave', 'Tatacara Permohonan Cuti Sakit Melalui Sistem Baharu. Pastikan sijil sakit (MC) dimuat naik dalam format PDF resolusi tinggi berserta tandatangan doktor.')"
+                class="flex-shrink-0 text-xs font-semibold text-brand-600 hover:text-brand-700 hover:underline flex items-center gap-1 self-start md:self-auto">
+                Baca Penuh <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+
+            <!-- Item 3: Penting -->
+            <div
+              class="announcement-item-card flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl border-l-4 border-l-blue-500 border border-navy-100 hover:bg-slate-50 transition-all duration-200"
+              data-category="penting">
+              <div class="space-y-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span
+                    class="inline-flex items-center gap-1 text-[10px] bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded-full">
+                    <i data-lucide="umbrella" class="w-3 h-3"></i> BANJIR
+                  </span>
+                  <span class="text-xs text-slate-400 font-medium">02 Julai 2026</span>
+                </div>
+                <h4 class="font-bold text-sm text-navy-900">Persediaan Pelan Tindakan Awal Bencana Banjir Jabatan
+                  2026/2027</h4>
+                <p class="text-xs text-slate-500">Arahan pengemaskinian status aset penting luar pejabat dan persediaan
+                  pusat pemindahan logistik klinik.</p>
+              </div>
+              <button
+                onclick="viewAnnouncementDetails('Pelan Bencana Banjir', 'Persediaan Pelan Tindakan Bencana Banjir. Mesyuarat jawatankuasa bencana banjir akan diadakan minggu depan bagi menyelaraskan pengedaran kotak pertolongan cemas.')"
+                class="flex-shrink-0 text-xs font-semibold text-brand-600 hover:text-brand-700 hover:underline flex items-center gap-1 self-start md:self-auto">
+                Baca Penuh <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
               </button>
             </div>
           </div>
-        </section>
 
-        <!-- Sub-Module Cards Grid Menu -->
-        <section class="space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-bold text-sm text-slate-500 uppercase tracking-wider">Sub-Modul Utama Pentadbiran</h3>
-            <span class="text-xs text-slate-400 font-medium">Klik pada kad untuk membuka panel interaktif</span>
-          </div>
-          
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- 1. Banjir -->
-            <div onclick="openSubModal('banjir')" class="group cursor-pointer bg-white p-6 rounded-2xl border border-navy-200 shadow-sm hover:border-blue-300 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-              <div class="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-bl-full group-hover:bg-blue-500/10 transition-colors"></div>
-              <div>
-                <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <i data-lucide="cloud-rain" class="w-6 h-6"></i>
-                </div>
-                <h4 class="font-bold text-base text-navy-900 group-hover:text-blue-600 transition-colors">Pengurusan Bencana Banjir</h4>
-                <p class="text-xs text-slate-500 mt-1">Status amaran banjir semasa, bilik gerakan, dan pelan tindakan kontingensi.</p>
-              </div>
-              <div class="mt-4 flex items-center justify-between text-xs font-semibold text-blue-600">
-                <span>Buka Panel</span>
-                <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-              </div>
-            </div>
-
-            <!-- 2. Log Pergerakan Staf -->
-            <div onclick="openSubModal('pergerakan')" class="group cursor-pointer bg-white p-6 rounded-2xl border border-navy-200 shadow-sm hover:border-teal-300 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-              <div class="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 rounded-bl-full group-hover:bg-teal-500/10 transition-colors"></div>
-              <div>
-                <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <i data-lucide="user-check" class="w-6 h-6"></i>
-                </div>
-                <h4 class="font-bold text-base text-navy-900 group-hover:text-teal-600 transition-colors">Log Pergerakan Staf</h4>
-                <p class="text-xs text-slate-500 mt-1">Daftar keluar masuk staf untuk urusan rasmi, tugasan luar, atau mesyuarat.</p>
-              </div>
-              <div class="mt-4 flex items-center justify-between text-xs font-semibold text-teal-600">
-                <span>Buka Panel</span>
-                <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-              </div>
-            </div>
-
-            <!-- 3. Tempahan Bilik Mesyuarat -->
-            <div onclick="openSubModal('mesyuarat')" class="group cursor-pointer bg-white p-6 rounded-2xl border border-navy-200 shadow-sm hover:border-indigo-300 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-              <div class="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-bl-full group-hover:bg-indigo-500/10 transition-colors"></div>
-              <div>
-                <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <i data-lucide="calendar-range" class="w-6 h-6"></i>
-                </div>
-                <h4 class="font-bold text-base text-navy-900 group-hover:text-indigo-600 transition-colors">Tempahan Bilik Mesyuarat</h4>
-                <p class="text-xs text-slate-500 mt-1">Urus tempahan bilik mesyuarat utama, peralatan LCD, dan persediaan jamuan.</p>
-              </div>
-              <div class="mt-4 flex items-center justify-between text-xs font-semibold text-indigo-600">
-                <span>Buka Panel</span>
-                <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-              </div>
-            </div>
-
-            <!-- 4. Kalendar Aktiviti & Acara -->
-            <div onclick="openSubModal('kalendar')" class="group cursor-pointer bg-white p-6 rounded-2xl border border-navy-200 shadow-sm hover:border-amber-300 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-              <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-bl-full group-hover:bg-amber-500/10 transition-colors"></div>
-              <div>
-                <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <i data-lucide="calendar" class="w-6 h-6"></i>
-                </div>
-                <h4 class="font-bold text-base text-navy-900 group-hover:text-amber-600 transition-colors">Kalendar Aktiviti Jabatan</h4>
-                <p class="text-xs text-slate-500 mt-1">Perancangan takwim acara tahunan, kursus latihan, dan program komuniti.</p>
-              </div>
-              <div class="mt-4 flex items-center justify-between text-xs font-semibold text-amber-600">
-                <span>Buka Panel</span>
-                <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-              </div>
-            </div>
-
-            <!-- 5. Surat-Menyurat & Dokumentasi -->
-            <div onclick="openSubModal('surat')" class="group cursor-pointer bg-white p-6 rounded-2xl border border-navy-200 shadow-sm hover:border-emerald-300 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-              <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full group-hover:bg-emerald-500/10 transition-colors"></div>
-              <div>
-                <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <i data-lucide="file-text" class="w-6 h-6"></i>
-                </div>
-                <h4 class="font-bold text-base text-navy-900 group-hover:text-emerald-600 transition-colors">Surat-Menyurat & Dokumentasi</h4>
-                <p class="text-xs text-slate-500 mt-1">Rekod surat rasmi masuk/keluar, minit mesyuarat, dan sistem arkib digital.</p>
-              </div>
-              <div class="mt-4 flex items-center justify-between text-xs font-semibold text-emerald-600">
-                <span>Buka Panel</span>
-                <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-              </div>
-            </div>
-
-            <!-- 6. Format Kertas Kerja Program -->
-            <div onclick="openSubModal('program')" class="group cursor-pointer bg-white p-6 rounded-2xl border border-navy-200 shadow-sm hover:border-rose-300 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-              <div class="absolute top-0 right-0 w-24 h-24 bg-rose-500/5 rounded-bl-full group-hover:bg-rose-500/10 transition-colors"></div>
-              <div>
-                <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <i data-lucide="file-archive" class="w-6 h-6"></i>
-                </div>
-                <h4 class="font-bold text-base text-navy-900 group-hover:text-rose-600 transition-colors">Format Kertas Kerja Program</h4>
-                <p class="text-xs text-slate-500 mt-1">Muat turun templat rasmi kertas cadangan program jabatan dan panduan bajet.</p>
-              </div>
-              <div class="mt-4 flex items-center justify-between text-xs font-semibold text-rose-600">
-                <span>Buka Panel</span>
-                <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-              </div>
-            </div>
-          </div>
-        </section>
-
-      </div>
-
-      <!-- FOOTER -->
-      <footer class="h-12 bg-white border-t border-navy-200 px-6 flex items-center justify-between flex-shrink-0 text-xs text-slate-400">
-        <div>&copy; 2026 Jabatan Pergigian Kota Bharu. Hak Cipta Terpelihara.</div>
-        <div class="hidden sm:block">Sistem Pengurusan Pentadbiran Korporat</div>
-      </footer>
-    </main>
-
-    <!-- ==================== SUB-MODULE INTERACTIVE MODALS ==================== -->
-    
-    <!-- 1. MODAL BANJIR -->
-    <div id="modal-banjir" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
-      <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
-        <div class="p-6 bg-blue-600 text-white flex justify-between items-center">
-          <div class="flex items-center gap-2">
-            <i data-lucide="cloud-rain" class="w-6 h-6"></i>
-            <div>
-              <h3 class="font-bold text-base">Pengurusan Bencana Banjir</h3>
-              <p class="text-[10px] text-blue-100">Portal Tindakan & Pemantauan Bencana Klinik</p>
-            </div>
-          </div>
-          <button onclick="closeSubModal('banjir')" class="p-1 rounded-lg hover:bg-blue-700 transition-colors">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
-        </div>
-        <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
-          <!-- Alert Banner -->
-          <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl flex items-start gap-3">
-            <i data-lucide="alert-triangle" class="text-blue-600 w-5 h-5 mt-0.5 flex-shrink-0"></i>
-            <div>
-              <h4 class="font-bold text-blue-800 text-xs">Status Semasa</h4>
-              <p class="text-xs text-blue-600 mt-0.5">Sila pantau amaran banjir di kawasan cawangan Pejabat Pergigian Kota Bharu. Kemas kini status dengan segera jika terdapat limpahan air.</p>
-            </div>
-          </div>
-          
-          <!-- Table/List View for Flood Warnings -->
-          <div class="space-y-3">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Senarai Amaran & Status Kawasan</h4>
-            <div class="border border-navy-100 rounded-xl overflow-hidden">
-              <table class="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr class="bg-slate-50 border-b border-navy-100 text-slate-500 font-bold">
-                    <th class="p-3">Lokasi / Cawangan</th>
-                    <th class="p-3">Status Air</th>
-                    <th class="p-3">Paras (Meter)</th>
-                    <th class="p-3">Masa Laporan</th>
-                    <th class="p-3">Pelapor</th>
-                  </tr>
-                </thead>
-                <tbody id="banjir-warnings-table-body">
-                  <!-- Dynamic Content -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Report form -->
-          <form onsubmit="submitBanjirReport(event)" class="space-y-4 border-t border-navy-100 pt-4">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Hantar Laporan Keadaan Premis</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Nama Klinik Cawangan / Lokasi</label>
-                <input id="banjir-location" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="cth: Klinik Pergigian Pengkalan Chepa" required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Status Semasa Premis</label>
-                <select id="banjir-status" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
-                  <option value="Normal">Normal / Selamat</option>
-                  <option value="Amaran">Amaran (Air Meningkat)</option>
-                  <option value="Bahaya">Bahaya (Limpahan Air)</option>
-                </select>
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Paras Air (Meter)</label>
-                <input id="banjir-meters" type="number" step="0.1" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="cth: 18.5" required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Nama Pelapor</label>
-                <input id="banjir-reporter" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Nama anda" required />
-              </div>
-              <div class="space-y-1 sm:col-span-2">
-                <label class="text-[11px] font-semibold text-slate-500">Catatan Tambahan</label>
-                <input id="banjir-notes" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Catatan keadaan cuaca dll." />
-              </div>
-            </div>
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-blue-500/10">
-              Hantar Laporan Status Banjir
+          <!-- Add announcement option (Dynamic Demo) -->
+          <div class="mt-4 pt-4 border-t border-navy-100 flex justify-end">
+            <button onclick="openNewAnnouncementModal()"
+              class="inline-flex items-center gap-2 text-xs font-semibold bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-xl shadow-md shadow-brand-500/10 transition-all">
+              <i data-lucide="plus" class="w-4 h-4"></i> Tambah Pengumuman Baru
             </button>
-          </form>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
 
-    <!-- 2. MODAL LOG PERGERAKAN STAF -->
-    <div id="modal-pergerakan" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
-      <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
-        <div class="p-6 bg-teal-600 text-white flex justify-between items-center">
-          <div class="flex items-center gap-2">
-            <i data-lucide="user-check" class="w-6 h-6"></i>
+      <!-- Sub-Module Cards Grid Menu -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-bold text-sm text-slate-500 uppercase tracking-wider">Sub-Modul Utama Pentadbiran</h3>
+          <span class="text-xs text-slate-400 font-medium">Klik pada kad untuk membuka panel interaktif</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- 1. Banjir -->
+          <div onclick="openSubModal('banjir')"
+            class="group cursor-pointer bg-white p-6 rounded-2xl border border-navy-200 shadow-sm hover:border-blue-300 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-bl-full group-hover:bg-blue-500/10 transition-colors">
+            </div>
             <div>
-              <h3 class="font-bold text-base">Log Pergerakan Staf</h3>
-              <p class="text-[10px] text-teal-100">Pendaftaran Keluar Pejabat & Tugas Rasmi</p>
+              <div
+                class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <i data-lucide="cloud-rain" class="w-6 h-6"></i>
+              </div>
+              <h4 class="font-bold text-base text-navy-900 group-hover:text-blue-600 transition-colors">Pengurusan
+                Bencana Banjir</h4>
+              <p class="text-xs text-slate-500 mt-1">Status amaran banjir semasa, bilik gerakan, dan pelan tindakan
+                kontingensi.</p>
             </div>
-          </div>
-          <button onclick="closeSubModal('pergerakan')" class="p-1 rounded-lg hover:bg-teal-700 transition-colors">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
-        </div>
-        <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
-          <!-- Manager Dashboard Statistics -->
-          <div class="grid grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-slate-50 border border-navy-100 text-center">
-              <span class="text-[10px] text-slate-500 uppercase font-semibold">Staf Di Pejabat (In)</span>
-              <p id="stats-staff-in" class="text-xl font-bold text-emerald-600 mt-1">--</p>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-navy-100 text-center">
-              <span class="text-[10px] text-slate-500 uppercase font-semibold">Staf Di Luar (Out)</span>
-              <p id="stats-staff-out" class="text-xl font-bold text-rose-500 mt-1">--</p>
+            <div class="mt-4 flex items-center justify-between text-xs font-semibold text-blue-600">
+              <span>Buka Panel</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
             </div>
           </div>
 
-          <!-- Active Table -->
-          <div class="space-y-3">
-            <div class="flex justify-between items-center">
-              <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Status Staf Di Luar Pejabat Hari Ini</h4>
-              <span class="text-[10px] text-teal-600 font-bold bg-teal-50 px-2 py-0.5 rounded-full" id="staff-out-count">--</span>
+          <!-- 2. Log Pergerakan Staf -->
+          <div onclick="openSubModal('pergerakan')"
+            class="group cursor-pointer bg-white p-6 rounded-2xl border border-navy-200 shadow-sm hover:border-teal-300 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 rounded-bl-full group-hover:bg-teal-500/10 transition-colors">
             </div>
-            <div class="border border-navy-100 rounded-xl overflow-hidden">
-              <table class="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr class="bg-slate-50 border-b border-navy-100 text-slate-500 font-bold">
-                    <th class="p-3">Nama</th>
-                    <th class="p-3">Tujuan / Destinasi</th>
-                    <th class="p-3">Status</th>
-                    <th class="p-3">Masa Keluar</th>
-                    <th class="p-3">Anggaran Pulang / Masuk</th>
-                    <th class="p-3 text-center">Tindakan</th>
-                  </tr>
-                </thead>
-                <tbody id="staff-log-table-body">
-                  <!-- Dynamic Content -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- Log submission -->
-          <form id="staff-checkout-form" onsubmit="submitStaffLog(event)" class="space-y-4 border-t border-navy-100 pt-4">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Daftar Keluar Pejabat Baharu</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Nama Kakitangan</label>
-                <input id="log-name" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Pn. Siti Aminah" required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Tujuan / Destinasi</label>
-                <input id="log-purpose" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Mesyuarat Kewangan di JKN" required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Masa Keluar</label>
-                <input id="log-time-out" type="time" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Anggaran Pulang</label>
-                <input id="log-time-in" type="time" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
-              </div>
-            </div>
-            <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-teal-500/10">
-              Daftar Keluar
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. MODAL TEMPAHAN BILIK MESYUARAT -->
-    <div id="modal-mesyuarat" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
-      <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
-        <div class="p-6 bg-indigo-600 text-white flex justify-between items-center">
-          <div class="flex items-center gap-2">
-            <i data-lucide="calendar-range" class="w-6 h-6"></i>
             <div>
-              <h3 class="font-bold text-base">Tempahan Bilik Mesyuarat</h3>
-              <p class="text-[10px] text-indigo-100">Borang Tempahan & Status Ketersediaan Bilik</p>
+              <div
+                class="w-12 h-12 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <i data-lucide="user-check" class="w-6 h-6"></i>
+              </div>
+              <h4 class="font-bold text-base text-navy-900 group-hover:text-teal-600 transition-colors">Log Pergerakan
+                Staf</h4>
+              <p class="text-xs text-slate-500 mt-1">Daftar keluar masuk staf untuk urusan rasmi, tugasan luar, atau
+                mesyuarat.</p>
+            </div>
+            <div class="mt-4 flex items-center justify-between text-xs font-semibold text-teal-600">
+              <span>Buka Panel</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
             </div>
           </div>
-          <button onclick="closeSubModal('mesyuarat')" class="p-1 rounded-lg hover:bg-indigo-700 transition-colors">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
-        </div>
-        <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
-          <!-- Availability state / Upcoming List -->
-          <div class="space-y-3">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Tempahan Akan Datang</h4>
-            <div id="upcoming-bookings" class="space-y-2 max-h-[160px] overflow-y-auto pr-1 custom-scrollbar">
-              <!-- Rendered Dynamically -->
-            </div>
-          </div>
-          <!-- Booking Form -->
-          <form onsubmit="submitBooking(event)" class="space-y-4 border-t border-navy-100 pt-4">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Borang Tempahan Bilik</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Pilih Bilik</label>
-                <select id="booking-room" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
-                  <option value="Bilik Mesyuarat Utama (Aras 2)">Bilik Mesyuarat Utama (Aras 2)</option>
-                  <option value="Bilik Perbincangan Mawar (Aras 1)">Bilik Perbincangan Mawar (Aras 1)</option>
-                </select>
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Nama Pemohon</label>
-                <input id="booking-applicant" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Dr. Azmi" required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Tarikh Tempahan</label>
-                <input id="booking-date" type="date" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Masa Mula (Format 24 jam)</label>
-                <input id="booking-start" type="time" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Masa Tamat (Format 24 jam)</label>
-                <input id="booking-end" type="time" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
-              </div>
-              <div class="space-y-1 sm:col-span-2">
-                <label class="text-[11px] font-semibold text-slate-500">Tujuan Mesyuarat / Tajuk</label>
-                <input id="booking-title" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Mesyuarat Penyelarasan MyPortfolio Pentadbiran" required />
-              </div>
-            </div>
-            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-indigo-500/10">
-              Hantar Permohonan Tempahan
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
 
-    <!-- 4. MODAL KALENDAR AKTIVITI -->
-    <div id="modal-kalendar" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
-      <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
-        <div class="p-6 bg-amber-500 text-white flex justify-between items-center">
-          <div class="flex items-center gap-2">
-            <i data-lucide="calendar" class="w-6 h-6"></i>
+          <!-- 3. Tempahan Bilik Mesyuarat -->
+          <div onclick="openSubModal('mesyuarat')"
+            class="group cursor-pointer bg-white p-6 rounded-2xl border border-navy-200 shadow-sm hover:border-indigo-300 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-bl-full group-hover:bg-indigo-500/10 transition-colors">
+            </div>
             <div>
-              <h3 class="font-bold text-base">Kalendar Aktiviti Jabatan</h3>
-              <p class="text-[10px] text-amber-100">Takwim Acara & Hari Penting Bulanan</p>
-            </div>
-          </div>
-          <button onclick="closeSubModal('kalendar')" class="p-1 rounded-lg hover:bg-amber-600 transition-colors">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
-        </div>
-        <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
-          
-          <!-- Monthly Interactive Calendar View -->
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <button onclick="changeMonth(-1)" class="p-1 bg-slate-100 hover:bg-slate-200 rounded text-slate-700"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
-              <h4 id="calendar-month-year" class="font-bold text-sm text-navy-900">Julai 2026</h4>
-              <button onclick="changeMonth(1)" class="p-1 bg-slate-100 hover:bg-slate-200 rounded text-slate-700"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
-            </div>
-            
-            <!-- Calendar Grid -->
-            <div class="border border-navy-100 rounded-xl p-3 bg-slate-50">
-              <div class="grid grid-cols-7 gap-2 text-center font-bold text-[10px] text-slate-500 mb-2">
-                <span>Ahd</span><span>Isn</span><span>Sel</span><span>Rab</span><span>Kha</span><span>Jum</span><span>Sab</span>
+              <div
+                class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <i data-lucide="calendar-range" class="w-6 h-6"></i>
               </div>
-              <div id="calendar-days-grid" class="grid grid-cols-7 gap-2">
-                <!-- Days will render here -->
-              </div>
+              <h4 class="font-bold text-base text-navy-900 group-hover:text-indigo-600 transition-colors">Tempahan Bilik
+                Mesyuarat</h4>
+              <p class="text-xs text-slate-500 mt-1">Urus tempahan bilik mesyuarat utama, peralatan LCD, dan persediaan
+                jamuan.</p>
+            </div>
+            <div class="mt-4 flex items-center justify-between text-xs font-semibold text-indigo-600">
+              <span>Buka Panel</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
             </div>
           </div>
 
-          <!-- Clicked Event Detail Panel -->
-          <div id="event-detail-box" class="bg-amber-50/30 border border-amber-200 p-4 rounded-xl hidden">
-            <h5 id="event-detail-title" class="font-bold text-xs text-amber-800">Nama Acara</h5>
-            <p class="text-xs text-slate-600 mt-1"><strong class="text-amber-900">Tempat:</strong> <span id="event-detail-venue">--</span></p>
-            <p class="text-xs text-slate-600"><strong class="text-amber-900">Unit Terlibat:</strong> <span id="event-detail-dept">--</span></p>
-            <p class="text-xs text-slate-600"><strong class="text-amber-900">Tarikh:</strong> <span id="event-detail-date">--</span></p>
-            <p id="event-detail-desc" class="text-xs text-slate-500 mt-2 italic">--</p>
-          </div>
-
-          <!-- Register event form -->
-          <form onsubmit="submitCalendarEvent(event)" class="space-y-4 border-t border-navy-100 pt-4">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Daftar Cadangan Aktiviti Baharu</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Nama Acara</label>
-                <input id="event-name" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Taklimat Audit Keselamatan" required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Unit / Jabatan Terlibat</label>
-                <input id="event-dept" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Klinikal, Sokongan, Semua" required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Tarikh Acara</label>
-                <input id="event-date" type="date" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Tempat (Venue)</label>
-                <input id="event-venue" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: Dewan Utama JKN" required />
-              </div>
-              <div class="space-y-1 sm:col-span-2">
-                <label class="text-[11px] font-semibold text-slate-500">Catatan / Penerangan Ringkas</label>
-                <input id="event-desc" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Ringkasan aktiviti" />
-              </div>
+          <!-- 4. Kalendar Aktiviti & Acara -->
+          <div onclick="openSubModal('kalendar')"
+            class="group cursor-pointer bg-white p-6 rounded-2xl border border-navy-200 shadow-sm hover:border-amber-300 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-bl-full group-hover:bg-amber-500/10 transition-colors">
             </div>
-            <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-amber-500/10">
-              Daftar Acara
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. MODAL SURAT-MENYURAT & DOKUMENTASI -->
-    <div id="modal-surat" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
-      <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
-        <div class="p-6 bg-emerald-600 text-white flex justify-between items-center">
-          <div class="flex items-center gap-2">
-            <i data-lucide="file-text" class="w-6 h-6"></i>
             <div>
-              <h3 class="font-bold text-base">Surat-Menyurat & Dokumentasi</h3>
-              <p class="text-[10px] text-emerald-100">Sistem Log Surat Masuk & Keluar Jabatan</p>
+              <div
+                class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <i data-lucide="calendar" class="w-6 h-6"></i>
+              </div>
+              <h4 class="font-bold text-base text-navy-900 group-hover:text-amber-600 transition-colors">Kalendar
+                Aktiviti Jabatan</h4>
+              <p class="text-xs text-slate-500 mt-1">Perancangan takwim acara tahunan, kursus latihan, dan program
+                komuniti.</p>
             </div>
-          </div>
-          <button onclick="closeSubModal('surat')" class="p-1 rounded-lg hover:bg-emerald-700 transition-colors">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
-        </div>
-        <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
-          
-          <!-- Search & Filter Bar -->
-          <div class="flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center">
-            <input id="search-surat" oninput="filterSuratList()" type="text" class="w-full sm:w-64 border border-navy-200 rounded-lg p-2 text-xs" placeholder="Cari No Rujukan atau Subjek..." />
-            
-            <div class="flex bg-navy-100 p-1 rounded-lg text-[10px] font-bold gap-1">
-              <button id="filter-surat-all" onclick="setSuratFilter('All')" class="px-3 py-1.5 rounded bg-white text-emerald-700 shadow-sm">Semua</button>
-              <button id="filter-surat-pending" onclick="setSuratFilter('Pending')" class="px-3 py-1.5 rounded text-slate-600 hover:text-navy-900">Pending</button>
-              <button id="filter-surat-completed" onclick="setSuratFilter('Completed')" class="px-3 py-1.5 rounded text-slate-600 hover:text-navy-900">Completed</button>
+            <div class="mt-4 flex items-center justify-between text-xs font-semibold text-amber-600">
+              <span>Buka Panel</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
             </div>
           </div>
 
-          <!-- Letter logs table -->
-          <div class="space-y-3">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Log Surat Rasmi Terkini</h4>
-            <div class="border border-navy-100 rounded-xl overflow-hidden text-xs">
-              <table class="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr class="bg-slate-50 border-b border-navy-100 font-bold text-slate-500">
-                    <th class="p-3">Rujukan / Tajuk</th>
-                    <th class="p-3">Pengirim / Penerima</th>
-                    <th class="p-3">Jenis</th>
-                    <th class="p-3">Tarikh</th>
-                    <th class="p-3">Status</th>
-                    <th class="p-3 text-center">Tindakan</th>
-                  </tr>
-                </thead>
-                <tbody id="surat-log-table-body">
-                  <!-- Dynamic Content -->
-                </tbody>
-              </table>
+          <!-- 5. Surat-Menyurat & Dokumentasi -->
+          <div onclick="openSubModal('surat')"
+            class="group cursor-pointer bg-white p-6 rounded-2xl border border-navy-200 shadow-sm hover:border-emerald-300 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full group-hover:bg-emerald-500/10 transition-colors">
             </div>
-          </div>
-
-          <!-- Register letter form -->
-          <form onsubmit="submitLetter(event)" class="space-y-4 border-t border-navy-100 pt-4">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Daftar Surat Masuk / Keluar Baru</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">No Rujukan Surat</label>
-                <input id="letter-ref" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Contoh: KKM.600-2/3..." required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Pengirim / Penerima (Agensi)</label>
-                <input id="letter-sender" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Kementerian/Jabatan/Syarikat" required />
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Kategori Surat</label>
-                <select id="letter-category" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
-                  <option value="Incoming">Surat Masuk (Incoming)</option>
-                  <option value="Outgoing">Surat Keluar (Outgoing)</option>
-                </select>
-              </div>
-              <div class="space-y-1">
-                <label class="text-[11px] font-semibold text-slate-500">Tarikh Penerimaan / Dihantar</label>
-                <input id="letter-date" type="date" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required />
-              </div>
-              <div class="space-y-1 sm:col-span-2">
-                <label class="text-[11px] font-semibold text-slate-500">Tajuk Surat (Subjek)</label>
-                <input id="letter-subject" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="Tajuk penuh surat rasmi" required />
-              </div>
-            </div>
-            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-emerald-500/10">
-              Simpan Rekod Surat
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. MODAL KERTAS KERJA PROGRAM -->
-    <div id="modal-program" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
-      <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
-        <div class="p-6 bg-rose-600 text-white flex justify-between items-center">
-          <div class="flex items-center gap-2">
-            <i data-lucide="file-archive" class="w-6 h-6"></i>
             <div>
-              <h3 class="font-bold text-base">Format Kertas Kerja Program</h3>
-              <p class="text-[10px] text-rose-100">Repositori Templat Kertas Kerja & Program</p>
+              <div
+                class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <i data-lucide="file-text" class="w-6 h-6"></i>
+              </div>
+              <h4 class="font-bold text-base text-navy-900 group-hover:text-emerald-600 transition-colors">
+                Surat-Menyurat & Dokumentasi</h4>
+              <p class="text-xs text-slate-500 mt-1">Rekod surat rasmi masuk/keluar, minit mesyuarat, dan sistem arkib
+                digital.</p>
+            </div>
+            <div class="mt-4 flex items-center justify-between text-xs font-semibold text-emerald-600">
+              <span>Buka Panel</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
             </div>
           </div>
-          <button onclick="closeSubModal('program')" class="p-1 rounded-lg hover:bg-rose-700 transition-colors">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
-        </div>
-        <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
-          <!-- Template list -->
-          <div class="space-y-3">
-            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Senarai Templat Rasmi (KKM/JKN)</h4>
-            <div id="paper-templates-list" class="space-y-3">
-              <!-- Rendered Dynamically -->
+
+          <!-- 6. Format Kertas Kerja Program -->
+          <div onclick="openSubModal('program')"
+            class="group cursor-pointer bg-white p-6 rounded-2xl border border-navy-200 shadow-sm hover:border-rose-300 hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-rose-500/5 rounded-bl-full group-hover:bg-rose-500/10 transition-colors">
+            </div>
+            <div>
+              <div
+                class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <i data-lucide="file-archive" class="w-6 h-6"></i>
+              </div>
+              <h4 class="font-bold text-base text-navy-900 group-hover:text-rose-600 transition-colors">Format Kertas
+                Kerja Program</h4>
+              <p class="text-xs text-slate-500 mt-1">Muat turun templat rasmi kertas cadangan program jabatan dan
+                panduan bajet.</p>
+            </div>
+            <div class="mt-4 flex items-center justify-between text-xs font-semibold text-rose-600">
+              <span>Buka Panel</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
             </div>
           </div>
-          <!-- Guidelines info -->
-          <div class="bg-rose-50 border border-rose-200 p-4 rounded-xl">
-            <h5 class="font-bold text-rose-800 text-xs flex items-center gap-2">
-              <i data-lucide="info" class="w-4 h-4 text-rose-600"></i> Syarat Penyerahan Kertas Kerja
-            </h5>
-            <ol class="list-decimal pl-4 text-xs text-rose-700 mt-2 space-y-1">
-              <li>Mestilah diserahkan sekurang-kurangnya 30 hari sebelum program dijalankan.</li>
-              <li>Mendapat sokongan bertulis daripada Ketua Jabatan / Pegawai Kanan.</li>
-              <li>Peruntukan bajet melebihi RM 5,000 memerlukan persetujuan Pegawai Kewangan JKN.</li>
-            </ol>
-          </div>
         </div>
-      </div>
+      </section>
+
     </div>
 
+    <!-- FOOTER -->
+    <footer
+      class="h-12 bg-white border-t border-navy-200 px-6 flex items-center justify-between flex-shrink-0 text-xs text-slate-400">
+      <div>&copy; 2026 Jabatan Pergigian Kota Bharu. Hak Cipta Terpelihara.</div>
+      <div class="hidden sm:block">Sistem Pengurusan Pentadbiran Korporat</div>
+    </footer>
+  </main>
 
-    <!-- DYNAMIC DETAIL MODAL (ANNOUNCEMENT READ FULL) -->
-    <div id="modal-announcement-details" class="fixed inset-0 z-[60] flex items-center justify-center bg-navy-950/50 p-4 hidden">
-      <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col">
-        <div class="p-5 border-b border-navy-200 flex justify-between items-center bg-slate-50">
-          <h3 id="ann-modal-title" class="font-bold text-navy-900">Maklumat Pengumuman</h3>
-          <button onclick="closeAnnouncementDetails()" class="p-1 rounded-lg hover:bg-slate-200 transition-colors text-slate-500">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
+  <!-- ==================== SUB-MODULE INTERACTIVE MODALS ==================== -->
+
+  <!-- 1. MODAL BANJIR -->
+  <div id="modal-banjir" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
+    <div
+      class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
+      <div class="p-6 bg-blue-600 text-white flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <i data-lucide="cloud-rain" class="w-6 h-6"></i>
+          <div>
+            <h3 class="font-bold text-base">Pengurusan Bencana Banjir</h3>
+            <p class="text-[10px] text-blue-100">Portal Tindakan & Pemantauan Bencana Klinik</p>
+          </div>
         </div>
-        <div class="p-6 space-y-4">
-          <h4 id="ann-modal-subject" class="font-bold text-sm text-navy-900"></h4>
-          <p id="ann-modal-body" class="text-xs text-slate-600 leading-relaxed"></p>
-        </div>
-        <div class="p-4 bg-slate-50 border-t border-navy-100 flex justify-end">
-          <button onclick="closeAnnouncementDetails()" class="bg-navy-900 text-white font-semibold text-xs py-2 px-4 rounded-xl hover:bg-navy-800 transition-colors">
-            Tutup
-          </button>
-        </div>
+        <button onclick="closeSubModal('banjir')" class="p-1 rounded-lg hover:bg-blue-700 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
       </div>
-    </div>
-
-    <!-- DYNAMIC ADD ANNOUNCEMENT MODAL -->
-    <div id="modal-add-announcement" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
-      <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col">
-        <div class="p-5 border-b border-navy-200 flex justify-between items-center bg-slate-50">
-          <h3 class="font-bold text-navy-900 flex items-center gap-2">
-            <i data-lucide="megaphone" class="w-5 h-5 text-brand-500"></i> Tambah Pengumuman Baharu
-          </h3>
-          <button onclick="closeNewAnnouncementModal()" class="p-1 rounded-lg hover:bg-slate-200 transition-colors text-slate-500">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
+      <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
+        <!-- Alert Banner -->
+        <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl flex items-start gap-3">
+          <i data-lucide="alert-triangle" class="text-blue-600 w-5 h-5 mt-0.5 flex-shrink-0"></i>
+          <div>
+            <h4 class="font-bold text-blue-800 text-xs">Status Semasa</h4>
+            <p class="text-xs text-blue-600 mt-0.5">Sila pantau amaran banjir di kawasan cawangan Pejabat Pergigian Kota
+              Bharu. Kemas kini status dengan segera jika terdapat limpahan air.</p>
+          </div>
         </div>
-        <form onsubmit="submitNewAnnouncement(event)" class="p-6 space-y-4 text-xs">
-          <div class="space-y-1">
-            <label class="font-semibold text-slate-500">Tajuk Pengumuman</label>
-            <input id="ann-input-title" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="cth: Pengumuman Cuti Umum Jabatan" required />
+
+        <!-- Table/List View for Flood Warnings -->
+        <div class="space-y-3">
+          <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Senarai Amaran & Status Kawasan</h4>
+          <div class="border border-navy-100 rounded-xl overflow-hidden">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-50 border-b border-navy-100 text-slate-500 font-bold">
+                  <th class="p-3">Lokasi / Cawangan</th>
+                  <th class="p-3">Status Air</th>
+                  <th class="p-3">Paras (Meter)</th>
+                  <th class="p-3">Masa Laporan</th>
+                  <th class="p-3">Pelapor</th>
+                </tr>
+              </thead>
+              <tbody id="banjir-warnings-table-body">
+                <!-- Dynamic Content -->
+              </tbody>
+            </table>
           </div>
-          <div class="space-y-1">
-            <label class="font-semibold text-slate-500">Kategori</label>
-            <select id="ann-input-category" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
-              <option value="penting">Penting (Segera)</option>
-              <option value="am">Pekeliling Am</option>
-            </select>
+        </div>
+
+        <!-- Report form -->
+        <form onsubmit="submitBanjirReport(event)" class="space-y-4 border-t border-navy-100 pt-4">
+          <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Hantar Laporan Keadaan Premis</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Nama Klinik Cawangan / Lokasi</label>
+              <input id="banjir-location" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="cth: Klinik Pergigian Pengkalan Chepa" required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Status Semasa Premis</label>
+              <select id="banjir-status" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
+                <option value="Normal">Normal / Selamat</option>
+                <option value="Amaran">Amaran (Air Meningkat)</option>
+                <option value="Bahaya">Bahaya (Limpahan Air)</option>
+              </select>
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Paras Air (Meter)</label>
+              <input id="banjir-meters" type="number" step="0.1"
+                class="w-full border border-navy-200 rounded-lg p-2 text-xs" placeholder="cth: 18.5" required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Nama Pelapor</label>
+              <input id="banjir-reporter" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Nama anda" required />
+            </div>
+            <div class="space-y-1 sm:col-span-2">
+              <label class="text-[11px] font-semibold text-slate-500">Catatan Tambahan</label>
+              <input id="banjir-notes" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Catatan keadaan cuaca dll." />
+            </div>
           </div>
-          <div class="space-y-1">
-            <label class="font-semibold text-slate-500">Kandungan / Butiran Pengumuman</label>
-            <textarea id="ann-input-body" class="w-full border border-navy-200 rounded-lg p-2 text-xs h-24" placeholder="Tulis mesej penuh di sini..." required></textarea>
-          </div>
-          <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-brand-500/10">
-            Terbitkan Pengumuman
+          <button type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-blue-500/10">
+            Hantar Laporan Status Banjir
           </button>
         </form>
       </div>
     </div>
+  </div>
 
-    <!-- ==================== PAGE SCRIPTS ==================== -->
-    <script>
-      // Initialize Lucide Icons
-      lucide.createIcons();
+  <!-- 2. MODAL LOG PERGERAKAN STAF -->
+  <div id="modal-pergerakan" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
+    <div
+      class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
+      <div class="p-6 bg-teal-600 text-white flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <i data-lucide="user-check" class="w-6 h-6"></i>
+          <div>
+            <h3 class="font-bold text-base">Log Pergerakan Staf</h3>
+            <p class="text-[10px] text-teal-100">Pendaftaran Keluar Pejabat & Tugas Rasmi</p>
+          </div>
+        </div>
+        <button onclick="closeSubModal('pergerakan')" class="p-1 rounded-lg hover:bg-teal-700 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
+        <!-- Manager Dashboard Statistics -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="p-4 rounded-xl bg-slate-50 border border-navy-100 text-center">
+            <span class="text-[10px] text-slate-500 uppercase font-semibold">Staf Di Pejabat (In)</span>
+            <p id="stats-staff-in" class="text-xl font-bold text-emerald-600 mt-1">--</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-navy-100 text-center">
+            <span class="text-[10px] text-slate-500 uppercase font-semibold">Staf Di Luar (Out)</span>
+            <p id="stats-staff-out" class="text-xl font-bold text-rose-500 mt-1">--</p>
+          </div>
+        </div>
 
-      // Sidebar responsive toggle
-      function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const backdrop = document.getElementById('sidebar-backdrop');
-        
-        if (sidebar.classList.contains('-translate-x-full')) {
-          sidebar.classList.remove('-translate-x-full');
-          backdrop.classList.remove('hidden');
+        <!-- Active Table -->
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Status Staf Di Luar Pejabat Hari Ini
+            </h4>
+            <span class="text-[10px] text-teal-600 font-bold bg-teal-50 px-2 py-0.5 rounded-full"
+              id="staff-out-count">--</span>
+          </div>
+          <div class="border border-navy-100 rounded-xl overflow-hidden">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-50 border-b border-navy-100 text-slate-500 font-bold">
+                  <th class="p-3">Nama</th>
+                  <th class="p-3">Tujuan / Destinasi</th>
+                  <th class="p-3">Status</th>
+                  <th class="p-3">Masa Keluar</th>
+                  <th class="p-3">Anggaran Pulang / Masuk</th>
+                  <th class="p-3 text-center">Tindakan</th>
+                </tr>
+              </thead>
+              <tbody id="staff-log-table-body">
+                <!-- Dynamic Content -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Log submission -->
+        <form id="staff-checkout-form" onsubmit="submitStaffLog(event)" class="space-y-4 border-t border-navy-100 pt-4">
+          <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Daftar Keluar Pejabat Baharu</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Nama Kakitangan</label>
+              <input id="log-name" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Contoh: Pn. Siti Aminah" required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Tujuan / Destinasi</label>
+              <input id="log-purpose" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Contoh: Mesyuarat Kewangan di JKN" required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Masa Keluar</label>
+              <input id="log-time-out" type="time" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Anggaran Pulang</label>
+              <input id="log-time-in" type="time" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                required />
+            </div>
+          </div>
+          <button type="submit"
+            class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-teal-500/10">
+            Daftar Keluar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. MODAL TEMPAHAN BILIK MESYUARAT -->
+  <div id="modal-mesyuarat" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
+    <div
+      class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
+      <div class="p-6 bg-indigo-600 text-white flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <i data-lucide="calendar-range" class="w-6 h-6"></i>
+          <div>
+            <h3 class="font-bold text-base">Tempahan Bilik Mesyuarat</h3>
+            <p class="text-[10px] text-indigo-100">Borang Tempahan & Status Ketersediaan Bilik</p>
+          </div>
+        </div>
+        <button onclick="closeSubModal('mesyuarat')" class="p-1 rounded-lg hover:bg-indigo-700 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
+        <!-- Availability state / Upcoming List -->
+        <div class="space-y-3">
+          <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Tempahan Akan Datang</h4>
+          <div id="upcoming-bookings" class="space-y-2 max-h-[160px] overflow-y-auto pr-1 custom-scrollbar">
+            <!-- Rendered Dynamically -->
+          </div>
+        </div>
+        <!-- Booking Form -->
+        <form onsubmit="submitBooking(event)" class="space-y-4 border-t border-navy-100 pt-4">
+          <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Borang Tempahan Bilik</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Pilih Bilik</label>
+              <select id="booking-room" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
+                <option value="Bilik Mesyuarat KPKB">Bilik Mesyuarat KPKB </option>
+                <option value="Bilik Mesyuarat Kubang Kerian">Bilik Mesyuarat Kubang Kerian</option>
+              </select>
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Nama Pemohon</label>
+              <input id="booking-applicant" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Contoh: Dr. Azmi" required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Tarikh Tempahan</label>
+              <input id="booking-date" type="date" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Masa Mula (Format 24 jam)</label>
+              <input id="booking-start" type="time" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Masa Tamat (Format 24 jam)</label>
+              <input id="booking-end" type="time" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                required />
+            </div>
+            <div class="space-y-1 sm:col-span-2">
+              <label class="text-[11px] font-semibold text-slate-500">Tujuan Mesyuarat / Tajuk</label>
+              <input id="booking-title" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Contoh: Mesyuarat Penyelarasan MyPortfolio Pentadbiran" required />
+            </div>
+          </div>
+          <button type="submit"
+            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-indigo-500/10">
+            Hantar Permohonan Tempahan
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. MODAL KALENDAR AKTIVITI -->
+  <div id="modal-kalendar" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
+    <div
+      class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
+      <div class="p-6 bg-amber-500 text-white flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <i data-lucide="calendar" class="w-6 h-6"></i>
+          <div>
+            <h3 class="font-bold text-base">Kalendar Aktiviti Jabatan</h3>
+            <p class="text-[10px] text-amber-100">Takwim Acara & Hari Penting Bulanan</p>
+          </div>
+        </div>
+        <button onclick="closeSubModal('kalendar')" class="p-1 rounded-lg hover:bg-amber-600 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
+
+        <!-- Monthly Interactive Calendar View -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <button onclick="changeMonth(-1)" class="p-1 bg-slate-100 hover:bg-slate-200 rounded text-slate-700"><i
+                data-lucide="chevron-left" class="w-4 h-4"></i></button>
+            <h4 id="calendar-month-year" class="font-bold text-sm text-navy-900">Julai 2026</h4>
+            <button onclick="changeMonth(1)" class="p-1 bg-slate-100 hover:bg-slate-200 rounded text-slate-700"><i
+                data-lucide="chevron-right" class="w-4 h-4"></i></button>
+          </div>
+
+          <!-- Calendar Grid -->
+          <div class="border border-navy-100 rounded-xl p-3 bg-slate-50">
+            <div class="grid grid-cols-7 gap-2 text-center font-bold text-[10px] text-slate-500 mb-2">
+              <span>Ahd</span><span>Isn</span><span>Sel</span><span>Rab</span><span>Kha</span><span>Jum</span><span>Sab</span>
+            </div>
+            <div id="calendar-days-grid" class="grid grid-cols-7 gap-2">
+              <!-- Days will render here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Clicked Event Detail Panel -->
+        <div id="event-detail-box" class="bg-amber-50/30 border border-amber-200 p-4 rounded-xl hidden">
+          <h5 id="event-detail-title" class="font-bold text-xs text-amber-800">Nama Acara</h5>
+          <p class="text-xs text-slate-600 mt-1"><strong class="text-amber-900">Tempat:</strong> <span
+              id="event-detail-venue">--</span></p>
+          <p class="text-xs text-slate-600"><strong class="text-amber-900">Unit Terlibat:</strong> <span
+              id="event-detail-dept">--</span></p>
+          <p class="text-xs text-slate-600"><strong class="text-amber-900">Tarikh:</strong> <span
+              id="event-detail-date">--</span></p>
+          <p id="event-detail-desc" class="text-xs text-slate-500 mt-2 italic">--</p>
+        </div>
+
+        <!-- Register event form -->
+        <form onsubmit="submitCalendarEvent(event)" class="space-y-4 border-t border-navy-100 pt-4">
+          <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Daftar Cadangan Aktiviti Baharu</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Nama Acara</label>
+              <input id="event-name" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Contoh: Taklimat Audit Keselamatan" required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Unit / Jabatan Terlibat</label>
+              <input id="event-dept" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Contoh: Klinikal, Sokongan, Semua" required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Tarikh Acara</label>
+              <input id="event-date" type="date" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Tempat (Venue)</label>
+              <input id="event-venue" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Contoh: Dewan Utama JKN" required />
+            </div>
+            <div class="space-y-1 sm:col-span-2">
+              <label class="text-[11px] font-semibold text-slate-500">Catatan / Penerangan Ringkas</label>
+              <input id="event-desc" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Ringkasan aktiviti" />
+            </div>
+          </div>
+          <button type="submit"
+            class="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-amber-500/10">
+            Daftar Acara
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. MODAL SURAT-MENYURAT & DOKUMENTASI -->
+  <div id="modal-surat" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
+    <div
+      class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
+      <div class="p-6 bg-emerald-600 text-white flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <i data-lucide="file-text" class="w-6 h-6"></i>
+          <div>
+            <h3 class="font-bold text-base">Surat-Menyurat & Dokumentasi</h3>
+            <p class="text-[10px] text-emerald-100">Sistem Log Surat Masuk & Keluar Jabatan</p>
+          </div>
+        </div>
+        <button onclick="closeSubModal('surat')" class="p-1 rounded-lg hover:bg-emerald-700 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
+
+        <!-- Search & Filter Bar -->
+        <div class="flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center">
+          <input id="search-surat" oninput="filterSuratList()" type="text"
+            class="w-full sm:w-64 border border-navy-200 rounded-lg p-2 text-xs"
+            placeholder="Cari No Rujukan atau Subjek..." />
+
+          <div class="flex bg-navy-100 p-1 rounded-lg text-[10px] font-bold gap-1">
+            <button id="filter-surat-all" onclick="setSuratFilter('All')"
+              class="px-3 py-1.5 rounded bg-white text-emerald-700 shadow-sm">Semua</button>
+            <button id="filter-surat-pending" onclick="setSuratFilter('Pending')"
+              class="px-3 py-1.5 rounded text-slate-600 hover:text-navy-900">Pending</button>
+            <button id="filter-surat-completed" onclick="setSuratFilter('Completed')"
+              class="px-3 py-1.5 rounded text-slate-600 hover:text-navy-900">Completed</button>
+          </div>
+        </div>
+
+        <!-- Letter logs table -->
+        <div class="space-y-3">
+          <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Log Surat Rasmi Terkini</h4>
+          <div class="border border-navy-100 rounded-xl overflow-hidden text-xs">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-50 border-b border-navy-100 font-bold text-slate-500">
+                  <th class="p-3">Rujukan / Tajuk</th>
+                  <th class="p-3">Pengirim / Penerima</th>
+                  <th class="p-3">Jenis</th>
+                  <th class="p-3">Tarikh</th>
+                  <th class="p-3">Status</th>
+                  <th class="p-3 text-center">Tindakan</th>
+                </tr>
+              </thead>
+              <tbody id="surat-log-table-body">
+                <!-- Dynamic Content -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Register letter form -->
+        <form onsubmit="submitLetter(event)" class="space-y-4 border-t border-navy-100 pt-4">
+          <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Daftar Surat Masuk / Keluar Baru</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">No Rujukan Surat</label>
+              <input id="letter-ref" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Contoh: KKM.600-2/3..." required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Pengirim / Penerima (Agensi)</label>
+              <input id="letter-sender" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Kementerian/Jabatan/Syarikat" required />
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Kategori Surat</label>
+              <select id="letter-category" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
+                <option value="Incoming">Surat Masuk (Incoming)</option>
+                <option value="Outgoing">Surat Keluar (Outgoing)</option>
+              </select>
+            </div>
+            <div class="space-y-1">
+              <label class="text-[11px] font-semibold text-slate-500">Tarikh Penerimaan / Dihantar</label>
+              <input id="letter-date" type="date" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                required />
+            </div>
+            <div class="space-y-1 sm:col-span-2">
+              <label class="text-[11px] font-semibold text-slate-500">Tajuk Surat (Subjek)</label>
+              <input id="letter-subject" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+                placeholder="Tajuk penuh surat rasmi" required />
+            </div>
+          </div>
+          <button type="submit"
+            class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-emerald-500/10">
+            Simpan Rekod Surat
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. MODAL KERTAS KERJA PROGRAM -->
+  <div id="modal-program" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
+    <div
+      class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
+      <div class="p-6 bg-rose-600 text-white flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <i data-lucide="file-archive" class="w-6 h-6"></i>
+          <div>
+            <h3 class="font-bold text-base">Format Kertas Kerja Program</h3>
+            <p class="text-[10px] text-rose-100">Repositori Templat Kertas Kerja & Program</p>
+          </div>
+        </div>
+        <button onclick="closeSubModal('program')" class="p-1 rounded-lg hover:bg-rose-700 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
+        <!-- Template list -->
+        <div class="space-y-3">
+          <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Senarai Templat Rasmi (KKM/JKN)</h4>
+          <div id="paper-templates-list" class="space-y-3">
+            <!-- Rendered Dynamically -->
+          </div>
+        </div>
+        <!-- Guidelines info -->
+        <div class="bg-rose-50 border border-rose-200 p-4 rounded-xl">
+          <h5 class="font-bold text-rose-800 text-xs flex items-center gap-2">
+            <i data-lucide="info" class="w-4 h-4 text-rose-600"></i> Syarat Penyerahan Kertas Kerja
+          </h5>
+          <ol class="list-decimal pl-4 text-xs text-rose-700 mt-2 space-y-1">
+            <li>Mestilah diserahkan sekurang-kurangnya 30 hari sebelum program dijalankan.</li>
+            <li>Mendapat sokongan bertulis daripada Ketua Jabatan / Pegawai Kanan.</li>
+            <li>Peruntukan bajet melebihi RM 5,000 memerlukan persetujuan Pegawai Kewangan JKN.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- DYNAMIC DETAIL MODAL (ANNOUNCEMENT READ FULL) -->
+  <div id="modal-announcement-details"
+    class="fixed inset-0 z-[60] flex items-center justify-center bg-navy-950/50 p-4 hidden">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col">
+      <div class="p-5 border-b border-navy-200 flex justify-between items-center bg-slate-50">
+        <h3 id="ann-modal-title" class="font-bold text-navy-900">Maklumat Pengumuman</h3>
+        <button onclick="closeAnnouncementDetails()"
+          class="p-1 rounded-lg hover:bg-slate-200 transition-colors text-slate-500">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="p-6 space-y-4">
+        <h4 id="ann-modal-subject" class="font-bold text-sm text-navy-900"></h4>
+        <p id="ann-modal-body" class="text-xs text-slate-600 leading-relaxed"></p>
+      </div>
+      <div class="p-4 bg-slate-50 border-t border-navy-100 flex justify-end">
+        <button onclick="closeAnnouncementDetails()"
+          class="bg-navy-900 text-white font-semibold text-xs py-2 px-4 rounded-xl hover:bg-navy-800 transition-colors">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DYNAMIC ADD ANNOUNCEMENT MODAL -->
+  <div id="modal-add-announcement"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col">
+      <div class="p-5 border-b border-navy-200 flex justify-between items-center bg-slate-50">
+        <h3 class="font-bold text-navy-900 flex items-center gap-2">
+          <i data-lucide="megaphone" class="w-5 h-5 text-brand-500"></i> Tambah Pengumuman Baharu
+        </h3>
+        <button onclick="closeNewAnnouncementModal()"
+          class="p-1 rounded-lg hover:bg-slate-200 transition-colors text-slate-500">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <form onsubmit="submitNewAnnouncement(event)" class="p-6 space-y-4 text-xs">
+        <div class="space-y-1">
+          <label class="font-semibold text-slate-500">Tajuk Pengumuman</label>
+          <input id="ann-input-title" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
+            placeholder="cth: Pengumuman Cuti Umum Jabatan" required />
+        </div>
+        <div class="space-y-1">
+          <label class="font-semibold text-slate-500">Kategori</label>
+          <select id="ann-input-category" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
+            <option value="penting">Penting (Segera)</option>
+            <option value="am">Pekeliling Am</option>
+          </select>
+        </div>
+        <div class="space-y-1">
+          <label class="font-semibold text-slate-500">Kandungan / Butiran Pengumuman</label>
+          <textarea id="ann-input-body" class="w-full border border-navy-200 rounded-lg p-2 text-xs h-24"
+            placeholder="Tulis mesej penuh di sini..." required></textarea>
+        </div>
+        <button type="submit"
+          class="w-full bg-brand-500 hover:bg-brand-600 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-brand-500/10">
+          Terbitkan Pengumuman
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE SCRIPTS ==================== -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Sidebar responsive toggle
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+
+      if (sidebar.classList.contains('-translate-x-full')) {
+        sidebar.classList.remove('-translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    }
+
+    // System Live Clock
+    function updateClock() {
+      const clockEl = document.getElementById('live-clock');
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      let seconds = now.getSeconds();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+
+      clockEl.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Announcement Tab Filtering
+    function filterAnnouncements(category) {
+      const cards = document.querySelectorAll('.announcement-item-card');
+      const tabs = ['semua', 'penting', 'am'];
+
+      // Reset tabs appearance
+      tabs.forEach(t => {
+        const tabBtn = document.getElementById(`tab-${t}`);
+        tabBtn.className = "px-3 py-1.5 rounded-md transition-all text-slate-600 hover:text-navy-900";
+      });
+
+      // Style active tab
+      const activeTabBtn = document.getElementById(`tab-${category}`);
+      activeTabBtn.className = "px-3 py-1.5 rounded-md transition-all bg-white text-brand-600 shadow-sm";
+
+      // Show/hide cards
+      cards.forEach(card => {
+        if (category === 'semua') {
+          card.style.display = 'flex';
+        } else if (card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
         } else {
-          sidebar.classList.add('-translate-x-full');
-          backdrop.classList.add('hidden');
+          card.style.display = 'none';
         }
-      }
+      });
+    }
 
-      // System Live Clock
-      function updateClock() {
-        const clockEl = document.getElementById('live-clock');
-        const now = new Date();
-        let hours = now.getHours();
-        let minutes = now.getMinutes();
-        let seconds = now.getSeconds();
-        const ampm = hours >= 12 ? 'PM' : 'AM';
+    // Announcement Details View Modals
+    function viewAnnouncementDetails(subject, body) {
+      document.getElementById('ann-modal-subject').textContent = subject;
+      document.getElementById('ann-modal-body').textContent = body;
+      document.getElementById('modal-announcement-details').classList.remove('hidden');
+    }
 
-        hours = hours % 12;
-        hours = hours ? hours : 12;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
+    // New Announcement Creators
+    function openNewAnnouncementModal() {
+      document.getElementById('modal-add-announcement').classList.remove('hidden');
+    }
 
-        clockEl.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
-      }
-      setInterval(updateClock, 1000);
-      updateClock();
+    function closeNewAnnouncementModal() {
+      document.getElementById('modal-add-announcement').classList.add('hidden');
+    }
 
-      // Announcement Tab Filtering
-      function filterAnnouncements(category) {
-        const cards = document.querySelectorAll('.announcement-item-card');
-        const tabs = ['semua', 'penting', 'am'];
-        
-        // Reset tabs appearance
-        tabs.forEach(t => {
-          const tabBtn = document.getElementById(`tab-${t}`);
-          tabBtn.className = "px-3 py-1.5 rounded-md transition-all text-slate-600 hover:text-navy-900";
-        });
-        
-        // Style active tab
-        const activeTabBtn = document.getElementById(`tab-${category}`);
-        activeTabBtn.className = "px-3 py-1.5 rounded-md transition-all bg-white text-brand-600 shadow-sm";
+    function submitNewAnnouncement(e) {
+      e.preventDefault();
+      const title = document.getElementById('ann-input-title').value;
+      const category = document.getElementById('ann-input-category').value;
+      const body = document.getElementById('ann-input-body').value;
 
-        // Show/hide cards
-        cards.forEach(card => {
-          if (category === 'semua') {
-            card.style.display = 'flex';
-          } else if (card.getAttribute('data-category') === category) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      }
+      const container = document.getElementById('announcement-container');
+      const item = document.createElement('div');
 
-      // Announcement Details View Modals
-      function viewAnnouncementDetails(subject, body) {
-        document.getElementById('ann-modal-subject').textContent = subject;
-        document.getElementById('ann-modal-body').textContent = body;
-        document.getElementById('modal-announcement-details').classList.remove('hidden');
-      }
+      const badgeColor = category === 'penting' ? 'bg-rose-100 text-rose-700' : 'bg-teal-100 text-brand-700';
+      const badgeLabel = category === 'penting' ? 'SEGERA' : 'PEKELILING';
+      const iconName = category === 'penting' ? 'alert-circle' : 'info';
+      const borderClass = category === 'penting' ? 'border-l-rose-500' : 'border-l-brand-500';
 
-      // New Announcement Creators
-      function openNewAnnouncementModal() {
-        document.getElementById('modal-add-announcement').classList.remove('hidden');
-      }
+      item.className = `announcement-item-card flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl border-l-4 ${borderClass} border border-navy-100 hover:bg-slate-50 transition-all duration-200`;
+      item.setAttribute('data-category', category);
 
-      function closeNewAnnouncementModal() {
-        document.getElementById('modal-add-announcement').classList.add('hidden');
-      }
-
-      function submitNewAnnouncement(e) {
-        e.preventDefault();
-        const title = document.getElementById('ann-input-title').value;
-        const category = document.getElementById('ann-input-category').value;
-        const body = document.getElementById('ann-input-body').value;
-
-        const container = document.getElementById('announcement-container');
-        const item = document.createElement('div');
-        
-        const badgeColor = category === 'penting' ? 'bg-rose-100 text-rose-700' : 'bg-teal-100 text-brand-700';
-        const badgeLabel = category === 'penting' ? 'SEGERA' : 'PEKELILING';
-        const iconName = category === 'penting' ? 'alert-circle' : 'info';
-        const borderClass = category === 'penting' ? 'border-l-rose-500' : 'border-l-brand-500';
-
-        item.className = `announcement-item-card flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl border-l-4 ${borderClass} border border-navy-100 hover:bg-slate-50 transition-all duration-200`;
-        item.setAttribute('data-category', category);
-        
-        item.innerHTML = `
+      item.innerHTML = `
           <div class="space-y-1">
             <div class="flex flex-wrap items-center gap-2">
               <span class="inline-flex items-center gap-1 text-[10px] ${badgeColor} font-bold px-2 py-0.5 rounded-full">
@@ -993,132 +1141,132 @@
           </button>
         `;
 
-        container.insertBefore(item, container.firstChild);
-        lucide.createIcons();
-        closeNewAnnouncementModal();
-        
-        // Reset inputs
-        document.getElementById('ann-input-title').value = '';
-        document.getElementById('ann-input-body').value = '';
-        alert('Pengumuman baru berjaya diterbitkan!');
+      container.insertBefore(item, container.firstChild);
+      lucide.createIcons();
+      closeNewAnnouncementModal();
+
+      // Reset inputs
+      document.getElementById('ann-input-title').value = '';
+      document.getElementById('ann-input-body').value = '';
+      alert('Pengumuman baru berjaya diterbitkan!');
+    }
+
+    // Sub-module modal handlers
+    function openSubModal(id) {
+      document.getElementById(`modal-${id}`).classList.remove('hidden');
+      if (id === 'banjir') {
+        fetchBanjir();
+      } else if (id === 'pergerakan') {
+        fetchPergerakan();
       }
+    }
 
-      // Sub-module modal handlers
-      function openSubModal(id) {
-        document.getElementById(`modal-${id}`).classList.remove('hidden');
-        if (id === 'banjir') {
-          fetchBanjir();
-        } else if (id === 'pergerakan') {
-          fetchPergerakan();
-        }
-      }
+    function closeSubModal(id) {
+      document.getElementById(`modal-${id}`).classList.add('hidden');
+    }
 
-      function closeSubModal(id) {
-        document.getElementById(`modal-${id}`).classList.add('hidden');
-      }
+    // --- BANJIR FRONTEND LOGIC ---
+    async function fetchBanjir() {
+      try {
+        const res = await fetch('/api/banjir');
+        const data = await res.json();
+        const tbody = document.getElementById('banjir-warnings-table-body');
+        tbody.innerHTML = '';
 
-      // --- BANJIR FRONTEND LOGIC ---
-      async function fetchBanjir() {
-        try {
-          const res = await fetch('/api/banjir');
-          const data = await res.json();
-          const tbody = document.getElementById('banjir-warnings-table-body');
-          tbody.innerHTML = '';
-          
-          data.forEach(item => {
-            const row = document.createElement('tr');
-            row.className = 'border-b border-navy-50';
-            
-            let statusBadge = '';
-            if (item.water_level_status === 'Bahaya') {
-              statusBadge = `<span class="bg-rose-100 text-rose-700 font-bold px-2 py-0.5 rounded-full">BAHAYA</span>`;
-            } else if (item.water_level_status === 'Amaran') {
-              statusBadge = `<span class="bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full">AMARAN</span>`;
-            } else {
-              statusBadge = `<span class="bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded-full">NORMAL</span>`;
-            }
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          row.className = 'border-b border-navy-50';
 
-            const formattedTime = new Date(item.reported_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+          let statusBadge = '';
+          if (item.water_level_status === 'Bahaya') {
+            statusBadge = `<span class="bg-rose-100 text-rose-700 font-bold px-2 py-0.5 rounded-full">BAHAYA</span>`;
+          } else if (item.water_level_status === 'Amaran') {
+            statusBadge = `<span class="bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full">AMARAN</span>`;
+          } else {
+            statusBadge = `<span class="bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded-full">NORMAL</span>`;
+          }
 
-            row.innerHTML = `
+          const formattedTime = new Date(item.reported_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+          row.innerHTML = `
               <td class="p-3 font-semibold">${item.location}</td>
               <td class="p-3">${statusBadge}</td>
               <td class="p-3 font-mono">${item.water_level_meters} m</td>
               <td class="p-3 text-slate-500">${formattedTime}</td>
               <td class="p-3 text-slate-500">${item.reporter_name}</td>
             `;
-            tbody.appendChild(row);
-          });
-        } catch (err) {
-          console.error("Error fetching banjir status:", err);
-        }
+          tbody.appendChild(row);
+        });
+      } catch (err) {
+        console.error("Error fetching banjir status:", err);
       }
+    }
 
-      async function submitBanjirReport(e) {
-        e.preventDefault();
-        const location = document.getElementById('banjir-location').value;
-        const status = document.getElementById('banjir-status').value;
-        const meters = document.getElementById('banjir-meters').value;
-        const reporter = document.getElementById('banjir-reporter').value;
-        const notes = document.getElementById('banjir-notes').value;
+    async function submitBanjirReport(e) {
+      e.preventDefault();
+      const location = document.getElementById('banjir-location').value;
+      const status = document.getElementById('banjir-status').value;
+      const meters = document.getElementById('banjir-meters').value;
+      const reporter = document.getElementById('banjir-reporter').value;
+      const notes = document.getElementById('banjir-notes').value;
 
-        try {
-          const res = await fetch('/api/banjir', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              location,
-              water_level_status: status,
-              water_level_meters: meters,
-              reporter_name: reporter,
-              notes
-            })
-          });
-          
-          if (res.ok) {
-            alert('Laporan banjir berjaya dihantar!');
-            // Reset form fields
-            document.getElementById('banjir-location').value = '';
-            document.getElementById('banjir-meters').value = '';
-            document.getElementById('banjir-reporter').value = '';
-            document.getElementById('banjir-notes').value = '';
-            // Refresh table
-            fetchBanjir();
-          } else {
-            alert('Gagal menghantar laporan.');
-          }
-        } catch (err) {
-          console.error("Error submitting banjir report:", err);
+      try {
+        const res = await fetch('/api/banjir', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            location,
+            water_level_status: status,
+            water_level_meters: meters,
+            reporter_name: reporter,
+            notes
+          })
+        });
+
+        if (res.ok) {
+          alert('Laporan banjir berjaya dihantar!');
+          // Reset form fields
+          document.getElementById('banjir-location').value = '';
+          document.getElementById('banjir-meters').value = '';
+          document.getElementById('banjir-reporter').value = '';
+          document.getElementById('banjir-notes').value = '';
+          // Refresh table
+          fetchBanjir();
+        } else {
+          alert('Gagal menghantar laporan.');
         }
+      } catch (err) {
+        console.error("Error submitting banjir report:", err);
       }
+    }
 
-      // --- LOG PERGERAKAN STAF FRONTEND LOGIC ---
-      async function fetchPergerakan() {
-        try {
-          const res = await fetch('/api/pergerakan');
-          const data = await res.json();
-          const tbody = document.getElementById('staff-log-table-body');
-          tbody.innerHTML = '';
-          
-          let outCount = 0;
-          let inCount = 0;
+    // --- LOG PERGERAKAN STAF FRONTEND LOGIC ---
+    async function fetchPergerakan() {
+      try {
+        const res = await fetch('/api/pergerakan');
+        const data = await res.json();
+        const tbody = document.getElementById('staff-log-table-body');
+        tbody.innerHTML = '';
 
-          data.forEach(item => {
-            const row = document.createElement('tr');
-            row.className = 'border-b border-navy-50';
-            
-            const isOut = item.status === 'Keluar';
-            if (isOut) outCount++; else inCount++;
+        let outCount = 0;
+        let inCount = 0;
 
-            const statusBadge = isOut 
-              ? `<span class="inline-flex items-center gap-1.5 bg-rose-50 text-rose-700 font-bold px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>Out of Office</span>`
-              : `<span class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>In Office</span>`;
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          row.className = 'border-b border-navy-50';
 
-            const actionButton = isOut
-              ? `<button onclick="checkInStaff('${item.id}')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-2 py-1 rounded text-[10px] transition-colors">Check-In</button>`
-              : `<span class="text-slate-400 font-medium text-[10px]">Selesai</span>`;
+          const isOut = item.status === 'Keluar';
+          if (isOut) outCount++; else inCount++;
 
-            row.innerHTML = `
+          const statusBadge = isOut
+            ? `<span class="inline-flex items-center gap-1.5 bg-rose-50 text-rose-700 font-bold px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>Out of Office</span>`
+            : `<span class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>In Office</span>`;
+
+          const actionButton = isOut
+            ? `<button onclick="checkInStaff('${item.id}')" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-2 py-1 rounded text-[10px] transition-colors">Check-In</button>`
+            : `<span class="text-slate-400 font-medium text-[10px]">Selesai</span>`;
+
+          row.innerHTML = `
               <td class="p-3 font-semibold">${item.staff_name}</td>
               <td class="p-3">${item.destination} <span class="text-slate-400 block text-[10px]">${item.purpose}</span></td>
               <td class="p-3">${statusBadge}</td>
@@ -1126,107 +1274,107 @@
               <td class="p-3 text-slate-500">${isOut ? item.expected_time_in : (item.actual_time_in || '---')}</td>
               <td class="p-3 text-center">${actionButton}</td>
             `;
-            tbody.appendChild(row);
-          });
+          tbody.appendChild(row);
+        });
 
-          // Update Dashboard Managers stats
-          document.getElementById('stats-staff-out').textContent = outCount;
-          document.getElementById('stats-staff-in').textContent = inCount;
-          document.getElementById('staff-out-count').textContent = `${outCount} Orang`;
-          
-          // Update status indicator in header
-          document.getElementById('system-status-counter').textContent = `${outCount} Menunggu Tindakan`;
-        } catch (err) {
-          console.error("Error fetching staff movements:", err);
+        // Update Dashboard Managers stats
+        document.getElementById('stats-staff-out').textContent = outCount;
+        document.getElementById('stats-staff-in').textContent = inCount;
+        document.getElementById('staff-out-count').textContent = `${outCount} Orang`;
+
+        // Update status indicator in header
+        document.getElementById('system-status-counter').textContent = `${outCount} Menunggu Tindakan`;
+      } catch (err) {
+        console.error("Error fetching staff movements:", err);
+      }
+    }
+
+    async function submitStaffLog(e) {
+      e.preventDefault();
+      const name = document.getElementById('log-name').value;
+      const purpose = document.getElementById('log-purpose').value;
+      const timeOutInput = document.getElementById('log-time-out').value;
+      const timeInInput = document.getElementById('log-time-in').value;
+
+      const formatTime = (timeStr) => {
+        const [hour, min] = timeStr.split(':');
+        const h = parseInt(hour);
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        const hr = h % 12 || 12;
+        return `${hr}:${min} ${ampm}`;
+      };
+
+      const outTime = formatTime(timeOutInput);
+      const inTime = formatTime(timeInInput);
+
+      try {
+        const res = await fetch('/api/pergerakan/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            staff_name: name,
+            destination: purpose.split(' di ')[1] || 'JKNK',
+            purpose,
+            time_out: outTime,
+            expected_time_in: inTime
+          })
+        });
+
+        if (res.ok) {
+          alert(`Log pergerakan untuk ${name} berjaya didaftarkan!`);
+          // Reset form fields
+          document.getElementById('log-name').value = '';
+          document.getElementById('log-purpose').value = '';
+          document.getElementById('log-time-out').value = '';
+          document.getElementById('log-time-in').value = '';
+          // Refresh table & stats
+          fetchPergerakan();
+        } else {
+          alert('Gagal mendaftar keluar.');
         }
+      } catch (err) {
+        console.error("Error checking out staff:", err);
       }
+    }
 
-      async function submitStaffLog(e) {
-        e.preventDefault();
-        const name = document.getElementById('log-name').value;
-        const purpose = document.getElementById('log-purpose').value;
-        const timeOutInput = document.getElementById('log-time-out').value;
-        const timeInInput = document.getElementById('log-time-in').value;
-
-        const formatTime = (timeStr) => {
-          const [hour, min] = timeStr.split(':');
-          const h = parseInt(hour);
-          const ampm = h >= 12 ? 'PM' : 'AM';
-          const hr = h % 12 || 12;
-          return `${hr}:${min} ${ampm}`;
-        };
-
-        const outTime = formatTime(timeOutInput);
-        const inTime = formatTime(timeInInput);
-
-        try {
-          const res = await fetch('/api/pergerakan/checkout', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              staff_name: name,
-              destination: purpose.split(' di ')[1] || 'JKNK',
-              purpose,
-              time_out: outTime,
-              expected_time_in: inTime
-            })
-          });
-
-          if (res.ok) {
-            alert(`Log pergerakan untuk ${name} berjaya didaftarkan!`);
-            // Reset form fields
-            document.getElementById('log-name').value = '';
-            document.getElementById('log-purpose').value = '';
-            document.getElementById('log-time-out').value = '';
-            document.getElementById('log-time-in').value = '';
-            // Refresh table & stats
-            fetchPergerakan();
-          } else {
-            alert('Gagal mendaftar keluar.');
-          }
-        } catch (err) {
-          console.error("Error checking out staff:", err);
+    async function checkInStaff(id) {
+      try {
+        const res = await fetch(`/api/pergerakan/checkin/${id}`, {
+          method: 'POST'
+        });
+        if (res.ok) {
+          alert('Staf berjaya didaftarkan kembali (Checked In)!');
+          fetchPergerakan();
+        } else {
+          alert('Gagal mendaftar masuk.');
         }
+      } catch (err) {
+        console.error("Error checking in staff:", err);
       }
+    }
 
-      async function checkInStaff(id) {
-        try {
-          const res = await fetch(`/api/pergerakan/checkin/${id}`, {
-            method: 'POST'
-          });
-          if (res.ok) {
-            alert('Staf berjaya didaftarkan kembali (Checked In)!');
-            fetchPergerakan();
-          } else {
-            alert('Gagal mendaftar masuk.');
-          }
-        } catch (err) {
-          console.error("Error checking in staff:", err);
+    // Close detail announcements
+    function closeAnnouncementDetails() {
+      document.getElementById('modal-announcement-details').classList.add('hidden');
+    }
+
+    // --- TEMPAHAN BILIK MESYUARAT LOGIC ---
+    async function fetchBookings() {
+      try {
+        const res = await fetch('/api/tempahan');
+        const data = await res.json();
+        const list = document.getElementById('upcoming-bookings');
+        list.innerHTML = '';
+
+        if (data.length === 0) {
+          list.innerHTML = '<p class="text-xs text-slate-400 italic">Tiada tempahan aktif buat masa ini.</p>';
+          return;
         }
-      }
-      
-      // Close detail announcements
-      function closeAnnouncementDetails() {
-        document.getElementById('modal-announcement-details').classList.add('hidden');
-      }
 
-      // --- TEMPAHAN BILIK MESYUARAT LOGIC ---
-      async function fetchBookings() {
-        try {
-          const res = await fetch('/api/tempahan');
-          const data = await res.json();
-          const list = document.getElementById('upcoming-bookings');
-          list.innerHTML = '';
-          
-          if (data.length === 0) {
-            list.innerHTML = '<p class="text-xs text-slate-400 italic">Tiada tempahan aktif buat masa ini.</p>';
-            return;
-          }
-
-          data.forEach(b => {
-            const item = document.createElement('div');
-            item.className = 'p-3 bg-slate-50 border border-navy-100 rounded-xl flex items-center justify-between';
-            item.innerHTML = `
+        data.forEach(b => {
+          const item = document.createElement('div');
+          item.className = 'p-3 bg-slate-50 border border-navy-100 rounded-xl flex items-center justify-between';
+          item.innerHTML = `
               <div>
                 <h5 class="font-bold text-xs text-indigo-900">${b.meeting_title}</h5>
                 <p class="text-[10px] text-slate-500">${b.room_name} | ${b.booking_date} (${b.start_time} - ${b.end_time})</p>
@@ -1234,187 +1382,188 @@
               </div>
               <span class="bg-indigo-100 text-indigo-700 text-[9px] font-bold px-2 py-0.5 rounded-full">Ditempah</span>
             `;
-            list.appendChild(item);
-          });
-        } catch (err) {
-          console.error("Error fetching bookings:", err);
-        }
+          list.appendChild(item);
+        });
+      } catch (err) {
+        console.error("Error fetching bookings:", err);
       }
+    }
 
-      async function submitBooking(e) {
-        e.preventDefault();
-        const room_name = document.getElementById('booking-room').value;
-        const applicant_name = document.getElementById('booking-applicant').value;
-        const booking_date = document.getElementById('booking-date').value;
-        const start_time = document.getElementById('booking-start').value;
-        const end_time = document.getElementById('booking-end').value;
-        const meeting_title = document.getElementById('booking-title').value;
+    async function submitBooking(e) {
+      e.preventDefault();
+      const room_name = document.getElementById('booking-room').value;
+      const applicant_name = document.getElementById('booking-applicant').value;
+      const booking_date = document.getElementById('booking-date').value;
+      const start_time = document.getElementById('booking-start').value;
+      const end_time = document.getElementById('booking-end').value;
+      const meeting_title = document.getElementById('booking-title').value;
 
-        try {
-          const res = await fetch('/api/tempahan', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              room_name,
-              applicant_name,
-              booking_date,
-              start_time,
-              end_time,
-              meeting_title
-            })
-          });
+      try {
+        const res = await fetch('/api/tempahan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            room_name,
+            applicant_name,
+            booking_date,
+            start_time,
+            end_time,
+            meeting_title
+          })
+        });
 
-          const data = await res.json();
-          if (res.ok) {
-            alert('Tempahan bilik mesyuarat berjaya didaftarkan!');
-            document.getElementById('booking-applicant').value = '';
-            document.getElementById('booking-date').value = '';
-            document.getElementById('booking-start').value = '';
-            document.getElementById('booking-end').value = '';
-            document.getElementById('booking-title').value = '';
-            fetchBookings();
-          } else {
-            alert(data.error || 'Gagal membuat tempahan.');
-          }
-        } catch (err) {
-          console.error("Error submitting booking:", err);
+        const data = await res.json();
+        if (res.ok) {
+          alert('Tempahan bilik mesyuarat berjaya didaftarkan!');
+          document.getElementById('booking-applicant').value = '';
+          document.getElementById('booking-date').value = '';
+          document.getElementById('booking-start').value = '';
+          document.getElementById('booking-end').value = '';
+          document.getElementById('booking-title').value = '';
+          fetchBookings();
+        } else {
+          alert(data.error || 'Gagal membuat tempahan.');
         }
+      } catch (err) {
+        console.error("Error submitting booking:", err);
       }
+    }
 
-      // --- KALENDAR AKTIVITI & ACARA JABATAN LOGIC ---
-      let calendarYear = 2026;
-      let calendarMonth = 6; // July (0-indexed is index 6)
-      let allEvents = [];
-      const monthNames = [
-        "Januari", "Februari", "Mac", "April", "Mei", "Jun", 
-        "Julai", "Ogos", "September", "Oktober", "November", "Disember"
-      ];
+    // --- KALENDAR AKTIVITI & ACARA JABATAN LOGIC ---
+    let calendarYear = 2026;
+    let calendarMonth = 6; // July (0-indexed is index 6)
+    let allEvents = [];
+    const monthNames = [
+      "Januari", "Februari", "Mac", "April", "Mei", "Jun",
+      "Julai", "Ogos", "September", "Oktober", "November", "Disember"
+    ];
 
-      async function fetchCalendarEvents() {
-        try {
-          const res = await fetch('/api/kalendar');
-          allEvents = await res.json();
-          renderCalendar();
-        } catch (err) {
-          console.error("Error fetching events:", err);
-        }
-      }
-
-      function renderCalendar() {
-        const grid = document.getElementById('calendar-days-grid');
-        grid.innerHTML = '';
-        
-        // Update Title
-        document.getElementById('calendar-month-year').textContent = `${monthNames[calendarMonth]} ${calendarYear}`;
-
-        // Get first day of month (e.g. Wednesday = index 3, if Sunday is 0)
-        const firstDayIndex = new Date(calendarYear, calendarMonth, 1).getDay();
-        const numDays = new Date(calendarYear, calendarMonth + 1, 0).getDate();
-
-        // Padding days
-        for (let i = 0; i < firstDayIndex; i++) {
-          const pad = document.createElement('div');
-          pad.className = 'h-10';
-          grid.appendChild(pad);
-        }
-
-        // Render month days
-        for (let day = 1; day <= numDays; day++) {
-          const dayBox = document.createElement('div');
-          dayBox.className = 'h-11 bg-white hover:bg-amber-50 border border-navy-100 rounded-lg p-1 flex flex-col justify-between items-center cursor-pointer transition-colors relative';
-          
-          const dayStr = `${calendarYear}-${String(calendarMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-          
-          // Check if there are events on this day
-          const dayEvents = allEvents.filter(e => e.event_date === dayStr);
-
-          dayBox.innerHTML = `<span class="text-xs font-semibold text-navy-800">${day}</span>`;
-          
-          if (dayEvents.length > 0) {
-            // Event indicator
-            const dot = document.createElement('span');
-            dot.className = 'w-1.5 h-1.5 rounded-full bg-amber-500 mb-0.5 animate-pulse';
-            dayBox.appendChild(dot);
-            
-            dayBox.onclick = () => showEventDetails(dayEvents[0]);
-          } else {
-            dayBox.onclick = () => {
-              document.getElementById('event-detail-box').classList.add('hidden');
-              // prefill date in form
-              document.getElementById('event-date').value = dayStr;
-            };
-          }
-
-          grid.appendChild(dayBox);
-        }
-      }
-
-      function showEventDetails(evt) {
-        const box = document.getElementById('event-detail-box');
-        document.getElementById('event-detail-title').textContent = evt.event_name;
-        document.getElementById('event-detail-venue').textContent = evt.venue;
-        document.getElementById('event-detail-dept').textContent = evt.department_involved;
-        document.getElementById('event-detail-date').textContent = evt.event_date;
-        document.getElementById('event-detail-desc').textContent = evt.description || 'Tiada huraian tambahan.';
-        box.classList.remove('hidden');
-      }
-
-      function changeMonth(dir) {
-        calendarMonth += dir;
-        if (calendarMonth < 0) {
-          calendarMonth = 11;
-          calendarYear--;
-        } else if (calendarMonth > 11) {
-          calendarMonth = 0;
-          calendarYear++;
-        }
+    async function fetchCalendarEvents() {
+      try {
+        const res = await fetch('/api/kalendar');
+        allEvents = await res.json();
         renderCalendar();
+      } catch (err) {
+        console.error("Error fetching events:", err);
+      }
+    }
+
+    function renderCalendar() {
+      const grid = document.getElementById('calendar-days-grid');
+      grid.innerHTML = '';
+
+      // Update Title
+      document.getElementById('calendar-month-year').textContent = `${monthNames[calendarMonth]} ${calendarYear}`;
+
+      // Get first day of month (e.g. Wednesday = index 3, if Sunday is 0)
+      const firstDayIndex = new Date(calendarYear, calendarMonth, 1).getDay();
+      const numDays = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+
+      // Padding days
+      for (let i = 0; i < firstDayIndex; i++) {
+        const pad = document.createElement('div');
+        pad.className = 'h-10';
+        grid.appendChild(pad);
       }
 
-      async function submitCalendarEvent(e) {
-        e.preventDefault();
-        const event_name = document.getElementById('event-name').value;
-        const department_involved = document.getElementById('event-dept').value;
-        const event_date = document.getElementById('event-date').value;
-        const venue = document.getElementById('event-venue').value;
-        const description = document.getElementById('event-desc').value;
+      // Render month days
+      for (let day = 1; day <= numDays; day++) {
+        const dayBox = document.createElement('div');
+        dayBox.className = 'h-11 bg-white hover:bg-amber-50 border border-navy-100 rounded-lg p-1 flex flex-col justify-between items-center cursor-pointer transition-colors relative';
 
-        try {
-          const res = await fetch('/api/kalendar', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              event_name,
-              department_involved,
-              event_date,
-              venue,
-              description
-            })
-          });
+        const dayStr = `${calendarYear}-${String(calendarMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
-          if (res.ok) {
-            alert('Aktiviti baharu berjaya didaftarkan!');
-            document.getElementById('event-name').value = '';
-            document.getElementById('event-dept').value = '';
-            document.getElementById('event-date').value = '';
-            document.getElementById('event-venue').value = '';
-            document.getElementById('event-desc').value = '';
-            fetchCalendarEvents();
-          } else {
-            alert('Gagal mendaftar aktiviti.');
-          }
-        } catch (err) {
-          console.error("Error submitting event:", err);
+        // Check if there are events on this day
+        const dayEvents = allEvents.filter(e => e.event_date === dayStr);
+
+        dayBox.innerHTML = `<span class="text-xs font-semibold text-navy-800">${day}</span>`;
+
+        if (dayEvents.length > 0) {
+          // Event indicator
+          const dot = document.createElement('span');
+          dot.className = 'w-1.5 h-1.5 rounded-full bg-amber-500 mb-0.5 animate-pulse';
+          dayBox.appendChild(dot);
+
+          dayBox.onclick = () => showEventDetails(dayEvents[0]);
+        } else {
+          dayBox.onclick = () => {
+            document.getElementById('event-detail-box').classList.add('hidden');
+            // prefill date in form
+            document.getElementById('event-date').value = dayStr;
+          };
         }
-      }
 
-      // Initial Fetch on load
-      window.addEventListener('load', () => {
-        fetchBanjir();
-        fetchPergerakan();
-        fetchBookings();
-        fetchCalendarEvents();
-      });
-    </script>
-  </body>
+        grid.appendChild(dayBox);
+      }
+    }
+
+    function showEventDetails(evt) {
+      const box = document.getElementById('event-detail-box');
+      document.getElementById('event-detail-title').textContent = evt.event_name;
+      document.getElementById('event-detail-venue').textContent = evt.venue;
+      document.getElementById('event-detail-dept').textContent = evt.department_involved;
+      document.getElementById('event-detail-date').textContent = evt.event_date;
+      document.getElementById('event-detail-desc').textContent = evt.description || 'Tiada huraian tambahan.';
+      box.classList.remove('hidden');
+    }
+
+    function changeMonth(dir) {
+      calendarMonth += dir;
+      if (calendarMonth < 0) {
+        calendarMonth = 11;
+        calendarYear--;
+      } else if (calendarMonth > 11) {
+        calendarMonth = 0;
+        calendarYear++;
+      }
+      renderCalendar();
+    }
+
+    async function submitCalendarEvent(e) {
+      e.preventDefault();
+      const event_name = document.getElementById('event-name').value;
+      const department_involved = document.getElementById('event-dept').value;
+      const event_date = document.getElementById('event-date').value;
+      const venue = document.getElementById('event-venue').value;
+      const description = document.getElementById('event-desc').value;
+
+      try {
+        const res = await fetch('/api/kalendar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event_name,
+            department_involved,
+            event_date,
+            venue,
+            description
+          })
+        });
+
+        if (res.ok) {
+          alert('Aktiviti baharu berjaya didaftarkan!');
+          document.getElementById('event-name').value = '';
+          document.getElementById('event-dept').value = '';
+          document.getElementById('event-date').value = '';
+          document.getElementById('event-venue').value = '';
+          document.getElementById('event-desc').value = '';
+          fetchCalendarEvents();
+        } else {
+          alert('Gagal mendaftar aktiviti.');
+        }
+      } catch (err) {
+        console.error("Error submitting event:", err);
+      }
+    }
+
+    // Initial Fetch on load
+    window.addEventListener('load', () => {
+      fetchBanjir();
+      fetchPergerakan();
+      fetchBookings();
+      fetchCalendarEvents();
+    });
+  </script>
+</body>
+
 </html>
