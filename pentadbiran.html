@@ -1345,57 +1345,160 @@
     async function fetchRooms() {
       try {
         const res = await fetch('/api/rooms');
-        const data = await res.json();
-        const select = document.getElementById('booking-room');
-        if (!select) return;
-        select.innerHTML = '';
-        data.forEach(room => {
-          const opt = document.createElement('option');
-          opt.value = room.name;
-          opt.textContent = `${room.name} (${room.capacity} pax - ${room.facilities})`;
-          select.appendChild(opt);
-        });
-
-        // Re-render picker
-        renderBookingDatePicker();
+        if (res.ok) {
+          const data = await res.json();
+          populateRoomsSelect(data);
+          return;
+        }
       } catch (err) {
-        console.error("Error fetching rooms:", err);
+        console.warn("Error fetching rooms, falling back to localStorage:", err);
+      }
+      const localRooms = localStorage.getItem('rooms');
+      const defaults = [
+        { id: "r1", name: "Bilik Anggerik", capacity: 10, facilities: "Projektor, Papan Putih" },
+        { id: "r2", name: "Bilik Mawar", capacity: 15, facilities: "Smart TV, Projektor, Papan Putih" }
+      ];
+      if (!localRooms) {
+        localStorage.setItem('rooms', JSON.stringify(defaults));
+        populateRoomsSelect(defaults);
+      } else {
+        populateRoomsSelect(JSON.parse(localRooms));
       }
     }
 
+    function populateRoomsSelect(roomsList) {
+      const select = document.getElementById('booking-room');
+      if (!select) return;
+      select.innerHTML = '';
+      roomsList.forEach(room => {
+        const opt = document.createElement('option');
+        opt.value = room.name;
+        opt.textContent = `${room.name} (${room.capacity} pax - ${room.facilities})`;
+        select.appendChild(opt);
+      });
+      renderBookingDatePicker();
+    }
+
     async function fetchBookings() {
+      let data = [];
       try {
         const res = await fetch('/api/tempahan');
-        const data = await res.json();
-        activeBookings = data;
-        const list = document.getElementById('upcoming-bookings');
-        list.innerHTML = '';
-
-        if (data.length === 0) {
-          list.innerHTML = '<p class="text-xs text-slate-400 italic">Tiada tempahan aktif buat masa ini.</p>';
-          renderBookingDatePicker();
+        if (res.ok) {
+          data = await res.json();
+          activeBookings = data;
+          renderBookingsList(data);
           return;
         }
+      } catch (err) {
+        console.warn("Error fetching bookings, falling back to localStorage:", err);
+      }
+      data = JSON.parse(localStorage.getItem('tempahan') || '[]');
+      activeBookings = data;
+      renderBookingsList(data);
+    }
 
-        data.forEach(b => {
-          const item = document.createElement('div');
-          item.className = 'p-3 bg-slate-50 border border-navy-100 rounded-xl flex items-center justify-between';
-          item.innerHTML = `
-              <div>
-                <h5 class="font-bold text-xs text-indigo-900">${b.meeting_title}</h5>
-                <p class="text-[10px] text-slate-500">${b.room_name} | ${b.booking_date} (${b.start_time} - ${b.end_time})</p>
-                <p class="text-[9px] text-slate-400">Ditempah oleh: ${b.applicant_name}</p>
-              </div>
-              <span class="bg-indigo-100 text-indigo-700 text-[9px] font-bold px-2 py-0.5 rounded-full">Ditempah</span>
-            `;
-          list.appendChild(item);
+    function renderBookingsList(bookingsList) {
+      const list = document.getElementById('upcoming-bookings');
+      if (!list) return;
+      list.innerHTML = '';
+
+      if (bookingsList.length === 0) {
+        list.innerHTML = '<p class="text-xs text-slate-400 italic">Tiada tempahan aktif buat masa ini.</p>';
+        renderBookingDatePicker();
+        return;
+      }
+
+      bookingsList.forEach(b => {
+        const item = document.createElement('div');
+        item.className = 'p-3 bg-slate-50 border border-navy-100 rounded-xl flex items-center justify-between';
+        item.innerHTML = `
+            <div>
+              <h5 class="font-bold text-xs text-indigo-900">${b.meeting_title}</h5>
+              <p class="text-[10px] text-slate-500">${b.room_name} | ${b.booking_date} (${b.start_time} - ${b.end_time})</p>
+              <p class="text-[9px] text-slate-400">Ditempah oleh: ${b.applicant_name}</p>
+            </div>
+            <span class="bg-indigo-100 text-indigo-700 text-[9px] font-bold px-2 py-0.5 rounded-full">Ditempah</span>
+          `;
+        list.appendChild(item);
+      });
+
+      renderBookingDatePicker();
+    }
+
+    async function submitBooking(e) {
+      e.preventDefault();
+      const room_name = document.getElementById('booking-room').value;
+      const applicant_name = document.getElementById('booking-applicant').value;
+      const booking_date = document.getElementById('booking-date').value;
+      const start_time = document.getElementById('booking-start').value;
+      const end_time = document.getElementById('booking-end').value;
+      const meeting_title = document.getElementById('booking-title').value;
+
+      if (!booking_date) {
+        alert('Sila pilih tarikh mesyuarat daripada kalendar.');
+        return;
+      }
+
+      const payload = {
+        room_name,
+        applicant_name,
+        booking_date,
+        start_time,
+        end_time,
+        meeting_title
+      };
+
+      try {
+        const res = await fetch('/api/tempahan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
         });
 
-        // Render date picker grid
-        renderBookingDatePicker();
+        if (res.ok) {
+          alert('Tempahan bilik mesyuarat berjaya didaftarkan!');
+          resetBookingForm();
+          fetchBookings();
+          return;
+        } else {
+          const data = await res.json();
+          alert(data.error || 'Gagal membuat tempahan.');
+          return;
+        }
       } catch (err) {
-        console.error("Error fetching bookings:", err);
+        console.warn("API booking submit failed, using localStorage fallback:", err);
       }
+
+      // Local Storage Fallback
+      let bookings = JSON.parse(localStorage.getItem('tempahan') || '[]');
+      const conflict = bookings.find(b => b.room_name === room_name && b.booking_date === booking_date);
+      if (conflict) {
+        alert(`Bilik ${room_name} telah ditempah pada tarikh tersebut. Sila pilih slot lain.`);
+        return;
+      }
+
+      const newBooking = {
+        id: "b_" + Date.now(),
+        ...payload
+      };
+      bookings.push(newBooking);
+      localStorage.setItem('tempahan', JSON.stringify(bookings));
+      alert('Tempahan bilik mesyuarat berjaya didaftarkan!');
+      resetBookingForm();
+      fetchBookings();
+    }
+
+    function resetBookingForm() {
+      document.getElementById('booking-applicant').value = '';
+      document.getElementById('booking-date').value = '';
+      const displaySpan = document.getElementById('selected-date-text');
+      if (displaySpan) {
+        displaySpan.textContent = 'Tiada';
+        displaySpan.className = 'bg-indigo-100 px-2 py-0.5 rounded text-indigo-800';
+      }
+      document.getElementById('booking-start').value = '';
+      document.getElementById('booking-end').value = '';
+      document.getElementById('booking-title').value = '';
     }
 
     function renderBookingDatePicker() {
