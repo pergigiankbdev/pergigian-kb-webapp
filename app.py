@@ -21,7 +21,21 @@ def load_data():
             return {"banjir": [], "pergerakan": [], "tempahan": [], "kalendar": [], "surat": [], "kertas_kerja": []}
 
 def save_data(data):
-    with open(DATA_FILE, 'w') as f:
+        json.dump(data, f, indent=2)
+
+ORG_CHART_FILE = 'org_chart.json'
+
+def load_org_chart():
+    if not os.path.exists(ORG_CHART_FILE):
+        return []
+    with open(ORG_CHART_FILE, 'r') as f:
+        try:
+            return json.load(f)
+        except json.JSONDecodeError:
+            return []
+
+def save_org_chart(data):
+    with open(ORG_CHART_FILE, 'w') as f:
         json.dump(data, f, indent=2)
 
 @app.route('/')
@@ -39,6 +53,23 @@ def pentadbiran():
 @app.route('/admin-dashboard')
 def admin_dashboard():
     return send_from_directory('.', 'admin_dashboard.html')
+
+@app.route('/direktori')
+def direktori_route():
+    return send_from_directory('.', 'direktori.html')
+
+@app.route('/api/organisasi', methods=['GET'])
+def get_organisasi():
+    return jsonify(load_org_chart())
+
+@app.route('/api/organisasi', methods=['POST'])
+def save_organisasi():
+    req_data = request.json
+    if not isinstance(req_data, list):
+        return jsonify({"error": "Data mestilah dalam format senarai (array)."}), 400
+    save_org_chart(req_data)
+    return jsonify({"success": True, "data": req_data})
+
 
 # --- BANJIR ENDPOINTS ---
 @app.route('/api/banjir', methods=['GET'])

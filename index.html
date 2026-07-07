@@ -404,68 +404,160 @@
       line-height: 1.4;
     }
 
-    /* Section 3: Interactive Org Chart */
+    /* Section 3: Interactive Org Chart - Liquid Glass Aesthetic & Connection Lines */
     .org-chart-viewport {
-      min-height: 500px;
+      min-height: 520px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       position: relative;
-      background: radial-gradient(circle at center,
-          var(--accent-teal-light) 0%,
-          transparent 80%);
-      padding: 10px 0;
+      background: radial-gradient(
+        circle at center,
+        rgba(13, 148, 136, 0.06) 0%,
+        transparent 85%
+      );
+      padding: 20px;
+      overflow-x: auto;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
     }
 
-    .org-tree {
+    .org-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 24px;
       width: 100%;
+      min-width: 780px; /* Maintains hierarchical layout on smaller screens via swipe scroll */
+      margin: 0 auto;
     }
 
-    .org-level {
+    /* Level 1 (Top / Root) styling */
+    .org-root-row {
       display: flex;
       justify-content: center;
-      gap: 12px;
       width: 100%;
-      flex-wrap: wrap;
+      margin-bottom: 24px;
+      position: relative;
     }
 
-    .org-node {
-      background: var(--bg-panel);
-      border: 1px solid var(--border-sterile);
-      border-radius: 6px;
-      width: 160px;
-      padding: 12px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
+    /* Vertical lines */
+    .org-line-v {
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-teal), rgba(13, 148, 136, 0.3));
+      height: 24px;
+      margin: 0 auto;
+    }
+
+    .org-line-sub-v {
+      width: 2px;
+      height: 16px;
+      background: rgba(13, 148, 136, 0.3);
+      margin: 8px auto;
+    }
+
+    /* Level 2 and 3 columns row */
+    .org-branches-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      width: 100%;
+      position: relative;
+      padding-top: 24px;
+    }
+
+    /* Horizontal line between departments */
+    .org-branches-row::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 16.66%; /* Center of first column */
+      right: 16.66%; /* Center of third column */
+      height: 2px;
+      background: rgba(13, 148, 136, 0.3);
+    }
+
+    .org-branch-column {
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
+    }
+
+    /* vertical line going up from each level 2 lead to horizontal line */
+    .org-branch-column::before {
+      content: '';
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 24px;
+      background: rgba(13, 148, 136, 0.3);
+    }
+
+    .org-leaf-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      align-items: center;
+    }
+
+    /* Card styling: Liquid Glass (subtle glassmorphism) */
+    .org-card {
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
+      border: 1px solid rgba(226, 232, 240, 0.7);
+      border-radius: 10px;
+      width: 170px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       gap: 6px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.03), 
+                  inset 0 1px 1px rgba(255, 255, 255, 0.85);
+      position: relative;
+      z-index: 2;
     }
 
-    .org-node:hover {
+    /* Master card / Root card specific styling */
+    .org-card.master-card {
+      width: 200px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1.5px solid rgba(13, 148, 136, 0.3);
+      box-shadow: 0 6px 24px rgba(13, 148, 136, 0.05), 
+                  inset 0 1px 2px rgba(255, 255, 255, 1);
+    }
+
+    .org-card:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.95);
       border-color: var(--accent-teal);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-hover);
+      box-shadow: 0 10px 24px rgba(13, 148, 136, 0.1),
+                  0 2px 4px rgba(0, 0, 0, 0.01);
     }
 
-    .org-node.active {
+    .org-card.active {
+      background: rgba(240, 253, 250, 0.8);
       border-color: var(--accent-teal);
-      background: var(--accent-teal-light);
+      box-shadow: 0 6px 20px rgba(13, 148, 136, 0.12),
+                  inset 0 0 0 1px rgba(13, 148, 136, 0.15);
     }
 
-    .node-avatar {
-      width: 40px;
-      height: 40px;
+    /* Avatar inside card */
+    .card-avatar-wrapper {
+      position: relative;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      background: var(--bg-clinical);
+      background: linear-gradient(135deg, var(--accent-teal-light) 0%, #e2e8f0 100%);
       border: 1px solid var(--border-sterile);
       display: flex;
       align-items: center;
@@ -473,22 +565,31 @@
       color: var(--accent-teal);
       font-weight: 700;
       font-size: 0.85rem;
-      position: relative;
+      transition: all 0.2s ease;
     }
 
-    .org-node.active .node-avatar {
+    .org-card.master-card .card-avatar-wrapper {
+      width: 46px;
+      height: 46px;
+      font-size: 1rem;
+      background: linear-gradient(135deg, var(--accent-teal) 0%, #0d9488 100%);
+      color: #ffffff;
+    }
+
+    .org-card.active .card-avatar-wrapper {
       border-color: var(--accent-teal);
       background: #ffffff;
+      color: var(--accent-teal);
     }
 
     .status-indicator {
       position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 8px;
-      height: 8px;
+      bottom: -1px;
+      right: -1px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
-      border: 1.5px solid #ffffff;
+      border: 2px solid #ffffff;
     }
 
     .status-online {
@@ -503,20 +604,35 @@
       background-color: #ef4444;
     }
 
-    .node-name {
+    .card-name {
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--accent-navy);
+      line-height: 1.25;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-role {
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      font-weight: 500;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       width: 100%;
     }
 
-    .node-role {
-      font-size: 0.65rem;
-      color: var(--text-secondary);
-      font-weight: 500;
+    .org-card.master-card .card-name {
+      font-size: 0.85rem;
+    }
+
+    .org-card.master-card .card-role {
+      font-size: 0.7rem;
+      color: var(--accent-teal);
+      font-weight: 600;
     }
 
     /* Detail Panel for Org Chart */
@@ -1368,7 +1484,330 @@
       </div>
     </section>
 
+          <!-- Stat Card 2 -->
+          <div class="stat-card">
+            <div class="stat-info">
+              <span class="stat-title">KPI Sasaran Klinik</span>
+              <span class="stat-value">96.8%</span>
+            </div>
+            <span class="stat-trend trend-up">OPTIMAL</span>
+          </div>
 
+          <!-- Stat Card 3 -->
+          <div class="stat-card">
+            <div class="stat-info">
+              <span class="stat-title">Indeks Kepuasan Am</span>
+              <span class="stat-value">4.92 / 5</span>
+            </div>
+            <span class="stat-trend trend-up">STABIL</span>
+          </div>
+
+          <div style="border-top: 1px solid var(--border-sterile); margin: 4px 0"></div>
+
+          <div class="announcements-container">
+            <span class="telemetry-label">Pengumuman Penting</span>
+
+            <div class="announcement-item">
+              <div class="announcement-meta">
+                <span>PENTADBIRAN</span>
+                <span>KINI</span>
+              </div>
+              <div class="announcement-title">
+                Audit Kualiti Perkhidmatan KKM
+              </div>
+              <div class="announcement-text">
+                Mohon semua kakitangan memastikan fail pematuhan keselamatan
+                disegerakan sebelum hari Khamis.
+              </div>
+            </div>
+
+            <div class="announcement-item" style="border-left-color: var(--accent-lime)">
+              <div class="announcement-meta" style="color: var(--accent-lime)">
+                <span>LATIHAN</span>
+                <span>2 HARI LEPAS</span>
+              </div>
+              <div class="announcement-title">Slaid Endodontik Baharu</div>
+              <div class="announcement-text">
+                Bahan taklimat teknik rawatan akar gigi moden kini boleh
+                diakses di Arkib Dokumen.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2: Carta Organisasi -->
+      <div class="clinical-panel">
+        <div class="panel-header">
+          <h2>
+            <i data-lucide="network" style="width: 16px; height: 16px"></i>
+            Struktur Kepimpinan & Staf
+          </h2>
+          <span style="
+                font-size: 0.65rem;
+                color: var(--accent-teal);
+                font-weight: 600;
+              ">PAPARAN INTERAKTIF</span>
+        </div>
+        <div class="panel-content">
+          <div class="org-chart-viewport">
+            <div class="org-container">
+              <!-- Level 1 (Top / Root) -->
+              <div class="org-root-row">
+                <div class="org-card master-card active" onclick="selectStaff('owner_pengarah', this)">
+                  <div class="card-avatar-wrapper">
+                    AF<span class="status-indicator status-online"></span>
+                  </div>
+                  <div class="card-name">Dr. Amirul Fird</div>
+                  <div class="card-role">Owner / Pengarah</div>
+                </div>
+              </div>
+
+              <!-- Main vertical connector from Level 1 to Level 2 horizontal connector -->
+              <div class="org-line-v"></div>
+
+              <!-- Level 2 and Level 3 Branches -->
+              <div class="org-branches-row">
+                
+                <!-- Left Column: Klinikal -->
+                <div class="org-branch-column">
+                  <div class="org-card" onclick="selectStaff('clinical_lead', this)">
+                    <div class="card-avatar-wrapper">
+                      NA<span class="status-indicator status-online"></span>
+                    </div>
+                    <div class="card-name">Dr. Nur Ainiah</div>
+                    <div class="card-role">Ketua Bahagian Klinikal</div>
+                  </div>
+                  
+                  <div class="org-line-sub-v"></div>
+                  
+                  <div class="org-leaf-cards">
+                    <!-- Dentists -->
+                    <div class="org-card" onclick="selectStaff('dentists', this)">
+                      <div class="card-avatar-wrapper">
+                        SZ<span class="status-indicator status-busy"></span>
+                      </div>
+                      <div class="card-name">Dr. Syahrul Zaki</div>
+                      <div class="card-role">Pegawai Pergigian</div>
+                    </div>
+                    
+                    <!-- Dental Nurses -->
+                    <div class="org-card" onclick="selectStaff('dental_nurses', this)">
+                      <div class="card-avatar-wrapper">
+                        MI<span class="status-indicator status-online"></span>
+                      </div>
+                      <div class="card-name">Sister Maznah</div>
+                      <div class="card-role">Jururawat Pergigian</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Middle Column: Pengurusan -->
+                <div class="org-branch-column">
+                  <div class="org-card" onclick="selectStaff('management_lead', this)">
+                    <div class="card-avatar-wrapper">
+                      RN<span class="status-indicator status-online"></span>
+                    </div>
+                    <div class="card-name">Puan Hajah Rohana</div>
+                    <div class="card-role">Ketua Bahagian Pengurusan</div>
+                  </div>
+                  
+                  <div class="org-line-sub-v"></div>
+                  
+                  <div class="org-leaf-cards">
+                    <!-- Admin Officers -->
+                    <div class="org-card" onclick="selectStaff('admin_officers', this)">
+                      <div class="card-avatar-wrapper">
+                        KA<span class="status-indicator status-online"></span>
+                      </div>
+                      <div class="card-name">En. Khairul Anuar</div>
+                      <div class="card-role">Pegawai Pentadbiran</div>
+                    </div>
+                    
+                    <!-- Clerks -->
+                    <div class="org-card" onclick="selectStaff('clerks', this)">
+                      <div class="card-avatar-wrapper">
+                        SA<span class="status-indicator status-away"></span>
+                      </div>
+                      <div class="card-name">Pn. Siti Noraisyah</div>
+                      <div class="card-role">Kerani</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Column: Sokongan -->
+                <div class="org-branch-column">
+                  <div class="org-card" onclick="selectStaff('support_lead', this)">
+                    <div class="card-avatar-wrapper">
+                      RA<span class="status-indicator status-online"></span>
+                    </div>
+                    <div class="card-name">En. Roslan Ahmad</div>
+                    <div class="card-role">Ketua Bahagian Sokongan</div>
+                  </div>
+                  
+                  <div class="org-line-sub-v"></div>
+                  
+                  <div class="org-leaf-cards">
+                    <!-- DSA -->
+                    <div class="org-card" onclick="selectStaff('dsa', this)">
+                      <div class="card-avatar-wrapper">
+                        FS<span class="status-indicator status-online"></span>
+                      </div>
+                      <div class="card-name">En. Fadhil Sulaiman</div>
+                      <div class="card-role">Pembantu Pergigian (DSA)</div>
+                    </div>
+                    
+                    <!-- Cleaners / Support -->
+                    <div class="org-card" onclick="selectStaff('cleaners', this)">
+                      <div class="card-avatar-wrapper">
+                        AK<span class="status-indicator status-online"></span>
+                      </div>
+                      <div class="card-name">En. Ahmad Kamaruddin</div>
+                      <div class="card-role">Staf Sokongan / Kebersihan</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Live Profile Detail -->
+            <div class="detail-panel" id="staff-detail-panel">
+              <div class="detail-avatar" id="detail-avatar">AF</div>
+              <div class="detail-info">
+                <h3 id="detail-name">Dr. Amirul Fird</h3>
+                <div class="detail-role" id="detail-role">
+                  Owner / Pengarah Pergigian (Gred UD56)
+                </div>
+                <div class="detail-contact">
+                  <span>E-mel:</span>
+                  <span id="detail-email" style="color: var(--text-primary)">amirul.fird@moh.gov.my</span>
+                  <span>Telefon:</span>
+                  <span id="detail-phone" style="color: var(--text-primary)">Ext. 301 / Pejabat Pengarah</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3: Hab Dokumen -->
+      <div class="clinical-panel" style="display: flex; flex-direction: column">
+        <div class="panel-header">
+          <h2>
+            <i data-lucide="files" style="width: 16px; height: 16px"></i>
+            Arkib Tekndokumen
+          </h2>
+          <span style="
+                font-size: 0.65rem;
+                color: var(--text-muted);
+                font-weight: 600;
+              ">DOKUMEN RASMI</span>
+        </div>
+        <div class="panel-content">
+          <div class="search-wrapper">
+            <i data-lucide="search" class="search-icon" style="width: 14px; height: 14px"></i>
+            <input type="text" id="doc-search" class="search-input" placeholder="Cari dokumen/prosedur..."
+              onkeyup="filterDocs()" />
+          </div>
+
+          <div class="doc-filters">
+            <button class="filter-btn active" onclick="filterCategory('all', this)">
+              Semua
+            </button>
+            <button class="filter-btn" onclick="filterCategory('manual', this)">
+              Manual
+            </button>
+            <button class="filter-btn" onclick="filterCategory('pekeliling', this)">
+              Pekeliling
+            </button>
+            <button class="filter-btn" onclick="filterCategory('borang', this)">
+              Borang
+            </button>
+          </div>
+
+          <div class="docs-list" id="docs-list">
+            <!-- Doc Item 1 -->
+            <div class="doc-card" data-category="manual">
+              <div class="doc-meta">
+                <div class="doc-icon">
+                  <i data-lucide="file-text" style="width: 16px; height: 16px"></i>
+                </div>
+                <div class="doc-details">
+                  <span class="doc-name">Manual Kawalan Infeksi 2026</span>
+                  <span class="doc-size">PDF • 4.2 MB</span>
+                </div>
+              </div>
+              <div class="doc-actions">
+                <button class="doc-btn secondary" onclick="
+                      viewDoc(
+                        'Manual Kawalan Infeksi 2026',
+                        'Panduan klinikal lengkap kawalan jangkitan termasuk penyediaan bilik bedah mulut, pensterilan alatan berautoklaf, serta pematuhan PPE terkini.',
+                      )
+                    ">
+                  <i data-lucide="eye" style="width: 12px; height: 12px"></i>
+                </button>
+                <button class="doc-btn" onclick="downloadDoc('Manual Kawalan Infeksi 2026')">
+                  <i data-lucide="download" style="width: 12px; height: 12px"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Doc Item 2 -->
+            <div class="doc-card" data-category="pekeliling">
+              <div class="doc-meta">
+                <div class="doc-icon">
+                  <i data-lucide="info" style="width: 16px; height: 16px"></i>
+                </div>
+                <div class="doc-details">
+                  <span class="doc-name">Pekeliling Waktu Bekerja Syif</span>
+                  <span class="doc-size">PDF • 1.8 MB</span>
+                </div>
+              </div>
+              <div class="doc-actions">
+                <button class="doc-btn secondary" onclick="
+                      viewDoc(
+                        'Pekeliling Waktu Bekerja Syif',
+                        'Struktur baharu syif bertugas bagi kakitangan klinik pergigian daerah Kota Bharu bermula pertengahan tahun.',
+                      )
+                    ">
+                  <i data-lucide="eye" style="width: 12px; height: 12px"></i>
+                </button>
+                <button class="doc-btn" onclick="downloadDoc('Pekeliling Waktu Bekerja Syif')">
+                  <i data-lucide="download" style="width: 12px; height: 12px"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Doc Item 3 -->
+            <div class="doc-card" data-category="borang">
+              <div class="doc-meta">
+                <div class="doc-icon">
+                  <i data-lucide="file-check-2" style="width: 16px; height: 16px"></i>
+                </div>
+                <div class="doc-details">
+                  <span class="doc-name">Borang Keizinan Pembedahan</span>
+                  <span class="doc-size">DOCX • 520 KB</span>
+                </div>
+              </div>
+              <div class="doc-actions">
+                <button class="doc-btn secondary" onclick="
+                      viewDoc(
+                        'Borang Keizinan Rawatan Pembedahan Mulut',
+                        'Borang keizinan rasmi pesakit untuk prosedur pembedahan pergigian minor. Perlu disimpan dalam fail rekod pesakit.',
+                      )
+                    ">
+                  <i data-lucide="eye" style="width: 12px; height: 12px"></i>
+                </button>
+                <button class="doc-btn" onclick="downloadDoc('Borang Keizinan Pembedahan')">
+                  <i data-lucide="download" style="width: 12px; height: 12px"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 
   <!-- Document Preview Modal -->
@@ -1520,70 +1959,100 @@
 
     // Org Chart Selection Data
     const staffData = {
-      pakar_pentadbir: {
-        name: 'Dr. Khairul Azmi bin Mansor',
-        role: 'Pakar Pergigian Pentadbir (Gred UD54)',
-        email: 'khairulazmi@moh.gov.my',
-        phone: 'Ext. 302 / Bilik Pakar 1',
-        avatar: 'DR',
+      owner_pengarah: {
+        name: 'Dr. Amirul Fird',
+        role: 'Owner / Pengarah Pergigian (Gred UD56)',
+        email: 'amirul.fird@moh.gov.my',
+        phone: 'Ext. 301 / Pejabat Pengarah',
+        avatar: 'AF',
       },
-      pegawai_kanan: {
+      clinical_lead: {
         name: 'Dr. Nur Ainiah binti Yusof',
-        role: 'Pegawai Pergigian Kanan (Gred UD48)',
+        role: 'Ketua Bahagian Klinikal (Gred UD48)',
         email: 'nurainiah@moh.gov.my',
-        phone: 'Ext. 305 / Bilik Rawatan 2',
-        avatar: 'PP',
+        phone: 'Ext. 305 / Bilik Rawatan Khas',
+        avatar: 'NA',
       },
-      ketua_jururawat: {
+      dentists: {
+        name: 'Dr. Syahrul Zaki bin Harun',
+        role: 'Pegawai Pergigian (Gred UD44)',
+        email: 'syahrul.z@moh.gov.my',
+        phone: 'Ext. 308 / Klinik Rawatan B',
+        avatar: 'SZ',
+      },
+      dental_nurses: {
         name: 'Sister Maznah binti Ibrahim',
-        role: 'Ketua Jururawat Pergigian (Gred U32)',
+        role: 'Jururawat Pergigian Kanan (Gred U32)',
         email: 'maznah.ibrahim@moh.gov.my',
-        phone: 'Ext. 310 / Kaunter Utama',
-        avatar: 'KJ',
+        phone: 'Ext. 310 / Bilik Penyelia',
+        avatar: 'MI',
       },
-      juruterapi_1: {
-        name: 'Puan Aishah binti Ramli',
-        role: 'Juruterapi Pergigian (Gred U29)',
-        email: 'aishah.ramli@moh.gov.my',
-        phone: 'Ext. 312 / Klinik Kanak-Kanak',
-        avatar: 'JT',
+      management_lead: {
+        name: 'Puan Hajah Rohana binti Md. Noor',
+        role: 'Ketua Bahagian Pengurusan (Gred N32)',
+        email: 'rohana.mn@moh.gov.my',
+        phone: 'Ext. 302 / Pejabat Pentadbiran',
+        avatar: 'RN',
       },
-      dsa_1: {
-        name: 'Encik Fadhil bin Abdul Rahman',
-        role: 'Pembantu Rawatan / DSA (Gred U19)',
-        email: 'fadhil.ar@moh.gov.my',
+      admin_officers: {
+        name: 'Encik Khairul Anuar bin Basri',
+        role: 'Pegawai Pentadbiran (Gred N29)',
+        email: 'k.anuar@moh.gov.my',
+        phone: 'Ext. 303 / Bahagian Kewangan',
+        avatar: 'KA',
+      },
+      clerks: {
+        name: 'Puan Siti Noraisyah binti Ali',
+        role: 'Kerani Kanan N19',
+        email: 'siti.noraisyah@moh.gov.my',
+        phone: 'Ext. 304 / Kaunter Hasil',
+        avatar: 'SA',
+      },
+      support_lead: {
+        name: 'Encik Roslan bin Ahmad',
+        role: 'Ketua Bahagian Sokongan (Gred U29)',
+        email: 'roslan.ahmad@moh.gov.my',
+        phone: 'Ext. 311 / Unit Sokongan',
+        avatar: 'RA',
+      },
+      dsa: {
+        name: 'Encik Fadhil bin Sulaiman',
+        role: 'Pembantu Pembedahan Pergigian (Gred U19)',
+        email: 'fadhil.s@moh.gov.my',
         phone: 'Ext. 315 / Bilik Pensterilan',
-        avatar: 'DS',
+        avatar: 'FS',
       },
-      sokongan_1: {
-        name: 'Cik Atikah binti Rosli',
-        role: 'Penyambut Tetamu / Khidmat Pelanggan',
-        email: 'atikah.r@moh.gov.my',
-        phone: 'Ext. 300 / Lobi Utama',
-        avatar: 'ST',
+      cleaners: {
+        name: 'Encik Ahmad Kamaruddin bin Din',
+        role: 'Pembantu Am & Kebersihan (Gred H11)',
+        email: 'kamaruddin.din@moh.gov.my',
+        phone: 'Ext. 300 / Blok Operasi',
+        avatar: 'AK',
       },
     };
 
     function selectStaff(key, element) {
-      document.querySelectorAll('.org-node').forEach((node) => {
+      document.querySelectorAll('.org-card').forEach((node) => {
         node.classList.remove('active');
       });
 
       element.classList.add('active');
 
       const info = staffData[key];
-      const avatarEl = document.getElementById('detail-avatar');
-      if (avatarEl) avatarEl.textContent = info.avatar;
-      const nameEl = document.getElementById('detail-name');
-      if (nameEl) nameEl.textContent = info.name;
-      const roleEl = document.getElementById('detail-role');
-      if (roleEl) roleEl.textContent = info.role;
-      const emailEl = document.getElementById('detail-email');
-      if (emailEl) emailEl.textContent = info.email;
-      const phoneEl = document.getElementById('detail-phone');
-      if (phoneEl) phoneEl.textContent = info.phone;
+      if (info) {
+        const avatarEl = document.getElementById('detail-avatar');
+        if (avatarEl) avatarEl.textContent = info.avatar;
+        const nameEl = document.getElementById('detail-name');
+        if (nameEl) nameEl.textContent = info.name;
+        const roleEl = document.getElementById('detail-role');
+        if (roleEl) roleEl.textContent = info.role;
+        const emailEl = document.getElementById('detail-email');
+        if (emailEl) emailEl.textContent = info.email;
+        const phoneEl = document.getElementById('detail-phone');
+        if (phoneEl) phoneEl.textContent = info.phone;
 
-      showToast(`Maklumat kakitangan ${info.avatar} dimuatkan.`);
+        showToast(`Maklumat kakitangan ${info.avatar} dimuatkan.`);
+      }
     }
 
     // Search & Filter Document Library

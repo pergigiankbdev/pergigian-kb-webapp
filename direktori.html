@@ -494,7 +494,411 @@
         width: 100%;
       }
     }
+
+    /* ==========================================
+       Organization Chart View & Glassmorphic CSS
+       ========================================== */
+    .org-chart-viewport {
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      background: radial-gradient(
+        circle at center,
+        rgba(13, 148, 136, 0.05) 0%,
+        transparent 85%
+      );
+      padding: 24px;
+      overflow-x: auto;
+      width: 100%;
+      border: 1px solid var(--border-sterile);
+      border-radius: 8px;
+      background-color: #fbfcfd;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .org-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      min-width: 820px;
+      margin: 0 auto;
+    }
+
+    .org-root-row {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .org-line-v {
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-teal), rgba(13, 148, 136, 0.3));
+      height: 24px;
+      margin: 0 auto;
+    }
+
+    .org-line-sub-v {
+      width: 2px;
+      height: 18px;
+      background: rgba(13, 148, 136, 0.3);
+      margin: 8px auto;
+    }
+
+    .org-branches-row {
+      display: grid;
+      gap: 24px;
+      width: 100%;
+      position: relative;
+      padding-top: 24px;
+    }
+
+    /* Horizontal connection line */
+    .org-branches-row::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 16.66%;
+      right: 16.66%;
+      height: 2px;
+      background: rgba(13, 148, 136, 0.3);
+    }
+
+    .org-branch-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .org-branch-column::before {
+      content: '';
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 24px;
+      background: rgba(13, 148, 136, 0.3);
+    }
+
+    .org-leaf-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      align-items: center;
+    }
+
+    /* Card styling: Liquid Glass (subtle glassmorphism) */
+    .org-card {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
+      border: 1px solid rgba(203, 213, 225, 0.6);
+      border-radius: 12px;
+      width: 180px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.03), 
+                  inset 0 1px 1px rgba(255, 255, 255, 0.85);
+      position: relative;
+      z-index: 2;
+    }
+
+    .org-card:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.95);
+      border-color: var(--accent-teal);
+      box-shadow: 0 10px 24px rgba(13, 148, 136, 0.12),
+                  0 2px 4px rgba(0, 0, 0, 0.01);
+    }
+
+    .org-card.active {
+      background: rgba(240, 253, 250, 0.85);
+      border-color: var(--accent-teal);
+      border-width: 1.5px;
+      box-shadow: 0 6px 20px rgba(13, 148, 136, 0.12),
+                  inset 0 1px 1px rgba(255, 255, 255, 0.9);
+    }
+
+    .org-card.master-card {
+      width: 210px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1.5px solid rgba(13, 148, 136, 0.4);
+      box-shadow: 0 6px 24px rgba(13, 148, 136, 0.06), 
+                  inset 0 1px 2px rgba(255, 255, 255, 1);
+    }
+
+    .org-card.lvl2-card {
+      border-color: rgba(37, 99, 235, 0.4);
+    }
+
+    .org-card.lvl2-card.active {
+      background: rgba(239, 246, 255, 0.85);
+      border-color: var(--accent-blue);
+    }
+
+    /* Card Contents */
+    .card-avatar-wrapper {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 2px;
+    }
+
+    .card-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-avatar-text {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-teal), #0f766e);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .lvl2-card .card-avatar-text {
+      background: linear-gradient(135deg, var(--accent-blue), #1d4ed8);
+    }
+
+    .status-indicator {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1.5px solid #ffffff;
+    }
+
+    .status-online { background-color: var(--accent-lime); }
+    .status-offline { background-color: var(--text-muted); }
+    .status-busy { background-color: #ef4444; }
+    .status-away { background-color: #f59e0b; }
+
+    .card-name {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--accent-navy);
+      line-height: 1.2;
+    }
+
+    .card-role {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    /* Tab styles */
+    .view-switch-btn.active {
+      background: var(--accent-teal-light) !important;
+      border-color: var(--accent-teal) !important;
+      color: var(--accent-teal) !important;
+      font-weight: 600;
+    }
+
+    /* Admin Action Button styles */
+    .btn-card-action {
+      background: #ffffff;
+      border: 1px solid var(--border-sterile);
+      border-radius: 4px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .btn-card-action:hover {
+      background: var(--bg-clinical);
+    }
+
+    .btn-card-action.edit:hover {
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+    }
+
+    .btn-card-action.delete:hover {
+      border-color: #ef4444;
+      color: #ef4444;
+    }
+
+    .card-edit-actions {
+      display: flex;
+      gap: 6px;
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .org-card:hover .card-edit-actions {
+      opacity: 1;
+    }
+
+    /* Modal dialog */
+    .custom-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .custom-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .custom-modal {
+      background: #ffffff;
+      border: 1px solid var(--border-sterile);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+      overflow: hidden;
+    }
+
+    .custom-modal-overlay.active .custom-modal {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-sterile);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-clinical);
+    }
+
+    .modal-header h3 {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--accent-navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .form-input {
+      padding: 10px 12px;
+      border: 1px solid var(--border-sterile);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent-teal);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+    }
+
+    .modal-footer {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border-sterile);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: var(--bg-clinical);
+    }
+
+    .btn-secondary {
+      padding: 8px 16px;
+      background: #ffffff;
+      border: 1px solid var(--border-sterile);
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-clinical);
+    }
+
+    .btn-primary {
+      padding: 8px 16px;
+      background: var(--accent-teal);
+      border: none;
+      color: #ffffff;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #0f766e;
+    }
   </style>
+
 </head>
 
 <body>
@@ -532,7 +936,21 @@
         <span style="font-size: 0.75rem; color: var(--accent-teal); font-weight: 600;">PORTAL INTERAKTIF STAF</span>
       </div>
       <div class="panel-content">
-        <div class="filter-bar">
+        <!-- View Switcher -->
+        <div class="view-switcher-bar" style="display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid var(--border-sterile); padding-bottom: 16px;">
+          <button class="view-switch-btn active" id="btn-list-view" onclick="switchView('list')" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; border: 1px solid var(--border-sterile); border-radius: 6px; background: #ffffff; cursor: pointer; font-weight: 600; font-size: 0.85rem; color: var(--text-secondary); transition: all 0.2s;">
+            <i data-lucide="grid" style="width: 15px; height: 15px; color: var(--accent-teal);"></i> Senarai Staf
+          </button>
+          <button class="view-switch-btn" id="btn-org-view" onclick="switchView('org')" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; border: 1px solid var(--border-sterile); border-radius: 6px; background: #ffffff; cursor: pointer; font-weight: 500; font-size: 0.85rem; color: var(--text-secondary); transition: all 0.2s;">
+            <i data-lucide="network" style="width: 15px; height: 15px; color: var(--text-muted);"></i> Carta Organisasi
+          </button>
+          <button class="view-switch-btn admin-btn" id="btn-edit-mode" onclick="toggleEditMode()" style="display: none; align-items: center; gap: 8px; padding: 10px 20px; border: 1px solid rgba(13, 148, 136, 0.2); border-radius: 6px; background: var(--accent-teal-light); cursor: pointer; font-weight: 500; font-size: 0.85rem; color: var(--accent-teal); transition: all 0.2s; margin-left: auto;">
+            <i data-lucide="settings" style="width: 15px; height: 15px;"></i> Urus Carta
+          </button>
+        </div>
+
+        <div id="directory-list-container">
+          <div class="filter-bar">
           <div class="search-wrapper">
             <i data-lucide="search" class="search-icon" style="width: 18px; height: 18px"></i>
             <input type="text" id="staff-search" class="search-input"
@@ -750,6 +1168,86 @@
             </div>
           </div>
         </div>
+        </div> <!-- end of directory-list-container -->
+
+        <!-- Org Chart Container (Hidden by default) -->
+        <div id="org-chart-view-container" style="display: none;">
+          <div class="org-chart-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h3 style="font-size: 1.1rem; color: var(--accent-navy); font-weight: 700;">Carta Organisasi Kepimpinan & Staf</h3>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px;">Papar hierarki peranan secara grafik. Leret secara mendatar pada peranti mudah alih.</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button class="admin-btn-action btn-primary" id="btn-add-staff" onclick="openAddModal()" style="display: none; align-items: center; gap: 6px; padding: 8px 16px; border: none; color: white; border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer;">
+                <i data-lucide="user-plus" style="width: 14px; height: 14px;"></i> Tambah Kakitangan
+              </button>
+            </div>
+          </div>
+
+          <div class="org-chart-viewport">
+            <div id="org-chart-container">
+              <!-- Rendered Dynamically -->
+            </div>
+          </div>
+
+          <!-- Live Profile Detail -->
+          <div class="detail-panel" id="staff-detail-panel" style="margin-top: 24px; background: #ffffff; border: 1px solid var(--border-sterile); border-radius: 8px; padding: 20px; display: flex; gap: 20px; align-items: center; box-shadow: var(--shadow-soft);">
+            <div class="detail-avatar" id="detail-avatar" style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-teal), #0f766e); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; flex-shrink: 0;">AF</div>
+            <div class="detail-info" style="display: flex; flex-direction: column; gap: 6px;">
+              <h3 id="detail-name" style="font-size: 1.2rem; font-weight: 700; color: var(--accent-navy);">Dr. Amirul Fird</h3>
+              <div class="detail-role" id="detail-role" style="font-size: 0.9rem; color: var(--accent-teal); font-weight: 600;">Pegawai Pergigian Daerah</div>
+              <div class="detail-contact" style="display: flex; gap: 16px; font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; flex-wrap: wrap;">
+                <div><strong>E-mel:</strong> <span id="detail-email" style="color: var(--text-primary);">amirul.fird@moh.gov.my</span></div>
+                <div><strong>Telefon:</strong> <span id="detail-phone" style="color: var(--text-primary);">Ext. 301 / Pejabat PPD</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Edit/Add Modal Overlay -->
+        <div class="custom-modal-overlay" id="edit-staff-modal">
+          <div class="custom-modal">
+            <div class="modal-header">
+              <h3 id="modal-title-text"><i data-lucide="user-cog"></i> Kemaskini Maklumat Kakitangan</h3>
+              <button type="button" onclick="closeModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); line-height: 1;">&times;</button>
+            </div>
+            <form id="staff-edit-form" onsubmit="saveStaffForm(event)">
+              <input type="hidden" id="form-staff-id" />
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="form-staff-name">Nama Penuh</label>
+                  <input type="text" id="form-staff-name" class="form-input" required placeholder="e.g. Dr. Amirul Fird" />
+                </div>
+                <div class="form-group">
+                  <label for="form-staff-role">Jawatan / Gelaran</label>
+                  <input type="text" id="form-staff-role" class="form-input" required placeholder="e.g. Pegawai Pergigian Daerah" />
+                </div>
+                <div class="form-group">
+                  <label for="form-staff-avatar">Gambar / Huruf Awal (Initials)</label>
+                  <input type="text" id="form-staff-avatar" class="form-input" required placeholder="e.g. AF atau URL gambar" />
+                </div>
+                <div class="form-group">
+                  <label for="form-staff-parent">Jawatan Atasan (Parent)</label>
+                  <select id="form-staff-parent" class="form-input">
+                    <!-- Loaded dynamically -->
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="form-staff-email">Alamat E-mel</label>
+                  <input type="email" id="form-staff-email" class="form-input" required placeholder="e.g. amirul.fird@moh.gov.my" />
+                </div>
+                <div class="form-group">
+                  <label for="form-staff-phone">No. Telefon / Ext.</label>
+                  <input type="text" id="form-staff-phone" class="form-input" required placeholder="e.g. Ext. 301 / Pejabat PPD" />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal()">Batal</button>
+                <button type="submit" class="btn-primary">Simpan</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -760,6 +1258,354 @@
 
   <script>
     lucide.createIcons();
+
+    // ==========================================
+    // Organization Chart & Visual Editor Script
+    // ==========================================
+    let staffDataList = [];
+    let editModeActive = false;
+    let currentView = 'list';
+
+    function switchView(view) {
+      currentView = view;
+      const listContainer = document.getElementById('directory-list-container');
+      const orgContainer = document.getElementById('org-chart-view-container');
+      const btnList = document.getElementById('btn-list-view');
+      const btnOrg = document.getElementById('btn-org-view');
+      const btnEdit = document.getElementById('btn-edit-mode');
+
+      if (view === 'list') {
+        listContainer.style.display = 'block';
+        orgContainer.style.display = 'none';
+        btnList.classList.add('active');
+        btnOrg.classList.remove('active');
+        btnEdit.style.display = 'none';
+      } else {
+        listContainer.style.display = 'none';
+        orgContainer.style.display = 'block';
+        btnList.classList.remove('active');
+        btnOrg.classList.add('active');
+        btnEdit.style.display = 'flex';
+        loadOrgChartData();
+      }
+    }
+
+    async function loadOrgChartData() {
+      try {
+        const res = await fetch('/api/organisasi');
+        if (res.ok) {
+          staffDataList = await res.json();
+          renderOrgChart(staffDataList);
+          
+          // Select root by default if available
+          const rootNode = staffDataList.find(n => n.parentId === null);
+          if (rootNode) {
+            selectStaffNode(rootNode.id, null);
+          }
+        }
+      } catch (err) {
+        console.error('Gagal memuatkan data carta organisasi:', err);
+      }
+    }
+
+    function renderOrgChart(data) {
+      const container = document.getElementById('org-chart-container');
+      container.innerHTML = '';
+
+      if (!data || data.length === 0) {
+        container.innerHTML = '<div style="padding: 40px; color: var(--text-secondary);">Tiada data kakitangan ditemui.</div>';
+        return;
+      }
+
+      // Find Level 1: Pegawai Pergigian Daerah (Root)
+      const rootNode = data.find(n => n.parentId === null || n.parentId === "");
+      if (!rootNode) {
+        container.innerHTML = '<div style="padding: 40px; color: var(--text-secondary);">Ralat Hierarki: Tiada root (Pegawai Pergigian Daerah) ditemui.</div>';
+        return;
+      }
+
+      // Find Level 2: Pegawai Pergigian Yang Menjaga (child of root)
+      const lvl2Node = data.find(n => n.parentId === rootNode.id);
+
+      // Find Level 3: Leads (children of lvl2)
+      const lvl3Nodes = lvl2Node ? data.filter(n => n.parentId === lvl2Node.id) : [];
+
+      let html = `
+        <div class="org-container">
+          <!-- Level 1 (Top / Root) -->
+          <div class="org-root-row">
+            ${renderCardHtml(rootNode, 'master-card')}
+          </div>
+      `;
+
+      if (lvl2Node) {
+        html += `
+          <!-- Vertical line from L1 to L2 -->
+          <div class="org-line-v"></div>
+          
+          <!-- Level 2 (Pegawai Pergigian Yang Menjaga) -->
+          <div class="org-root-row">
+            ${renderCardHtml(lvl2Node, 'master-card lvl2-card')}
+          </div>
+        `;
+
+        if (lvl3Nodes.length > 0) {
+          html += `
+            <!-- Vertical line from L2 to L3 -->
+            <div class="org-line-v"></div>
+            
+            <!-- Level 3 and 4 Branches -->
+            <div class="org-branches-row" style="grid-template-columns: repeat(${lvl3Nodes.length}, 1fr)">
+          `;
+
+          // Custom connector line adjust: center of columns
+          const columnPercent = 100 / lvl3Nodes.length;
+          const leftOffset = columnPercent / 2;
+          const rightOffset = columnPercent / 2;
+          
+          html += `
+            <style>
+              .org-branches-row::before {
+                left: ${leftOffset}%;
+                right: ${rightOffset}%;
+              }
+            </style>
+          `;
+
+          lvl3Nodes.forEach(lead => {
+            // Find Level 4: Staff under respective leads
+            const staffNodes = data.filter(n => n.parentId === lead.id);
+
+            html += `
+              <div class="org-branch-column">
+                ${renderCardHtml(lead, 'lead-card')}
+                
+                ${staffNodes.length > 0 ? '<div class="org-line-sub-v"></div>' : ''}
+                
+                <div class="org-leaf-cards">
+                  ${staffNodes.map(staff => renderCardHtml(staff, 'leaf-card')).join('')}
+                </div>
+              </div>
+            `;
+          });
+
+          html += `
+            </div>
+          `;
+        }
+      }
+
+      html += `
+        </div>
+      `;
+
+      container.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    function renderCardHtml(node, extraClass = '') {
+      const activeClass = document.getElementById('detail-name') && document.getElementById('detail-name').textContent === node.name ? 'active' : '';
+      const avatarHtml = node.avatar && (node.avatar.startsWith('http') || node.avatar.includes('/') || node.avatar.includes('.'))
+        ? `<img src="${node.avatar}" class="card-avatar" alt="${node.name}" onerror="this.outerHTML='<div class=&quot;card-avatar-text&quot;>${getInitials(node.name)}</div>'">`
+        : `<div class="card-avatar-text">${node.avatar || getInitials(node.name)}</div>`;
+
+      return `
+        <div class="org-card ${extraClass} ${activeClass}" id="card-${node.id}" onclick="selectStaffNode('${node.id}', this)">
+          ${editModeActive ? `
+            <div class="card-edit-actions" onclick="event.stopPropagation()">
+              <button class="btn-card-action edit" onclick="openEditModal('${node.id}')" title="Edit Maklumat">
+                <i data-lucide="edit-2" style="width: 12px; height: 12px;"></i>
+              </button>
+              <button class="btn-card-action delete" onclick="deleteStaffNode('${node.id}')" title="Padam Kakitangan">
+                <i data-lucide="trash-2" style="width: 12px; height: 12px;"></i>
+              </button>
+            </div>
+          ` : ''}
+          <div class="card-avatar-wrapper">
+            ${avatarHtml}
+            <span class="status-indicator status-online"></span>
+          </div>
+          <div class="card-name">${node.name}</div>
+          <div class="card-role">${node.role}</div>
+        </div>
+      `;
+    }
+
+    function getInitials(name) {
+      if (!name) return 'ST';
+      const clean = name.replace(/^(Dr\.|Puan|Tuan|Encik|En\.|Pn\.|Sister)\s+/i, '');
+      const parts = clean.split(/\s+/);
+      if (parts.length >= 2) {
+        return (parts[0][0] + (parts[1][0] || '')).toUpperCase();
+      }
+      return parts[0].substring(0, 2).toUpperCase();
+    }
+
+    function selectStaffNode(id, element) {
+      // Remove active class from all org cards
+      document.querySelectorAll('.org-card').forEach(c => c.classList.remove('active'));
+      
+      const card = element || document.getElementById(`card-${id}`);
+      if (card) {
+        card.classList.add('active');
+      }
+
+      const node = staffDataList.find(n => n.id === id);
+      if (node) {
+        document.getElementById('detail-avatar').textContent = getInitials(node.name);
+        document.getElementById('detail-name').textContent = node.name;
+        document.getElementById('detail-role').textContent = node.role;
+        document.getElementById('detail-email').textContent = node.email || '-';
+        document.getElementById('detail-phone').textContent = node.phone || '-';
+      }
+    }
+
+    function toggleEditMode() {
+      editModeActive = !editModeActive;
+      const btnEdit = document.getElementById('btn-edit-mode');
+      const btnAdd = document.getElementById('btn-add-staff');
+
+      if (editModeActive) {
+        btnEdit.classList.add('active');
+        btnEdit.innerHTML = '<i data-lucide="x"></i> Selesai Urus';
+        btnAdd.style.display = 'flex';
+      } else {
+        btnEdit.classList.remove('active');
+        btnEdit.innerHTML = '<i data-lucide="settings"></i> Urus Carta';
+        btnAdd.style.display = 'none';
+      }
+
+      renderOrgChart(staffDataList);
+      lucide.createIcons();
+    }
+
+    function populateParentSelect(currentId = null) {
+      const select = document.getElementById('form-staff-parent');
+      select.innerHTML = '<option value="">Tiada (Root / PPD)</option>';
+      
+      staffDataList.forEach(n => {
+        if (n.id !== currentId) {
+          select.innerHTML += `<option value="${n.id}">${n.name} (${n.role})</option>`;
+        }
+      });
+    }
+
+    function openAddModal() {
+      document.getElementById('modal-title-text').innerHTML = '<i data-lucide="user-plus"></i> Tambah Kakitangan Baru';
+      document.getElementById('form-staff-id').value = '';
+      document.getElementById('form-staff-name').value = '';
+      document.getElementById('form-staff-role').value = '';
+      document.getElementById('form-staff-avatar').value = '';
+      document.getElementById('form-staff-email').value = '';
+      document.getElementById('form-staff-phone').value = '';
+      
+      populateParentSelect();
+      
+      document.getElementById('edit-staff-modal').classList.add('active');
+      lucide.createIcons();
+    }
+
+    function openEditModal(id) {
+      const node = staffDataList.find(n => n.id === id);
+      if (!node) return;
+
+      document.getElementById('modal-title-text').innerHTML = '<i data-lucide="user-cog"></i> Kemaskini Maklumat Kakitangan';
+      document.getElementById('form-staff-id').value = node.id;
+      document.getElementById('form-staff-name').value = node.name;
+      document.getElementById('form-staff-role').value = node.role;
+      document.getElementById('form-staff-avatar').value = node.avatar || '';
+      document.getElementById('form-staff-email').value = node.email || '';
+      document.getElementById('form-staff-phone').value = node.phone || '';
+      
+      populateParentSelect(id);
+      document.getElementById('form-staff-parent').value = node.parentId || '';
+      
+      document.getElementById('edit-staff-modal').classList.add('active');
+      lucide.createIcons();
+    }
+
+    function closeModal() {
+      document.getElementById('edit-staff-modal').classList.remove('active');
+    }
+
+    async function saveStaffForm(event) {
+      event.preventDefault();
+      
+      const id = document.getElementById('form-staff-id').value;
+      const name = document.getElementById('form-staff-name').value;
+      const role = document.getElementById('form-staff-role').value;
+      const avatar = document.getElementById('form-staff-avatar').value;
+      const parentId = document.getElementById('form-staff-parent').value || null;
+      const email = document.getElementById('form-staff-email').value;
+      const phone = document.getElementById('form-staff-phone').value;
+
+      if (id) {
+        // Edit mode
+        const node = staffDataList.find(n => n.id === id);
+        if (node) {
+          node.name = name;
+          node.role = role;
+          node.avatar = avatar;
+          node.parentId = parentId;
+          node.email = email;
+          node.phone = phone;
+        }
+      } else {
+        // Add mode
+        const newId = 'staff_' + Date.now();
+        const newStaff = {
+          id: newId,
+          name,
+          role,
+          avatar,
+          parentId,
+          email,
+          phone
+        };
+        staffDataList.push(newStaff);
+      }
+
+      await saveToServer();
+      closeModal();
+      renderOrgChart(staffDataList);
+    }
+
+    async function deleteStaffNode(id) {
+      if (!confirm('Adakah anda pasti mahu memadam kakitangan ini?')) return;
+      
+      // Update children parentId of deleted node to null or deleted node's parentId
+      const targetNode = staffDataList.find(n => n.id === id);
+      const parentId = targetNode ? targetNode.parentId : null;
+      
+      staffDataList.forEach(n => {
+        if (n.parentId === id) {
+          n.parentId = parentId;
+        }
+      });
+
+      staffDataList = staffDataList.filter(n => n.id !== id);
+      await saveToServer();
+      renderOrgChart(staffDataList);
+    }
+
+    async function saveToServer() {
+      try {
+        const res = await fetch('/api/organisasi', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(staffDataList)
+        });
+        if (!res.ok) {
+          alert('Gagal menyimpan perubahan ke server.');
+        }
+      } catch (err) {
+        console.error('Ralat semasa menyimpan ke server:', err);
+        alert('Ralat semasa menyambung ke server.');
+      }
+    }
+
 
     // System Time Clock
     function updateClock() {
