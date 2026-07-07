@@ -599,6 +599,254 @@
         gap: 20px;
         width: 100%;
       }
+
+      /* ── Announcement Banner ───────────────────────── */
+      .glass-announcement {
+        grid-column: span 2;
+        max-width: 1024px;
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+        border-radius: 14px;
+        background: rgba(236, 253, 245, 0.55);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(52, 211, 153, 0.35);
+        box-shadow:
+          0 4px 24px 0 rgba(16, 185, 129, 0.07),
+          inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        padding: 18px 24px;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        transition: opacity 0.35s ease, transform 0.35s ease;
+        overflow: hidden;
+      }
+
+      .glass-announcement::before {
+        content: '';
+        position: absolute;
+        top: -60px;
+        left: -60px;
+        width: 180px;
+        height: 180px;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .glass-announcement.dismissed {
+        opacity: 0;
+        transform: translateY(-8px);
+        pointer-events: none;
+      }
+
+      .ann-icon-wrap {
+        flex-shrink: 0;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid rgba(16, 185, 129, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #059669;
+      }
+
+      .ann-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .ann-title {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #064e3b;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .ann-badge {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        background: rgba(16, 185, 129, 0.18);
+        color: #047857;
+        padding: 2px 8px;
+        border-radius: 50px;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .ann-text {
+        font-size: 0.85rem;
+        color: #065f46;
+        line-height: 1.55;
+      }
+
+      .ann-timestamp {
+        font-size: 0.75rem;
+        color: #6ee7b7;
+        margin-top: 2px;
+      }
+
+      .ann-dismiss {
+        flex-shrink: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        color: #059669;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+
+      .ann-dismiss:hover {
+        background: rgba(16, 185, 129, 0.25);
+        color: #047857;
+      }
+
+      /* ── Submodule Card Grid ───────────────────────── */
+      .submodule-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      @media (max-width: 680px) {
+        .submodule-grid {
+          grid-template-columns: 1fr;
+        }
+        .glass-announcement {
+          flex-direction: column;
+        }
+      }
+
+      .submodule-card {
+        position: relative;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow:
+          0 4px 20px rgba(15, 23, 42, 0.06),
+          inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.28s ease,
+                    backdrop-filter 0.28s ease;
+        overflow: hidden;
+      }
+
+      .submodule-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--card-accent-a, #0d9488), var(--card-accent-b, #3b82f6));
+        opacity: 0;
+        transition: opacity 0.28s ease;
+        border-radius: 14px 14px 0 0;
+      }
+
+      .submodule-card:hover {
+        transform: translateY(-5px) scale(1.01);
+        box-shadow:
+          0 16px 40px rgba(15, 23, 42, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+      }
+
+      .submodule-card:hover::before {
+        opacity: 1;
+      }
+
+      .card-icon-wrap {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        transition: transform 0.25s ease;
+      }
+
+      .submodule-card:hover .card-icon-wrap {
+        transform: rotate(-4deg) scale(1.08);
+      }
+
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 1;
+      }
+
+      .card-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #0f172a;
+      }
+
+      .card-desc {
+        font-size: 0.82rem;
+        color: #475569;
+        line-height: 1.55;
+      }
+
+      .glass-dl-btn {
+        align-self: flex-start;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 10px 18px;
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07);
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #0f172a;
+        text-decoration: none;
+        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .glass-dl-btn:hover {
+        background: rgba(13, 148, 136, 0.12);
+        border-color: rgba(13, 148, 136, 0.4);
+        color: #0d9488;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(13, 148, 136, 0.15);
+      }
+
+      .glass-dl-btn span {
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        padding: 2px 7px;
+        border-radius: 50px;
+        background: rgba(15, 23, 42, 0.06);
+        color: #64748b;
+      }
     </style>
   </head>
   <body>
@@ -812,23 +1060,128 @@
         </div>
       </div>
 
-      <!-- Submodules Glass Shell Container -->
+      <!-- ── Announcement Banner ───────────────────── -->
+      <div class="glass-announcement" id="klinikal-announcement">
+        <div class="ann-icon-wrap">
+          <i data-lucide="bell-ring" style="width: 18px; height: 18px"></i>
+        </div>
+        <div class="ann-body">
+          <div class="ann-title">
+            Makluman Terkini Hab Klinikal
+            <span class="ann-badge">Terkini</span>
+          </div>
+          <p class="ann-text">
+            Fail PDF untuk <strong>Garis Panduan Klinikal versi 2026</strong> telah dikemas kini dan kini tersedia untuk dimuat turun. Sila semak bahagian Submodul di bawah dan muat turun versi terbaru.
+          </p>
+          <p class="ann-timestamp">Kemas kini Terakhir: 07 Julai 2026 &nbsp;·&nbsp; 11:45 AM</p>
+        </div>
+        <button class="ann-dismiss" onclick="dismissAnnouncement()" aria-label="Tutup pengumuman">
+          <i data-lucide="x" style="width: 15px; height: 15px"></i>
+        </button>
+      </div>
+
+      <!-- ── Submodules Glass Shell ────────────────── -->
       <div class="glass-shell-wrapper">
         <div class="glass-shell-gradients">
           <div class="radial-gradient blob-1"></div>
           <div class="radial-gradient blob-2"></div>
         </div>
         <div class="glass-shell">
+
           <div class="glass-shell-header">
             <h3>
               <i data-lucide="layout-grid" style="width: 20px; height: 20px; color: var(--accent-teal)"></i>
-              Submodul & Ciri Klinikal Bersepadu
+              Submodul &amp; Ciri Klinikal Bersepadu
             </h3>
-            <p>Akses pantas kepada alatan sokongan rawatan, analisis diagnosis, dan pengurusan preskripsi digital.</p>
+            <p>Akses pantas kepada dokumen sokongan rawatan, log pesakit, garis panduan klinikal, dan format penyelidikan rasmi.</p>
           </div>
+
           <div class="glass-shell-content">
-            <!-- Features will be added here -->
+            <div class="submodule-grid">
+
+              <!-- Card 1 · Surat Rujukan -->
+              <div class="submodule-card" style="--card-accent-a:#0d9488; --card-accent-b:#06b6d4;">
+                <div class="card-icon-wrap">
+                  <i data-lucide="file-output" style="width: 26px; height: 26px; color: #0d9488;"></i>
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">Surat Rujukan</h4>
+                  <p class="card-desc">Borang dan templat surat rujukan rasmi pesakit ke hospital pakar, unit ortodontik, dan unit bedah mulut KKM.</p>
+                </div>
+                <a
+                  href="documents/surat-rujukan/surat-rujukan.pdf"
+                  download
+                  class="glass-dl-btn"
+                >
+                  <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+                  Muat Turun PDF
+                  <span>PDF</span>
+                </a>
+              </div>
+
+              <!-- Card 2 · Buku Log NDOP -->
+              <div class="submodule-card" style="--card-accent-a:#2563eb; --card-accent-b:#8b5cf6;">
+                <div class="card-icon-wrap">
+                  <i data-lucide="notebook-pen" style="width: 26px; height: 26px; color: #2563eb;"></i>
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">Buku Log NDOP</h4>
+                  <p class="card-desc">Borang log perkhidmatan harian pergigian (NDOP) untuk pencatatan prosedur, rawatan, dan perangkaan klinikal bulanan.</p>
+                </div>
+                <a
+                  href="documents/buku-log-ndop/buku-log-ndop.pdf"
+                  download
+                  class="glass-dl-btn"
+                >
+                  <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+                  Muat Turun PDF
+                  <span>PDF</span>
+                </a>
+              </div>
+
+              <!-- Card 3 · Garis Panduan Klinikal -->
+              <div class="submodule-card" style="--card-accent-a:#0891b2; --card-accent-b:#0d9488;">
+                <div class="card-icon-wrap">
+                  <i data-lucide="book-open" style="width: 26px; height: 26px; color: #0891b2;"></i>
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">Garis Panduan Klinikal</h4>
+                  <p class="card-desc">Panduan klinikal rasmi 2026 merangkumi protokol rawatan, kawalan jangkitan, dan piawaian prosedur KKM terkini.</p>
+                </div>
+                <a
+                  href="documents/garis-panduan/garis-panduan-klinikal.pdf"
+                  download
+                  class="glass-dl-btn"
+                >
+                  <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+                  Muat Turun PDF
+                  <span>PDF</span>
+                </a>
+              </div>
+
+              <!-- Card 4 · Contoh Format Research -->
+              <div class="submodule-card" style="--card-accent-a:#7c3aed; --card-accent-b:#db2777;">
+                <div class="card-icon-wrap">
+                  <i data-lucide="flask-conical" style="width: 26px; height: 26px; color: #7c3aed;"></i>
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">Contoh Format Research</h4>
+                  <p class="card-desc">Templat format kertas penyelidikan pergigian KKM untuk kajian klinikal, audit kualiti, dan pembentangan ilmiah.</p>
+                </div>
+                <a
+                  href="documents/format-research/format-research.pdf"
+                  download
+                  class="glass-dl-btn"
+                >
+                  <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+                  Muat Turun PDF
+                  <span>PDF</span>
+                </a>
+              </div>
+
+            </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -861,6 +1214,16 @@
 
       function toggleChecklist(el) {
         el.classList.toggle('checked');
+      }
+
+      // Dismiss announcement banner with smooth fade+collapse
+      function dismissAnnouncement() {
+        const el = document.getElementById('klinikal-announcement');
+        if (!el) return;
+        el.classList.add('dismissed');
+        setTimeout(() => {
+          el.style.display = 'none';
+        }, 380);
       }
 
       // Tab switcher function
