@@ -1,0 +1,101 @@
+[
+  {
+    "id": "ppd",
+    "name": "Dr. Amirul Fird",
+    "role": "Pegawai Pergigian Daerah",
+    "avatar": "AF",
+    "parentId": null,
+    "email": "amirul.fird@moh.gov.my",
+    "phone": "Ext. 301 / Pejabat PPD"
+  },
+  {
+    "id": "ppy",
+    "name": "Dr. Nur Ainiah",
+    "role": "Pegawai Pergigian Yang Menjaga",
+    "avatar": "NA",
+    "parentId": "ppd",
+    "email": "ainiah.mn@moh.gov.my",
+    "phone": "Ext. 302 / Bilik YM"
+  },
+  {
+    "id": "clinical_lead",
+    "name": "Dr. Syahrul Zaki",
+    "role": "Ketua Bahagian Klinikal",
+    "avatar": "SZ",
+    "parentId": "ppy",
+    "email": "syahrul.zaki@moh.gov.my",
+    "phone": "Ext. 305 / Klinik Rawatan A"
+  },
+  {
+    "id": "management_lead",
+    "name": "Puan Hajah Rohana",
+    "role": "Ketua Bahagian Pengurusan",
+    "avatar": "RN",
+    "parentId": "ppy",
+    "email": "rohana.management@moh.gov.my",
+    "phone": "Ext. 310 / Pejabat Pentadbiran"
+  },
+  {
+    "id": "support_lead",
+    "name": "En. Roslan Ahmad",
+    "role": "Ketua Bahagian Sokongan",
+    "avatar": "RA",
+    "parentId": "ppy",
+    "email": "roslan.ahmad@moh.gov.my",
+    "phone": "Ext. 315 / Unit Sokongan"
+  },
+  {
+    "id": "dentists",
+    "name": "Dr. Khairul Azmi bin Mansor",
+    "role": "Pegawai Pergigian",
+    "avatar": "KA",
+    "parentId": "clinical_lead",
+    "email": "khairulazmi@moh.gov.my",
+    "phone": "Ext. 303 / Klinik Rawatan B"
+  },
+  {
+    "id": "nurses",
+    "name": "Sister Maznah binti Ismail",
+    "role": "Jururawat Pergigian",
+    "avatar": "MI",
+    "parentId": "clinical_lead",
+    "email": "maznah.ismail@moh.gov.my",
+    "phone": "Ext. 306 / Bilik Jururawat"
+  },
+  {
+    "id": "admins",
+    "name": "En. Khairul Anuar",
+    "role": "Pegawai Pentadbiran",
+    "avatar": "KA",
+    "parentId": "management_lead",
+    "email": "khairul.anuar@moh.gov.my",
+    "phone": "Ext. 311 / Kaunter Utama"
+  },
+  {
+    "id": "clerks",
+    "name": "Pn. Siti Noraisyah",
+    "role": "Kerani",
+    "avatar": "SA",
+    "parentId": "management_lead",
+    "email": "noraisyah.siti@moh.gov.my",
+    "phone": "Ext. 312 / Pejabat Rekod"
+  },
+  {
+    "id": "dsa",
+    "name": "En. Fadhil Sulaiman",
+    "role": "Pembantu Pergigian (DSA)",
+    "avatar": "FS",
+    "parentId": "support_lead",
+    "email": "fadhil.sulaiman@moh.gov.my",
+    "phone": "Ext. 316 / Klinik Pembedahan"
+  },
+  {
+    "id": "cleaners",
+    "name": "En. Ahmad Kamaruddin bin Din",
+    "role": "Staf Sokongan / Kebersihan",
+    "avatar": "AK",
+    "parentId": "support_lead",
+    "email": "kamaruddin.din@moh.gov.my",
+    "phone": "Ext. 300 / Blok Operasi"
+  }
+]

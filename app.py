@@ -1,5 +1,6 @@
 import os
 import json
+import time
 from flask import Flask, send_from_directory, request, jsonify
 from datetime import datetime
 
@@ -8,20 +9,34 @@ DATA_FILE = 'data_store.json'
 
 def load_data():
     if not os.path.exists(DATA_FILE):
-        return {"banjir": [], "pergerakan": [], "tempahan": [], "kalendar": [], "surat": [], "kertas_kerja": []}
+        return {"banjir": [], "pergerakan": [], "tempahan": [], "kalendar": [], "surat": [], "kertas_kerja": [], "rooms": []}
     with open(DATA_FILE, 'r') as f:
         try:
             data = json.load(f)
             # Ensure keys exist
-            for key in ["banjir", "pergerakan", "tempahan", "kalendar", "surat", "kertas_kerja"]:
+            for key in ["banjir", "pergerakan", "tempahan", "kalendar", "surat", "kertas_kerja", "rooms"]:
                 if key not in data:
                     data[key] = []
             return data
         except json.JSONDecodeError:
-            return {"banjir": [], "pergerakan": [], "tempahan": [], "kalendar": [], "surat": [], "kertas_kerja": []}
+            return {"banjir": [], "pergerakan": [], "tempahan": [], "kalendar": [], "surat": [], "kertas_kerja": [], "rooms": []}
 
 def save_data(data):
-    with open(DATA_FILE, 'w') as f:
+        json.dump(data, f, indent=2)
+
+ORG_CHART_FILE = 'org_chart.json'
+
+def load_org_chart():
+    if not os.path.exists(ORG_CHART_FILE):
+        return []
+    with open(ORG_CHART_FILE, 'r') as f:
+        try:
+            return json.load(f)
+        except json.JSONDecodeError:
+            return []
+
+def save_org_chart(data):
+    with open(ORG_CHART_FILE, 'w') as f:
         json.dump(data, f, indent=2)
 
 @app.route('/')
@@ -39,6 +54,23 @@ def pentadbiran():
 @app.route('/admin-dashboard')
 def admin_dashboard():
     return send_from_directory('.', 'admin_dashboard.html')
+
+@app.route('/direktori')
+def direktori_route():
+    return send_from_directory('.', 'direktori.html')
+
+@app.route('/api/organisasi', methods=['GET'])
+def get_organisasi():
+    return jsonify(load_org_chart())
+
+@app.route('/api/organisasi', methods=['POST'])
+def save_organisasi():
+    req_data = request.json
+    if not isinstance(req_data, list):
+        return jsonify({"error": "Data mestilah dalam format senarai (array)."}), 400
+    save_org_chart(req_data)
+    return jsonify({"success": True, "data": req_data})
+
 
 # --- BANJIR ENDPOINTS ---
 @app.route('/api/banjir', methods=['GET'])
@@ -217,6 +249,81 @@ def toggle_surat_status(id):
 def get_kertas_kerja():
     data = load_data()
     return jsonify(data.get("kertas_kerja", []))
+
+# --- ROOMS ENDPOINTS (CRUD) ---
+@app.route('/api/rooms', methods=['GET'])
+def get_rooms():
+    data = load_data()
+    return jsonify(data.get("rooms", []))
+
+@app.route('/api/rooms', methods=['POST'])
+def add_room():
+    data = load_data()
+    req = request.json
+    name = req.get("name")
+    capacity = req.get("capacity")
+    facilities = req.get("facilities")
+    
+    if not name:
+        return jsonify({"error": "Nama bilik diperlukan"}), 400
+        
+    new_room = {
+        "id": "r_" + str(int(time.time())),
+        "name": name,
+        "capacity": int(capacity) if capacity else 0,
+        "facilities": facilities or ""
+    }
+    
+    data["rooms"].append(new_room)
+    save_data(data)
+    return jsonify(new_room), 201
+
+@app.route('/api/rooms/edit/<id>', methods=['POST'])
+def edit_room(id):
+    data = load_data()
+    req = request.json
+    rooms = data.get("rooms", [])
+    
+    for room in rooms:
+        if room["id"] == id:
+            room["name"] = req.get("name", room["name"])
+            room["capacity"] = int(req.get("capacity", room["capacity"]))
+            room["facilities"] = req.get("facilities", room["facilities"])
+            save_data(data)
+            return jsonify(room)
+            
+    return jsonify({"error": "Bilik tidak dijumpai"}), 404
+
+@app.route('/api/rooms/delete/<id>', methods=['POST'])
+def delete_room(id):
+    data = load_data()
+    rooms = data.get("rooms", [])
+    bookings = data.get("tempahan", [])
+    
+    # Check if there are bookings for this room, we can delete them or keep them, let's delete them as well to maintain integrity
+    for i, room in enumerate(rooms):
+        if room["id"] == id:
+            deleted_room = rooms.pop(i)
+            # Remove bookings associated with this room name
+            data["tempahan"] = [b for b in bookings if b["room_name"] != deleted_room["name"]]
+            save_data(data)
+            return jsonify(deleted_room)
+            
+    return jsonify({"error": "Bilik tidak dijumpai"}), 404
+
+# --- CANCEL/DELETE TEMPAHAN ---
+@app.route('/api/tempahan/delete/<id>', methods=['POST'])
+def delete_tempahan(id):
+    data = load_data()
+    bookings = data.get("tempahan", [])
+    
+    for i, b in enumerate(bookings):
+        if b["id"] == id:
+            deleted_booking = bookings.pop(i)
+            save_data(data)
+            return jsonify(deleted_booking)
+            
+    return jsonify({"error": "Tempahan tidak dijumpai"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
