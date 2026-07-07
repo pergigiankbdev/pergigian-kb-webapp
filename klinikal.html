@@ -43,7 +43,8 @@
     }
 
     body {
-      background-color: var(--bg-clinical);
+      background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 50%, #fae8ff 100%);
+      background-attachment: fixed;
       color: var(--text-primary);
       min-height: 100vh;
       display: flex;
@@ -678,13 +679,13 @@
       position: relative;
       z-index: 2;
       background: rgba(255, 255, 255, 0.45);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
       border-radius: 16px;
       box-shadow:
-        0 8px 32px 0 rgba(15, 23, 42, 0.06),
-        inset 0 8px 32px 0 rgba(255, 255, 255, 0.3),
+        0 8px 32px 0 rgba(15, 23, 42, 0.05),
+        inset 0 8px 32px 0 rgba(255, 255, 255, 0.25),
         0 1px 2px 0 rgba(0, 0, 0, 0.02);
       padding: 32px;
       display: flex;
@@ -729,13 +730,13 @@
       margin: 0 auto;
       position: relative;
       border-radius: 14px;
-      background: rgba(236, 253, 245, 0.55);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(52, 211, 153, 0.35);
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow:
-        0 4px 24px 0 rgba(16, 185, 129, 0.07),
-        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        0 8px 32px 0 rgba(15, 23, 42, 0.05),
+        inset 0 8px 32px 0 rgba(255, 255, 255, 0.25);
       padding: 18px 24px;
       display: flex;
       align-items: flex-start;
@@ -854,10 +855,10 @@
 
     .submodule-card {
       position: relative;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px; /* very soft, generous rounded corners */
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow:
         0 4px 20px rgba(15, 23, 42, 0.06),
@@ -938,36 +939,29 @@
       align-self: flex-start;
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 10px 18px;
-      border-radius: 9px;
-      background: rgba(255, 255, 255, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07);
-      font-size: 0.8rem;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 50px; /* clean, modern, pill-shaped buttons */
+      background: var(--accent-blue); /* solid interactive blue background */
+      border: 1px solid var(--accent-blue);
+      font-size: 0.78rem;
       font-weight: 700;
-      color: #0f172a;
+      color: #ffffff; /* white text */
       text-decoration: none;
       transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07);
     }
 
     .glass-dl-btn:hover {
-      background: rgba(13, 148, 136, 0.12);
-      border-color: rgba(13, 148, 136, 0.4);
-      color: #0d9488;
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(13, 148, 136, 0.15);
     }
 
     .glass-dl-btn span {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      padding: 2px 7px;
-      border-radius: 50px;
-      background: rgba(15, 23, 42, 0.06);
-      color: #64748b;
+      display: none; /* Hide metadata badge for visually minimal look */
     }
 
     /* ── PDF document list (inside expanded submodule cards) ── */
@@ -983,31 +977,31 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.55);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 1px 4px rgba(15, 23, 42, 0.04);
+      padding: 12px 16px;
+      border-radius: 16px; /* soft, generous rounded corners (16px+) */
+      background: #ffffff; /* clean, solid white */
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
       transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
     }
 
     .doc-row:hover {
-      background: rgba(255, 255, 255, 0.7);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 12px rgba(13, 148, 136, 0.08);
-      transform: translateX(2px);
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+      transform: translateY(-1px);
     }
 
     .doc-row-icon {
       flex-shrink: 0;
       width: 32px;
       height: 32px;
-      border-radius: 8px;
-      background: rgba(13, 148, 136, 0.10);
-      border: 1px solid rgba(13, 148, 136, 0.18);
+      border-radius: 10px;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #0d9488;
+      color: #2563eb;
     }
 
     .doc-row-info {
@@ -1019,7 +1013,7 @@
     }
 
     .doc-row-name {
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: #0f172a;
       white-space: nowrap;
@@ -1028,7 +1022,7 @@
     }
 
     .doc-row-meta {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: #94a3b8;
       font-weight: 500;
     }
@@ -1037,24 +1031,25 @@
       flex-shrink: 0;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 6px 12px;
-      border-radius: 7px;
-      background: rgba(13, 148, 136, 0.10);
-      border: 1px solid rgba(13, 148, 136, 0.25);
-      font-size: 0.75rem;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 50px; /* clean, modern, pill-shaped buttons */
+      background: var(--accent-blue); /* solid interactive blue background */
+      border: 1px solid var(--accent-blue);
+      font-size: 0.78rem;
       font-weight: 700;
-      color: #0d9488;
+      color: #ffffff; /* white text */
       text-decoration: none;
       transition: all 0.2s ease;
       white-space: nowrap;
     }
 
     .doc-row-btn:hover {
-      background: #0d9488;
-      border-color: #0d9488;
+      background: #1d4ed8;
+      border-color: #1d4ed8;
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transform: translateY(-1px);
     }
   </style>
 </head>
@@ -1141,7 +1136,7 @@
                   </div>
                   <div class="doc-row-info">
                     <span class="doc-row-name">Surat Rujukan Periodontik</span>
-                    <span class="doc-row-meta">PDF &middot; Pergigian Periodontik</span>
+                    <span class="doc-row-meta"><span class="status-dot-green"></span> Sedia Dimuat Turun &middot; Pergigian Periodontik</span>
                   </div>
                   <a href="documents/surat-rujukan/Surat-Rujukan-Periodontik.pdf" download class="doc-row-btn">
                     <i data-lucide="download" style="width: 12px; height: 12px;"></i>
@@ -1156,7 +1151,7 @@
                   </div>
                   <div class="doc-row-info">
                     <span class="doc-row-name">Surat Rujukan Pergigian Restoratif</span>
-                    <span class="doc-row-meta">PDF &middot; Pergigian Restoratif</span>
+                    <span class="doc-row-meta"><span class="status-dot-green"></span> Sedia Dimuat Turun &middot; Pergigian Restoratif</span>
                   </div>
                   <a href="documents/surat-rujukan/Surat-Rujukan-Restoratif.pdf" download class="doc-row-btn">
                     <i data-lucide="download" style="width: 12px; height: 12px;"></i>
@@ -1171,7 +1166,7 @@
                   </div>
                   <div class="doc-row-info">
                     <span class="doc-row-name">Surat Rujukan Pakar Pergigian Kesihatan Awam (UPPKA)</span>
-                    <span class="doc-row-meta">PDF &middot; UPPKA</span>
+                    <span class="doc-row-meta"><span class="status-dot-green"></span> Sedia Dimuat Turun &middot; UPPKA</span>
                   </div>
                   <a href="documents/surat-rujukan/Surat-Rujukan-UPPKA.pdf" download class="doc-row-btn">
                     <i data-lucide="download" style="width: 12px; height: 12px;"></i>
@@ -1196,18 +1191,14 @@
 
                 <!-- Doc 1 -->
                 <div class="doc-row">
-                  <div class="doc-row-icon"
-                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                  <div class="doc-row-icon">
                     <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
                   </div>
                   <div class="doc-row-info">
                     <span class="doc-row-name">Logbook Paeds</span>
-                    <span class="doc-row-meta">PDF &middot; Pergigian Kanak-kanak (Paeds)</span>
+                    <span class="doc-row-meta"><span class="status-dot-green"></span> Sedia Dimuat Turun &middot; Pergigian Kanak-kanak (Paeds)</span>
                   </div>
-                  <a href="documents/buku-log-ndop/Logbook-Paeds.pdf" download class="doc-row-btn"
-                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
-                    onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
-                    onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'">
+                  <a href="documents/buku-log-ndop/Logbook-Paeds.pdf" download class="doc-row-btn">
                     <i data-lucide="download" style="width: 12px; height: 12px;"></i>
                     Muat Turun
                   </a>
@@ -1215,18 +1206,14 @@
 
                 <!-- Doc 2 -->
                 <div class="doc-row">
-                  <div class="doc-row-icon"
-                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                  <div class="doc-row-icon">
                     <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
                   </div>
                   <div class="doc-row-info">
                     <span class="doc-row-name">Logbook Primer</span>
-                    <span class="doc-row-meta">PDF &middot; Pergigian Penjagaan Primer</span>
+                    <span class="doc-row-meta"><span class="status-dot-green"></span> Sedia Dimuat Turun &middot; Pergigian Penjagaan Primer</span>
                   </div>
-                  <a href="documents/buku-log-ndop/Logbook-Primer.pdf" download class="doc-row-btn"
-                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
-                    onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
-                    onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'">
+                  <a href="documents/buku-log-ndop/Logbook-Primer.pdf" download class="doc-row-btn">
                     <i data-lucide="download" style="width: 12px; height: 12px;"></i>
                     Muat Turun
                   </a>
@@ -1234,18 +1221,14 @@
 
                 <!-- Doc 3 -->
                 <div class="doc-row">
-                  <div class="doc-row-icon"
-                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                  <div class="doc-row-icon">
                     <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
                   </div>
                   <div class="doc-row-info">
                     <span class="doc-row-name">Logbook OMFS</span>
-                    <span class="doc-row-meta">PDF &middot; Bedah Mulut & Maksilofasial</span>
+                    <span class="doc-row-meta"><span class="status-dot-green"></span> Sedia Dimuat Turun &middot; Bedah Mulut & Maksilofasial</span>
                   </div>
-                  <a href="documents/buku-log-ndop/Logbook-OMFS.pdf" download class="doc-row-btn"
-                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
-                    onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
-                    onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'">
+                  <a href="documents/buku-log-ndop/Logbook-OMFS.pdf" download class="doc-row-btn">
                     <i data-lucide="download" style="width: 12px; height: 12px;"></i>
                     Muat Turun
                   </a>
@@ -1253,18 +1236,14 @@
 
                 <!-- Doc 4 -->
                 <div class="doc-row">
-                  <div class="doc-row-icon"
-                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                  <div class="doc-row-icon">
                     <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
                   </div>
                   <div class="doc-row-info">
                     <span class="doc-row-name">Appraisal Form OMFS</span>
-                    <span class="doc-row-meta">PDF &middot; Borang Penilaian OMFS</span>
+                    <span class="doc-row-meta"><span class="status-dot-green"></span> Sedia Dimuat Turun &middot; Borang Penilaian OMFS</span>
                   </div>
-                  <a href="documents/buku-log-ndop/Appraisal-Form-OMFS.pdf" download class="doc-row-btn"
-                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
-                    onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
-                    onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'">
+                  <a href="documents/buku-log-ndop/Appraisal-Form-OMFS.pdf" download class="doc-row-btn">
                     <i data-lucide="download" style="width: 12px; height: 12px;"></i>
                     Muat Turun
                   </a>
@@ -1272,18 +1251,14 @@
 
                 <!-- Doc 5 -->
                 <div class="doc-row">
-                  <div class="doc-row-icon"
-                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                  <div class="doc-row-icon">
                     <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
                   </div>
                   <div class="doc-row-info">
                     <span class="doc-row-name">Appraisal Form Paeds</span>
-                    <span class="doc-row-meta">PDF &middot; Borang Penilaian Paeds</span>
+                    <span class="doc-row-meta"><span class="status-dot-green"></span> Sedia Dimuat Turun &middot; Borang Penilaian Paeds</span>
                   </div>
-                  <a href="documents/buku-log-ndop/Appraisal-Form-Paeds.pdf" download class="doc-row-btn"
-                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
-                    onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
-                    onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'">
+                  <a href="documents/buku-log-ndop/Appraisal-Form-Paeds.pdf" download class="doc-row-btn">
                     <i data-lucide="download" style="width: 12px; height: 12px;"></i>
                     Muat Turun
                   </a>
@@ -1291,18 +1266,14 @@
 
                 <!-- Doc 6 -->
                 <div class="doc-row">
-                  <div class="doc-row-icon"
-                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.18);">
+                  <div class="doc-row-icon">
                     <i data-lucide="file-text" style="width: 15px; height: 15px;"></i>
                   </div>
                   <div class="doc-row-info">
                     <span class="doc-row-name">Appraisal Form Primer</span>
-                    <span class="doc-row-meta">PDF &middot; Borang Penilaian Penjagaan Primer</span>
+                    <span class="doc-row-meta"><span class="status-dot-green"></span> Sedia Dimuat Turun &middot; Borang Penilaian Penjagaan Primer</span>
                   </div>
-                  <a href="documents/buku-log-ndop/Appraisal-Form-Primer.pdf" download class="doc-row-btn"
-                    style="color: #2563eb; background: rgba(37, 99, 235, 0.10); border-color: rgba(37, 99, 235, 0.25);"
-                    onmouseover="this.style.background='#2563eb'; this.style.color='#ffffff'; this.style.borderColor='#2563eb'; this.style.boxShadow='0 4px 12px rgba(37, 99, 235, 0.3)'"
-                    onmouseout="this.style.background='rgba(37, 99, 235, 0.10)'; this.style.color='#2563eb'; this.style.borderColor='rgba(37, 99, 235, 0.25)'; this.style.boxShadow='none'">
+                  <a href="documents/buku-log-ndop/Appraisal-Form-Primer.pdf" download class="doc-row-btn">
                     <i data-lucide="download" style="width: 12px; height: 12px;"></i>
                     Muat Turun
                   </a>
