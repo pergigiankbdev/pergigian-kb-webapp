@@ -1338,6 +1338,10 @@
     }
 
     // --- TEMPAHAN BILIK MESYUARAT LOGIC ---
+    const monthNames = [
+      "Januari", "Februari", "Mac", "April", "Mei", "Jun",
+      "Julai", "Ogos", "September", "Oktober", "November", "Disember"
+    ];
     let pickerYear = 2026;
     let pickerMonth = 6; // July (0-indexed)
     let activeBookings = [];
@@ -1569,6 +1573,7 @@
       }
       renderBookingDatePicker();
     }
+    window.prevPickerMonth = prevPickerMonth;
 
     function nextPickerMonth() {
       pickerMonth++;
@@ -1578,6 +1583,7 @@
       }
       renderBookingDatePicker();
     }
+    window.nextPickerMonth = nextPickerMonth;
 
     async function submitBooking(e) {
       e.preventDefault();
@@ -1631,10 +1637,6 @@
     let calendarYear = 2026;
     let calendarMonth = 6; // July (0-indexed is index 6)
     let allEvents = [];
-    const monthNames = [
-      "Januari", "Februari", "Mac", "April", "Mei", "Jun",
-      "Julai", "Ogos", "September", "Oktober", "November", "Disember"
-    ];
 
     async function fetchCalendarEvents() {
       try {
