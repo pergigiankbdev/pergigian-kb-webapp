@@ -481,7 +481,7 @@
       }
 
       // Modal Triggers
-      window.showRoomModal = function() {
+      function showRoomModal() {
         document.getElementById('room-modal-title').textContent = "Tambah Bilik Baru";
         document.getElementById('edit-room-id').value = "";
         document.getElementById('room-name-input').value = "";
@@ -489,12 +489,14 @@
         document.getElementById('room-facilities-input').value = "";
         document.getElementById('room-crud-modal').classList.remove('hidden');
       }
+      window.showRoomModal = showRoomModal;
 
-      window.closeRoomModal = function() {
+      function closeRoomModal() {
         document.getElementById('room-crud-modal').classList.add('hidden');
       }
+      window.closeRoomModal = closeRoomModal;
 
-      window.editRoomModal = function(id) {
+      function editRoomModal(id) {
         const room = adminRooms.find(r => r.id === id);
         if (!room) return;
         document.getElementById('room-modal-title').textContent = "Edit Butiran Bilik";
@@ -504,9 +506,10 @@
         document.getElementById('room-facilities-input').value = room.facilities;
         document.getElementById('room-crud-modal').classList.remove('hidden');
       }
+      window.editRoomModal = editRoomModal;
 
       // API Actions
-      window.saveRoom = async function(e) {
+      async function saveRoom(e) {
         e.preventDefault();
         const id = document.getElementById('edit-room-id').value;
         const name = document.getElementById('room-name-input').value;
@@ -532,8 +535,9 @@
           console.error("Error saving room:", err);
         }
       }
+      window.saveRoom = saveRoom;
 
-      window.deleteRoom = async function(id) {
+      async function deleteRoom(id) {
         if (!confirm('Adakah anda pasti mahu memadam bilik mesyuarat ini? Semua tempahan aktif yang dikaitkan dengan bilik ini juga akan dipadamkan secara automatik.')) return;
         try {
           const res = await fetch(`/api/rooms/delete/${id}`, {
@@ -550,8 +554,9 @@
           console.error("Error deleting room:", err);
         }
       }
+      window.deleteRoom = deleteRoom;
 
-      window.cancelBooking = async function(id) {
+      async function cancelBooking(id) {
         if (!confirm('Adakah anda pasti mahu membatalkan tempahan bilik mesyuarat ini?')) return;
         try {
           const res = await fetch(`/api/tempahan/delete/${id}`, {
@@ -567,6 +572,7 @@
           console.error("Error cancelling booking:", err);
         }
       }
+      window.cancelBooking = cancelBooking;
 
       function switchSubAdminTab(subId) {
         const subData = subAdminData[subId];
