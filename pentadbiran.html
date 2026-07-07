@@ -1409,6 +1409,27 @@
     let pickerMonth = 6; // July (0-indexed)
     let activeBookings = [];
 
+    async function fetchRooms() {
+      try {
+        const res = await fetch('/api/rooms');
+        const data = await res.json();
+        const select = document.getElementById('booking-room');
+        if (!select) return;
+        select.innerHTML = '';
+        data.forEach(room => {
+          const opt = document.createElement('option');
+          opt.value = room.name;
+          opt.textContent = `${room.name} (${room.capacity} pax - ${room.facilities})`;
+          select.appendChild(opt);
+        });
+        
+        // Re-render picker
+        renderBookingDatePicker();
+      } catch (err) {
+        console.error("Error fetching rooms:", err);
+      }
+    }
+
     async function fetchBookings() {
       try {
         const res = await fetch('/api/tempahan');
@@ -1701,6 +1722,7 @@
     window.addEventListener('load', () => {
       fetchBanjir();
       fetchPergerakan();
+      fetchRooms();
       fetchBookings();
       fetchCalendarEvents();
 
