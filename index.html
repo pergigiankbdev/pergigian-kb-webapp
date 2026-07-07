@@ -1318,37 +1318,7 @@
       </div>
     </section>
 
-    <!-- Hero Section -->
-    <section class="clinical-panel hero-section">
-      <div class="hero-main">
-        <h2 class="hero-title">Pusat Data & <span>Hab Maklumat</span></h2>
-        </p>
-      </div>
-      <div class="telemetry-panel">
-        <div class="telemetry-item">
-          <span class="telemetry-label">Status Portal</span>
-          <span class="telemetry-value">
-            <span class="pulse-dot"></span> SISTEM AKTIF
-          </span>
-        </div>
-        <div class="telemetry-item">
-          <span class="telemetry-label">Status Operasi</span>
-          <span class="telemetry-value" style="color: var(--accent-teal)">
-            OPTIMUM
-          </span>
-        </div>
-        <div class="telemetry-item">
-          <span class="telemetry-label">Kemas Kini Terakhir</span>
-          <span class="telemetry-value" id="last-update"> 15:06:45 </span>
-        </div>
-        <div class="telemetry-item">
-          <span class="telemetry-label">Segerakan Data</span>
-          <span class="telemetry-value" style="color: var(--accent-lime)">
-            BERJAYA (100%)
-          </span>
-        </div>
-      </div>
-    </section>
+
 
     <!-- Module Navigator Grid -->
     <section class="modules-grid-container">
@@ -1404,291 +1374,7 @@
       </div>
     </section>
 
-    <!-- Main Dashboard Grid -->
-    <main class="main-dashboard-grid">
-      <!-- Column 1: Info & Data Klinik -->
-      <div class="clinical-panel" style="display: flex; flex-direction: column">
-        <div class="panel-header">
-          <h2>
-            <i data-lucide="line-chart" style="width: 16px; height: 16px"></i>
-            Telemetri & Info
-          </h2>
-          <span style="
-                font-size: 0.65rem;
-                color: var(--text-muted);
-                font-weight: 600;
-              ">LOG_ID: 2026</span>
-        </div>
-        <div class="panel-content">
-          <!-- Stat Card 1 -->
-          <div class="stat-card">
-            <div class="stat-info">
-              <span class="stat-title">Pesakit Dirawat (Bulan Ini)</span>
-              <span class="stat-value" id="val-patients">1,482</span>
-            </div>
-            <span class="stat-trend trend-up">+8.4%</span>
-          </div>
 
-          <!-- Stat Card 2 -->
-          <div class="stat-card">
-            <div class="stat-info">
-              <span class="stat-title">KPI Sasaran Klinik</span>
-              <span class="stat-value">96.8%</span>
-            </div>
-            <span class="stat-trend trend-up">OPTIMAL</span>
-          </div>
-
-          <!-- Stat Card 3 -->
-          <div class="stat-card">
-            <div class="stat-info">
-              <span class="stat-title">Indeks Kepuasan Am</span>
-              <span class="stat-value">4.92 / 5</span>
-            </div>
-            <span class="stat-trend trend-up">STABIL</span>
-          </div>
-
-          <div style="border-top: 1px solid var(--border-sterile); margin: 4px 0"></div>
-
-          <div class="announcements-container">
-            <span class="telemetry-label">Pengumuman Penting</span>
-
-            <div class="announcement-item">
-              <div class="announcement-meta">
-                <span>PENTADBIRAN</span>
-                <span>KINI</span>
-              </div>
-              <div class="announcement-title">
-                Audit Kualiti Perkhidmatan KKM
-              </div>
-              <div class="announcement-text">
-                Mohon semua kakitangan memastikan fail pematuhan keselamatan
-                disegerakan sebelum hari Khamis.
-              </div>
-            </div>
-
-            <div class="announcement-item" style="border-left-color: var(--accent-lime)">
-              <div class="announcement-meta" style="color: var(--accent-lime)">
-                <span>LATIHAN</span>
-                <span>2 HARI LEPAS</span>
-              </div>
-              <div class="announcement-title">Slaid Endodontik Baharu</div>
-              <div class="announcement-text">
-                Bahan taklimat teknik rawatan akar gigi moden kini boleh
-                diakses di Arkib Dokumen.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Column 2: Carta Organisasi -->
-      <div class="clinical-panel">
-        <div class="panel-header">
-          <h2>
-            <i data-lucide="network" style="width: 16px; height: 16px"></i>
-            Struktur Kepimpinan & Staf
-          </h2>
-          <span style="
-                font-size: 0.65rem;
-                color: var(--accent-teal);
-                font-weight: 600;
-              ">PAPARAN INTERAKTIF</span>
-        </div>
-        <div class="panel-content">
-          <div class="org-chart-viewport">
-            <div class="org-tree">
-              <!-- Level 1 -->
-              <div class="org-level">
-                <div class="org-node active" onclick="selectStaff('pakar_pentadbir', this)">
-                  <div class="node-avatar">
-                    DR<span class="status-indicator status-online"></span>
-                  </div>
-                  <div class="node-name">Dr. Khairul Azmi</div>
-                  <div class="node-role">Pakar Pentadbir</div>
-                </div>
-              </div>
-
-              <!-- Level 2 -->
-              <div class="org-level">
-                <div class="org-node" onclick="selectStaff('pegawai_kanan', this)">
-                  <div class="node-avatar">
-                    PP<span class="status-indicator status-online"></span>
-                  </div>
-                  <div class="node-name">Dr. Nur Ainiah</div>
-                  <div class="node-role">Pegawai Kanan</div>
-                </div>
-                <div class="org-node" onclick="selectStaff('ketua_jururawat', this)">
-                  <div class="node-avatar">
-                    KJ<span class="status-indicator status-online"></span>
-                  </div>
-                  <div class="node-name">Sister Maznah</div>
-                  <div class="node-role">Ketua Jururawat</div>
-                </div>
-              </div>
-
-              <!-- Level 3 -->
-              <div class="org-level">
-                <div class="org-node" onclick="selectStaff('juruterapi_1', this)">
-                  <div class="node-avatar">
-                    JT<span class="status-indicator status-busy"></span>
-                  </div>
-                  <div class="node-name">Puan Aishah</div>
-                  <div class="node-role">Juruterapi Gigi</div>
-                </div>
-                <div class="org-node" onclick="selectStaff('dsa_1', this)">
-                  <div class="node-avatar">
-                    DS<span class="status-indicator status-online"></span>
-                  </div>
-                  <div class="node-name">En. Fadhil</div>
-                  <div class="node-role">Pembantu Rawatan</div>
-                </div>
-                <div class="org-node" onclick="selectStaff('sokongan_1', this)">
-                  <div class="node-avatar">
-                    ST<span class="status-indicator status-away"></span>
-                  </div>
-                  <div class="node-name">Cik Atikah</div>
-                  <div class="node-role">Penyambut Tetamu</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Live Profile Detail -->
-            <div class="detail-panel" id="staff-detail-panel">
-              <div class="detail-avatar" id="detail-avatar">DR</div>
-              <div class="detail-info">
-                <h3 id="detail-name">Dr. Khairul Azmi bin Mansor</h3>
-                <div class="detail-role" id="detail-role">
-                  Pakar Pergigian Pentadbir (Gred UD54)
-                </div>
-                <div class="detail-contact">
-                  <span>E-mel:</span>
-                  <span id="detail-email" style="color: var(--text-primary)">khairulazmi@moh.gov.my</span>
-                  <span>Telefon:</span>
-                  <span id="detail-phone" style="color: var(--text-primary)">Ext. 302 / Bilik Pakar 1</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Column 3: Hab Dokumen -->
-      <div class="clinical-panel" style="display: flex; flex-direction: column">
-        <div class="panel-header">
-          <h2>
-            <i data-lucide="files" style="width: 16px; height: 16px"></i>
-            Arkib Tekndokumen
-          </h2>
-          <span style="
-                font-size: 0.65rem;
-                color: var(--text-muted);
-                font-weight: 600;
-              ">DOKUMEN RASMI</span>
-        </div>
-        <div class="panel-content">
-          <div class="search-wrapper">
-            <i data-lucide="search" class="search-icon" style="width: 14px; height: 14px"></i>
-            <input type="text" id="doc-search" class="search-input" placeholder="Cari dokumen/prosedur..."
-              onkeyup="filterDocs()" />
-          </div>
-
-          <div class="doc-filters">
-            <button class="filter-btn active" onclick="filterCategory('all', this)">
-              Semua
-            </button>
-            <button class="filter-btn" onclick="filterCategory('manual', this)">
-              Manual
-            </button>
-            <button class="filter-btn" onclick="filterCategory('pekeliling', this)">
-              Pekeliling
-            </button>
-            <button class="filter-btn" onclick="filterCategory('borang', this)">
-              Borang
-            </button>
-          </div>
-
-          <div class="docs-list" id="docs-list">
-            <!-- Doc Item 1 -->
-            <div class="doc-card" data-category="manual">
-              <div class="doc-meta">
-                <div class="doc-icon">
-                  <i data-lucide="file-text" style="width: 16px; height: 16px"></i>
-                </div>
-                <div class="doc-details">
-                  <span class="doc-name">Manual Kawalan Infeksi 2026</span>
-                  <span class="doc-size">PDF • 4.2 MB</span>
-                </div>
-              </div>
-              <div class="doc-actions">
-                <button class="doc-btn secondary" onclick="
-                      viewDoc(
-                        'Manual Kawalan Infeksi 2026',
-                        'Panduan klinikal lengkap kawalan jangkitan termasuk penyediaan bilik bedah mulut, pensterilan alatan berautoklaf, serta pematuhan PPE terkini.',
-                      )
-                    ">
-                  <i data-lucide="eye" style="width: 12px; height: 12px"></i>
-                </button>
-                <button class="doc-btn" onclick="downloadDoc('Manual Kawalan Infeksi 2026')">
-                  <i data-lucide="download" style="width: 12px; height: 12px"></i>
-                </button>
-              </div>
-            </div>
-
-            <!-- Doc Item 2 -->
-            <div class="doc-card" data-category="pekeliling">
-              <div class="doc-meta">
-                <div class="doc-icon">
-                  <i data-lucide="info" style="width: 16px; height: 16px"></i>
-                </div>
-                <div class="doc-details">
-                  <span class="doc-name">Pekeliling Waktu Bekerja Syif</span>
-                  <span class="doc-size">PDF • 1.8 MB</span>
-                </div>
-              </div>
-              <div class="doc-actions">
-                <button class="doc-btn secondary" onclick="
-                      viewDoc(
-                        'Pekeliling Waktu Bekerja Syif',
-                        'Struktur baharu syif bertugas bagi kakitangan klinik pergigian daerah Kota Bharu bermula pertengahan tahun.',
-                      )
-                    ">
-                  <i data-lucide="eye" style="width: 12px; height: 12px"></i>
-                </button>
-                <button class="doc-btn" onclick="downloadDoc('Pekeliling Waktu Bekerja Syif')">
-                  <i data-lucide="download" style="width: 12px; height: 12px"></i>
-                </button>
-              </div>
-            </div>
-
-            <!-- Doc Item 3 -->
-            <div class="doc-card" data-category="borang">
-              <div class="doc-meta">
-                <div class="doc-icon">
-                  <i data-lucide="file-check-2" style="width: 16px; height: 16px"></i>
-                </div>
-                <div class="doc-details">
-                  <span class="doc-name">Borang Keizinan Pembedahan</span>
-                  <span class="doc-size">DOCX • 520 KB</span>
-                </div>
-              </div>
-              <div class="doc-actions">
-                <button class="doc-btn secondary" onclick="
-                      viewDoc(
-                        'Borang Keizinan Rawatan Pembedahan Mulut',
-                        'Borang keizinan rasmi pesakit untuk prosedur pembedahan pergigian minor. Perlu disimpan dalam fail rekod pesakit.',
-                      )
-                    ">
-                  <i data-lucide="eye" style="width: 12px; height: 12px"></i>
-                </button>
-                <button class="doc-btn" onclick="downloadDoc('Borang Keizinan Pembedahan')">
-                  <i data-lucide="download" style="width: 12px; height: 12px"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
   </div>
 
   <!-- Document Preview Modal -->
@@ -1818,17 +1504,21 @@
         const patientVal = document.getElementById('val-patients');
         const lastUpdateVal = document.getElementById('last-update');
 
-        const currentVal = parseInt(patientVal.textContent.replace(/,/g, ''));
-        const newVal = currentVal + (Math.random() > 0.5 ? 1 : -1);
-        patientVal.textContent = newVal.toLocaleString();
+        if (patientVal) {
+          const currentVal = parseInt(patientVal.textContent.replace(/,/g, ''));
+          const newVal = currentVal + (Math.random() > 0.5 ? 1 : -1);
+          patientVal.textContent = newVal.toLocaleString();
+        }
 
-        const hour24 =
-          now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
-        const min24 =
-          now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
-        const sec24 =
-          now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
-        lastUpdateVal.textContent = `${hour24}:${min24}:${sec24}`;
+        if (lastUpdateVal) {
+          const hour24 =
+            now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
+          const min24 =
+            now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
+          const sec24 =
+            now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds();
+          lastUpdateVal.textContent = `${hour24}:${min24}:${sec24}`;
+        }
       }
     }
     setInterval(updateClock, 1000);
@@ -1888,11 +1578,16 @@
       element.classList.add('active');
 
       const info = staffData[key];
-      document.getElementById('detail-avatar').textContent = info.avatar;
-      document.getElementById('detail-name').textContent = info.name;
-      document.getElementById('detail-role').textContent = info.role;
-      document.getElementById('detail-email').textContent = info.email;
-      document.getElementById('detail-phone').textContent = info.phone;
+      const avatarEl = document.getElementById('detail-avatar');
+      if (avatarEl) avatarEl.textContent = info.avatar;
+      const nameEl = document.getElementById('detail-name');
+      if (nameEl) nameEl.textContent = info.name;
+      const roleEl = document.getElementById('detail-role');
+      if (roleEl) roleEl.textContent = info.role;
+      const emailEl = document.getElementById('detail-email');
+      if (emailEl) emailEl.textContent = info.email;
+      const phoneEl = document.getElementById('detail-phone');
+      if (phoneEl) phoneEl.textContent = info.phone;
 
       showToast(`Maklumat kakitangan ${info.avatar} dimuatkan.`);
     }
@@ -1914,7 +1609,9 @@
     }
 
     function runFiltering() {
-      const query = document.getElementById('doc-search').value.toLowerCase();
+      const searchEl = document.getElementById('doc-search');
+      if (!searchEl) return;
+      const query = searchEl.value.toLowerCase();
       const cards = document.querySelectorAll('.doc-card');
 
       cards.forEach((card) => {
