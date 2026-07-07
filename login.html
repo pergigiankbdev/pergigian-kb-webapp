@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log Masuk - Pergigian Kota Bharu</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                50: '#f0fdfa',
+                100: '#ccfbf1',
+                500: '#0d9488',
+                600: '#0f766e',
+                700: '#115e59',
+                950: '#042f2e',
+              },
+              navy: {
+                50: '#f8fafc',
+                100: '#f1f5f9',
+                700: '#334155',
+                800: '#1e293b',
+                900: '#0f172a',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .glass-bg {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-tr from-[#f0fdfa] via-[#f8fafc] to-[#eff6ff] min-h-screen font-sans flex items-center justify-center p-4 relative overflow-hidden">
+    
+    <!-- Background abstract elements for rich aesthetics -->
+    <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-brand-100/40 blur-3xl -z-10"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-blue-50/40 blur-3xl -z-10"></div>
+
+    <!-- Centered Login Card -->
+    <main class="w-full max-w-md bg-white/90 border border-slate-200/80 p-8 rounded-3xl shadow-xl shadow-slate-100/50 glass-bg relative z-10 transition-all duration-300 hover:shadow-2xl">
+      
+      <!-- Brand Logo Section -->
+      <div class="text-center mb-8">
+        <div class="inline-flex w-14 h-14 rounded-2xl bg-brand-500 text-white items-center justify-center shadow-lg shadow-brand-500/25 mb-4">
+          <i data-lucide="shield-check" class="w-7 h-7"></i>
+        </div>
+        <h1 class="text-xl font-extrabold text-navy-900 leading-tight">Selamat Kembali</h1>
+        <p class="text-xs text-slate-500 mt-1">Sistem Pengurusan Pusat Pergigian Kota Bharu</p>
+      </div>
+
+      <!-- Custom Alert Banner for Validation Errors -->
+      <div id="error-banner" class="hidden mb-6 p-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl flex items-start gap-2.5 text-xs animate-shake">
+        <i data-lucide="alert-circle" class="w-4 h-4 mt-0.5 flex-shrink-0"></i>
+        <span id="error-message">Nama Pengguna dan Kata Laluan diperlukan.</span>
+      </div>
+
+      <!-- Login Form -->
+      <form onsubmit="handleLogin(event)" class="space-y-5 text-xs">
+        
+        <!-- Username input -->
+        <div class="space-y-1.5">
+          <label for="username" class="font-semibold text-slate-600">Nama Pengguna (Pengguna)</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i data-lucide="user" class="w-4.5 h-4.5"></i>
+            </div>
+            <input 
+              id="username" 
+              type="text" 
+              class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 outline-none transition-all placeholder:text-slate-400 text-slate-800" 
+              placeholder="Masukkan nama pengguna..."
+            />
+          </div>
+        </div>
+
+        <!-- Password input -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center">
+            <label for="password" class="font-semibold text-slate-600">Kata Laluan</label>
+            <a href="#" onclick="event.preventDefault(); alert('Sila hubungi Pegawai Teknologi Maklumat (IT) Unit Pentadbiran untuk set semula kata laluan anda.');" class="text-[10px] text-brand-600 hover:text-brand-700 font-semibold hover:underline">Lupa Kata Laluan?</a>
+          </div>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i data-lucide="lock" class="w-4.5 h-4.5"></i>
+            </div>
+            <input 
+              id="password" 
+              type="password" 
+              class="w-full pl-11 pr-11 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/10 outline-none transition-all placeholder:text-slate-400 text-slate-800" 
+              placeholder="Masukkan kata laluan..."
+            />
+            <!-- Show/Hide Password Toggle -->
+            <button 
+              type="button" 
+              onclick="togglePassword()" 
+              class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 transition-colors"
+            >
+              <i id="eye-icon" data-lucide="eye" class="w-4.5 h-4.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Remember Me Checkbox -->
+        <div class="flex items-center">
+          <input id="remember" type="checkbox" class="w-4 h-4 rounded text-brand-600 border-slate-300 focus:ring-brand-500/30" />
+          <label for="remember" class="ml-2 font-medium text-slate-500 select-none">Ingat saya pada peranti ini</label>
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          class="w-full bg-brand-500 hover:bg-brand-600 active:scale-[0.98] text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-brand-500/20 flex items-center justify-center gap-2 mt-2"
+        >
+          <i data-lucide="log-in" class="w-4 h-4"></i> Log Masuk
+        </button>
+
+      </form>
+
+      <!-- Back Link -->
+      <div class="text-center mt-6 pt-4 border-t border-slate-100">
+        <a href="index.html" class="text-xs text-slate-400 hover:text-brand-600 transition-colors inline-flex items-center gap-1">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Kembali ke Halaman Utama
+        </a>
+      </div>
+
+    </main>
+
+    <!-- Page Scripts -->
+    <script>
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // Show/Hide Password logic
+      function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+        
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          eyeIcon.setAttribute('data-lucide', 'eye-off');
+        } else {
+          passwordInput.type = 'password';
+          eyeIcon.setAttribute('data-lucide', 'eye');
+        }
+        lucide.createIcons();
+      }
+
+      // Handle Client-side login submit
+      function handleLogin(e) {
+        e.preventDefault();
+        
+        const usernameInput = document.getElementById('username').value.trim();
+        const passwordInput = document.getElementById('password').value.trim();
+        const errorBanner = document.getElementById('error-banner');
+        const errorMessage = document.getElementById('error-message');
+
+        // Reset state
+        errorBanner.classList.add('hidden');
+
+        // Basic empty checks
+        if (!usernameInput && !passwordInput) {
+          errorMessage.textContent = 'Nama Pengguna dan Kata Laluan wajib diisi.';
+          errorBanner.classList.remove('hidden');
+          return;
+        }
+        if (!usernameInput) {
+          errorMessage.textContent = 'Sila masukkan Nama Pengguna anda.';
+          errorBanner.classList.remove('hidden');
+          return;
+        }
+        if (!passwordInput) {
+          errorMessage.textContent = 'Sila masukkan Kata Laluan anda.';
+          errorBanner.classList.remove('hidden');
+          return;
+        }
+
+        // Hardcoded Admin account authentication
+        const mockAdmin = {
+          username: 'pergigiankb',
+          password: 'kb123'
+        };
+
+        if (usernameInput === mockAdmin.username && passwordInput === mockAdmin.password) {
+          // Save login state (sessionStorage)
+          sessionStorage.setItem('isLoggedIn', 'true');
+          sessionStorage.setItem('username', usernameInput);
+          
+          alert('Log masuk berjaya! Anda sedang dialihkan ke Dashboard Pentadbiran.');
+          window.location.href = '/pentadbiran';
+        } else {
+          // Mismatch error display
+          errorMessage.textContent = 'Nama pengguna atau kata laluan salah.';
+          errorBanner.classList.remove('hidden');
+        }
+      }
+    </script>
+  </body>
+</html>

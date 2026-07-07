@@ -28,6 +28,14 @@ def save_data(data):
 def home():
     return send_from_directory('.', 'index.html')
 
+@app.route('/login')
+def login():
+    return send_from_directory('.', 'login.html')
+
+@app.route('/pentadbiran')
+def pentadbiran():
+    return send_from_directory('.', 'pentadbiran.html')
+
 # --- BANJIR ENDPOINTS ---
 @app.route('/api/banjir', methods=['GET'])
 def get_banjir():
