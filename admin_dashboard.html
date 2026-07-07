@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Dashboard Pentadbir - Pergigian Kota Bharu</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+      // Auth Guard check before rendering body to avoid flicker
+      if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+        alert('Sesi tamat atau anda belum log masuk. Sila log masuk semula.');
+        window.location.href = 'login.html';
+      }
+
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            },
+            colors: {
+              navy: {
+                50: '#f8fafc',
+                100: '#f1f5f9',
+                200: '#e2e8f0',
+                700: '#334155',
+                800: '#1e293b',
+                900: '#0f172a',
+                950: '#020617',
+              },
+              brand: {
+                50: '#f0fdfa',
+                500: '#0d9488',
+                600: '#0f766e',
+                700: '#115e59',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body class="bg-navy-50 text-navy-900 font-sans min-h-screen flex overflow-hidden">
+
+    <!-- ── SIDEBAR NAVIGATION ───────────────────────────────────── -->
+    <aside class="w-64 bg-navy-900 text-slate-300 flex flex-col flex-shrink-0 h-screen border-r border-navy-800">
+      
+      <!-- Brand Header -->
+      <div class="p-6 border-b border-navy-800 flex items-center gap-3 bg-navy-950/40">
+        <div class="w-10 h-10 rounded-xl bg-brand-500 text-white flex items-center justify-center shadow-lg shadow-brand-500/20">
+          <i data-lucide="shield-alert" class="w-5.5 h-5.5"></i>
+        </div>
+        <div>
+          <h2 class="font-extrabold text-sm text-white tracking-wide uppercase">Pentadbir</h2>
+          <p class="text-[10px] text-brand-500 font-semibold tracking-wider">SISTEM KAWALAN</p>
+        </div>
+      </div>
+
+      <!-- Navigation links -->
+      <nav class="flex-grow p-4 space-y-1.5 overflow-y-auto custom-scrollbar text-xs">
+        
+        <div class="px-3 mb-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+          Modul Kawalan Teras
+        </div>
+
+        <button 
+          onclick="switchTab('pengguna')" 
+          id="btn-tab-pengguna"
+          class="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 hover:bg-navy-800 hover:text-white group text-left"
+        >
+          <i data-lucide="users-cog" class="w-4.5 h-4.5 text-slate-400 group-hover:text-brand-500 transition-colors"></i>
+          <span class="font-semibold">Pengurusan Pengguna</span>
+        </button>
+
+        <button 
+          onclick="switchTab('klinikal')" 
+          id="btn-tab-klinikal"
+          class="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 hover:bg-navy-800 hover:text-white group text-left"
+        >
+          <i data-lucide="stethoscope" class="w-4.5 h-4.5 text-slate-400 group-hover:text-brand-500 transition-colors"></i>
+          <span class="font-semibold">Pengurusan Klinikal</span>
+        </button>
+
+        <button 
+          onclick="switchTab('pentadbiran')" 
+          id="btn-tab-pentadbiran"
+          class="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 hover:bg-navy-800 hover:text-white group text-left"
+        >
+          <i data-lucide="clipboard-signature" class="w-4.5 h-4.5 text-slate-400 group-hover:text-brand-500 transition-colors"></i>
+          <span class="font-semibold">Pengurusan Pentadbiran</span>
+        </button>
+
+        <button 
+          onclick="switchTab('direktori')" 
+          id="btn-tab-direktori"
+          class="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 hover:bg-navy-800 hover:text-white group text-left"
+        >
+          <i data-lucide="contact" class="w-4.5 h-4.5 text-slate-400 group-hover:text-brand-500 transition-colors"></i>
+          <span class="font-semibold">Pengurusan Direktori</span>
+        </button>
+
+        <!-- Divider -->
+        <div class="border-t border-navy-800 my-4"></div>
+
+        <div class="px-3 mb-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+          Sistem & Hub
+        </div>
+
+        <a 
+          href="index.html" 
+          class="flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 hover:bg-navy-800 hover:text-white text-slate-400"
+        >
+          <i data-lucide="home" class="w-4.5 h-4.5 text-slate-400"></i>
+          <span class="font-semibold">Halaman Utama (Awam)</span>
+        </a>
+
+      </nav>
+
+      <!-- Sidebar footer with Logout -->
+      <div class="p-4 border-t border-navy-800 bg-navy-950/20 text-xs">
+        <div class="flex items-center gap-3 mb-4 px-2">
+          <div class="w-8 h-8 rounded-full bg-navy-800 border border-navy-700 flex items-center justify-center font-bold text-slate-200 text-xs uppercase">
+            PK
+          </div>
+          <div>
+            <p id="username-display" class="font-bold text-white leading-none">pergigiankb</p>
+            <span class="text-[9px] text-slate-500">Pentadbir Sistem</span>
+          </div>
+        </div>
+        <button 
+          onclick="handleLogout()" 
+          class="w-full bg-rose-600/10 hover:bg-rose-600 text-rose-500 hover:text-white font-bold py-2.5 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2"
+        >
+          <i data-lucide="log-out" class="w-4 h-4"></i> Log Keluar
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- ── MAIN CONTENT AREA ────────────────────────────────────── -->
+    <div class="flex-grow flex flex-col h-screen overflow-hidden">
+      
+      <!-- Top navbar header -->
+      <header class="h-16 border-b border-navy-200 bg-white px-8 flex justify-between items-center">
+        <div class="flex items-center gap-2 text-xs">
+          <span class="text-slate-400 font-semibold">Dashboard</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-300"></i>
+          <span id="breadcrumb-active" class="text-navy-900 font-bold">Modul Kawalan</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span class="flex items-center gap-1.5 py-1 px-3 bg-brand-50 border border-brand-100 rounded-full text-[10px] font-bold text-brand-600 uppercase tracking-wide">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            Mod Sandbox Aktif
+          </span>
+        </div>
+      </header>
+
+      <!-- Scrollable content panel -->
+      <main class="flex-grow p-8 overflow-y-auto custom-scrollbar">
+
+        <!-- Welcome Banner Card -->
+        <div id="welcome-panel" class="mb-8 p-6 bg-gradient-to-r from-navy-900 via-navy-800 to-brand-700 rounded-3xl text-white shadow-xl shadow-navy-900/5 relative overflow-hidden">
+          <div class="absolute right-0 top-0 bottom-0 opacity-10 flex items-center justify-center pr-12">
+            <i data-lucide="shield-check" class="w-48 h-48"></i>
+          </div>
+          <div class="relative z-10">
+            <h1 class="text-2xl font-extrabold tracking-tight">Selamat Datang ke Panel Pentadbiran</h1>
+            <p class="text-xs text-slate-300 mt-1 max-w-xl leading-relaxed">
+              Selamat datang, <span class="text-brand-50 font-bold">Pentadbir Pergigian</span>. Portal kawalan ini direka khas untuk mengkonfigurasi tetapan sistem, mengurus pendaftaran akaun kakitangan, dan memantau parameter aplikasi.
+            </p>
+          </div>
+        </div>
+
+        <!-- DYNAMIC ACTIVE TAB CONTAINER -->
+        <div id="main-tab-content" class="bg-white rounded-3xl border border-navy-200/80 p-8 shadow-sm transition-all duration-300">
+          <!-- Rendered dynamically via JavaScript -->
+        </div>
+
+      </main>
+
+    </div>
+
+    <!-- Page Javascript code -->
+    <script>
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // Set username from session storage if available
+      const storedUser = sessionStorage.getItem('username');
+      if (storedUser) {
+        document.getElementById('username-display').textContent = storedUser;
+      }
+
+      // Handle Log Keluar
+      function handleLogout() {
+        if (confirm('Adakah anda pasti mahu keluar dari panel pentadbir?')) {
+          sessionStorage.removeItem('isLoggedIn');
+          sessionStorage.removeItem('username');
+          window.location.href = 'login.html';
+        }
+      }
+
+      // Tabs configurations & boilerplates definitions
+      const modulesData = {
+        pengguna: {
+          title: "Pengurusan Pengguna",
+          icon: "users-cog",
+          color: "bg-teal-500",
+          desc: "Konfigurasi tetapan akaun kakitangan, kemas kini peranan/akses, dan pendaftaran pekerja baru.",
+          boilerplateTitle: "Senarai Kakitangan & Kebenaran Akses (Role Management)",
+          boilerplateMockHtml: `
+            <div class="space-y-4">
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-4 border-b border-slate-100">
+                <div>
+                  <h4 class="font-bold text-sm text-navy-900">Senarai Akaun Pengguna</h4>
+                  <p class="text-[10px] text-slate-500">Urus akses sistem staf pentadbiran & klinikal.</p>
+                </div>
+                <button onclick="alert('Fungsi ini akan tersedia pada fasa kedua pembangunan.')" class="px-3 py-1.5 bg-brand-500 hover:bg-brand-600 text-white rounded-lg font-bold text-xs flex items-center gap-1.5 shadow-sm transition-colors">
+                  <i data-lucide="user-plus" class="w-3.5 h-3.5"></i> Tambah Pengguna Baru
+                </button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr class="bg-slate-50 border-b border-slate-100 text-slate-500 font-semibold">
+                      <th class="py-2.5 px-3">Nama Penuh</th>
+                      <th class="py-2.5 px-3">Nama Pengguna</th>
+                      <th class="py-2.5 px-3">Peranan</th>
+                      <th class="py-2.5 px-3">Status</th>
+                      <th class="py-2.5 px-3 text-right">Tindakan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b border-slate-100">
+                      <td class="py-3 px-3 font-semibold text-navy-900">Pentadbir Pergigian (Admin)</td>
+                      <td class="py-3 px-3 font-mono text-slate-500">pergigiankb</td>
+                      <td class="py-3 px-3"><span class="px-2 py-0.5 bg-purple-50 text-purple-600 border border-purple-100 rounded-full font-bold text-[9px] uppercase">Sysadmin</span></td>
+                      <td class="py-3 px-3"><span class="px-2 py-0.5 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-full font-bold text-[9px] uppercase">Aktif</span></td>
+                      <td class="py-3 px-3 text-right"><span class="text-slate-400">Terkunci</span></td>
+                    </tr>
+                    <tr class="border-b border-slate-100 opacity-60">
+                      <td class="py-3 px-3 font-semibold text-navy-900">Dr. Khalid Ahmad</td>
+                      <td class="py-3 px-3 font-mono text-slate-500">drkhalid</td>
+                      <td class="py-3 px-3"><span class="px-2 py-0.5 bg-blue-50 text-blue-600 border border-blue-100 rounded-full font-bold text-[9px] uppercase">Klinikal</span></td>
+                      <td class="py-3 px-3"><span class="px-2 py-0.5 bg-slate-100 text-slate-600 border border-slate-200 rounded-full font-bold text-[9px] uppercase">Draft</span></td>
+                      <td class="py-3 px-3 text-right">
+                        <button onclick="alert('Modul dalam pembangunan.')" class="text-brand-600 font-semibold hover:underline">Sediakan</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `
+        },
+        klinikal: {
+          title: "Pengurusan Klinikal",
+          icon: "stethoscope",
+          color: "bg-blue-500",
+          desc: "Kemas kini templat borang klinikal, muat naik garis panduan rawatan pergigian, dan urus logbook NDOP.",
+          boilerplateTitle: "Tetapan Templat & Dokumen Rawatan (Clinical Settings)",
+          boilerplateMockHtml: `
+            <div class="space-y-4">
+              <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                <div>
+                  <h4 class="font-bold text-sm text-navy-900">Buku Log & Garis Panduan</h4>
+                  <p class="text-[10px] text-slate-500">Sediakan templat PDF rasmi untuk dimuat turun oleh staf.</p>
+                </div>
+                <button onclick="alert('Fungsi ini akan tersedia pada fasa kedua pembangunan.')" class="px-3 py-1.5 bg-brand-500 hover:bg-brand-600 text-white rounded-lg font-bold text-xs flex items-center gap-1.5 shadow-sm transition-colors">
+                  <i data-lucide="upload-cloud" class="w-3.5 h-3.5"></i> Muat Naik Fail Baru
+                </button>
+              </div>
+              <div class="space-y-3">
+                <div class="p-3 bg-slate-50 border border-slate-100 rounded-xl flex justify-between items-center text-xs">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-lg bg-red-100 text-red-600 flex items-center justify-center"><i data-lucide="file-text" class="w-5 h-5"></i></div>
+                    <div>
+                      <p class="font-bold text-navy-900">Garis Panduan Rawatan 2026.pdf</p>
+                      <span class="text-[10px] text-slate-500">Dikemas kini oleh: pergigiankb &bull; Saiz: 4.2MB</span>
+                    </div>
+                  </div>
+                  <span class="text-[10px] font-bold text-emerald-600 uppercase">Aktif</span>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        pentadbiran: {
+          title: "Pengurusan Pentadbiran",
+          icon: "clipboard-signature",
+          color: "bg-emerald-500",
+          desc: "Urus bilik mesyuarat, konfigurasikan kalendar aktiviti acara jabatan, dan tetapkan had status pergerakan staf.",
+          boilerplateTitle: "Konfigurasi Pejabat & Tempahan Bilik (Office Settings)",
+          boilerplateMockHtml: `
+            <div class="space-y-4">
+              <div class="pb-4 border-b border-slate-100">
+                <h4 class="font-bold text-sm text-navy-900">Bilik Mesyuarat Berdaftar</h4>
+                <p class="text-[10px] text-slate-500">Daftarkan bilik baharu bagi modul Tempahan Bilik Mesyuarat.</p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="p-4 border border-slate-200 rounded-2xl bg-white shadow-sm flex justify-between items-start">
+                  <div>
+                    <span class="px-2 py-0.5 bg-brand-50 text-brand-600 border border-brand-100 rounded-full font-bold text-[9px]">DEPARTMEN UTAMA</span>
+                    <h5 class="font-bold text-navy-900 text-sm mt-1.5">Bilik Melati</h5>
+                    <p class="text-slate-500 mt-0.5">Kapasiti: 15 Orang &bull; Kelengkapan: Projektor & Smart TV</p>
+                  </div>
+                  <span class="text-[10px] text-slate-400 font-bold uppercase">Sedia Digunakan</span>
+                </div>
+                <div class="p-4 border border-slate-200 rounded-2xl bg-white shadow-sm flex justify-between items-start">
+                  <div>
+                    <span class="px-2 py-0.5 bg-brand-50 text-brand-600 border border-brand-100 rounded-full font-bold text-[9px]">DEPARTMEN PENTADBIRAN</span>
+                    <h5 class="font-bold text-navy-900 text-sm mt-1.5">Bilik Cempaka</h5>
+                    <p class="text-slate-500 mt-0.5">Kapasiti: 8 Orang &bull; Kelengkapan: Whiteboard sahaja</p>
+                  </div>
+                  <span class="text-[10px] text-slate-400 font-bold uppercase">Sedia Digunakan</span>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        direktori: {
+          title: "Pengurusan Direktori",
+          icon: "contact",
+          color: "bg-purple-500",
+          desc: "Kemas kini senarai kakitangan dalam portal direktori awam dan tukar status perjawatan secara global.",
+          boilerplateTitle: "Tetapan Senarai Direktori Klinik (Directory Settings)",
+          boilerplateMockHtml: `
+            <div class="space-y-4">
+              <div class="pb-4 border-b border-slate-100">
+                <h4 class="font-bold text-sm text-navy-900">Perjawatan Jabatan & Bahagian</h4>
+                <p class="text-[10px] text-slate-500">Konfigurasi label jabatan direktori awam.</p>
+              </div>
+              <div class="space-y-2 text-xs">
+                <div class="flex justify-between items-center py-2 px-3 bg-slate-50 border border-slate-100 rounded-lg">
+                  <span class="font-semibold text-navy-900">Klinikal / Pakar</span>
+                  <span class="text-[10px] font-mono text-slate-500">7 Kakitangan</span>
+                </div>
+                <div class="flex justify-between items-center py-2 px-3 bg-slate-50 border border-slate-100 rounded-lg">
+                  <span class="font-semibold text-navy-900">Sokongan Rawatan</span>
+                  <span class="text-[10px] font-mono text-slate-500">4 Kakitangan</span>
+                </div>
+                <div class="flex justify-between items-center py-2 px-3 bg-slate-50 border border-slate-100 rounded-lg">
+                  <span class="font-semibold text-navy-900">Pentadbiran & Kaunter</span>
+                  <span class="text-[10px] font-mono text-slate-500">3 Kakitangan</span>
+                </div>
+              </div>
+            </div>
+          `
+        }
+      };
+
+      // Switch active tab and render boilerplate contents
+      function switchTab(tabId) {
+        const data = modulesData[tabId];
+        if (!data) return;
+
+        // Update breadcrumb
+        document.getElementById('breadcrumb-active').textContent = data.title;
+
+        // Reset active sidebar buttons styles
+        Object.keys(modulesData).forEach(id => {
+          const btn = document.getElementById(`btn-tab-${id}`);
+          if (btn) {
+            btn.className = "w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 hover:bg-navy-800 hover:text-white group text-left";
+            const icon = btn.querySelector('i');
+            if (icon) {
+              icon.className = "w-4.5 h-4.5 text-slate-400 group-hover:text-brand-500 transition-colors";
+            }
+          }
+        });
+
+        // Highlight active sidebar button
+        const activeBtn = document.getElementById(`btn-tab-${tabId}`);
+        if (activeBtn) {
+          activeBtn.className = "w-full flex items-center gap-3 px-3 py-3 rounded-xl bg-brand-500 text-white text-left font-bold shadow-md shadow-brand-500/10";
+          const activeIcon = activeBtn.querySelector('i');
+          if (activeIcon) {
+            activeIcon.className = "w-4.5 h-4.5 text-white";
+          }
+        }
+
+        // Render main content card
+        const contentContainer = document.getElementById('main-tab-content');
+        contentContainer.innerHTML = `
+          <div class="space-y-6">
+            
+            <!-- Module info header -->
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-2xl ${data.color} text-white flex items-center justify-center shadow-lg shadow-slate-200">
+                <i data-lucide="${data.icon}" class="w-6 h-6"></i>
+              </div>
+              <div class="space-y-1">
+                <h3 class="text-lg font-extrabold text-navy-900">${data.title}</h3>
+                <p class="text-xs text-slate-500 leading-relaxed max-w-2xl">${data.desc}</p>
+              </div>
+            </div>
+
+            <!-- Sandbox Alert Info Banner -->
+            <div class="p-4 bg-brand-50 border border-brand-100 rounded-2xl flex items-start gap-3 text-xs text-brand-700">
+              <i data-lucide="info" class="w-4.5 h-4.5 mt-0.5 flex-shrink-0 text-brand-500"></i>
+              <div>
+                <h5 class="font-bold text-brand-800">Boilerplate Fasa 1 Pembangunan</h5>
+                <p class="mt-0.5 text-brand-600">Bahagian ini adalah paparan templat rangka utama (*boilerplate*). Pangkalan data penuh dan konfigurasi parameter sistem ini akan disepadukan sepenuhnya pada fasa pembangunan seterusnya.</p>
+              </div>
+            </div>
+
+            <!-- Mock Template Boilerplate Content -->
+            <div class="border border-slate-100 rounded-3xl p-6 bg-slate-50/50 shadow-inner">
+              <h4 class="font-extrabold text-xs text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-1.5">
+                <i data-lucide="layout-template" class="w-4 h-4"></i>
+                Rangka Reka Letak: ${data.boilerplateTitle}
+              </h4>
+              <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                ${data.boilerplateMockHtml}
+              </div>
+            </div>
+
+          </div>
+        `;
+
+        // Recreate icons
+        lucide.createIcons();
+      }
+
+      // Default active tab to pengguna on load
+      window.onload = function() {
+        switchTab('pengguna');
+      };
+    </script>
+  </body>
+</html>
