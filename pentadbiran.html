@@ -1673,23 +1673,30 @@
         alert('Sila pilih bilik mesyuarat terlebih dahulu sebelum memilih tarikh.');
         return;
       }
+
       document.getElementById('booking-date').value = dateStr;
 
       const nativeInput = document.getElementById('booking-date-native');
       if (nativeInput) nativeInput.value = dateStr;
 
+      // Format date for badge display e.g. 11 Ogos 2026
+      const [yr, mo, dy] = dateStr.split('-');
+      const formattedDate = `${parseInt(dy)} ${monthNames[parseInt(mo) - 1]} ${yr}`;
+
       const displaySpan = document.getElementById('selected-date-text');
       if (displaySpan) {
-        displaySpan.textContent = dateStr;
-        displaySpan.className = "bg-indigo-600 px-2 py-0.5 rounded text-white font-bold";
+        displaySpan.textContent = formattedDate;
+        displaySpan.className = "bg-indigo-600 px-2 py-0.5 rounded text-white font-bold shadow-xs";
       }
+
       renderBookingDatePicker();
+      renderBookingTimeSlots();
     }
 
     function selectNativeDate(val) {
       if (!val) return;
       const parts = val.split('-');
-      if (parts.length === 3) {
+      if (parts.length === 3 && parts[0].length === 4) {
         pickerYear = parseInt(parts[0]);
         pickerMonth = parseInt(parts[1]) - 1;
         selectPickerDate(val);
