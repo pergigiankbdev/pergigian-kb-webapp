@@ -490,6 +490,7 @@
             <td class="py-2.5 px-3 font-mono text-slate-500">${b.start_time} - ${b.end_time}</td>
             <td class="py-2.5 px-3 font-medium text-slate-600">${b.applicant_name}</td>
             <td class="py-2.5 px-3 text-right">
+              <button onclick="window.editBookingModal('${b.id}')" class="text-indigo-650 hover:text-indigo-850 font-bold hover:underline mr-2">Edit</button>
               <button onclick="window.cancelBooking('${b.id}')" class="text-rose-600 hover:text-rose-800 font-bold hover:underline">Batalkan</button>
             </td>
           `;
@@ -631,6 +632,135 @@
       }
       window.cancelBooking = cancelBooking;
 
+      function showAdminBlockModal() {
+        document.getElementById('admin-block-modal-title').textContent = "Sekat Slot / Tempahan Pentadbir";
+        document.getElementById('edit-booking-id').value = "";
+        const select = document.getElementById('admin-block-room');
+        if (select) {
+          select.innerHTML = '';
+          adminRooms.forEach(room => {
+            const opt = document.createElement('option');
+            opt.value = room.name;
+            opt.textContent = room.name;
+            select.appendChild(opt);
+          });
+        }
+        document.getElementById('admin-block-applicant').value = "Pentadbir Sistem";
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('admin-block-date').value = today;
+        document.getElementById('admin-block-start').value = "08:00";
+        document.getElementById('admin-block-end').value = "17:00";
+        document.getElementById('admin-block-title').value = "";
+        document.getElementById('admin-block-modal').classList.remove('hidden');
+      }
+      window.showAdminBlockModal = showAdminBlockModal;
+
+      function editBookingModal(id) {
+        const booking = adminBookings.find(b => b.id === id);
+        if (!booking) return;
+        document.getElementById('admin-block-modal-title').textContent = "Edit Rekod Tempahan";
+        document.getElementById('edit-booking-id').value = booking.id;
+        
+        const select = document.getElementById('admin-block-room');
+        if (select) {
+          select.innerHTML = '';
+          adminRooms.forEach(room => {
+            const opt = document.createElement('option');
+            opt.value = room.name;
+            opt.textContent = room.name;
+            if (room.name === booking.room_name) opt.selected = true;
+            select.appendChild(opt);
+          });
+        }
+        document.getElementById('admin-block-applicant').value = booking.applicant_name;
+        document.getElementById('admin-block-date').value = booking.booking_date;
+        document.getElementById('admin-block-start').value = booking.start_time;
+        document.getElementById('admin-block-end').value = booking.end_time;
+        document.getElementById('admin-block-title').value = booking.meeting_title;
+        document.getElementById('admin-block-modal').classList.remove('hidden');
+      }
+      window.editBookingModal = editBookingModal;
+
+      function closeAdminBlockModal() {
+        document.getElementById('admin-block-modal').classList.add('hidden');
+      }
+      window.closeAdminBlockModal = closeAdminBlockModal;
+
+      async function saveAdminBlock(e) {
+        e.preventDefault();
+        const editId = document.getElementById('edit-booking-id').value;
+        const room_name = document.getElementById('admin-block-room').value;
+        const applicant_name = document.getElementById('admin-block-applicant').value;
+        const booking_date = document.getElementById('admin-block-date').value;
+        const start_time = document.getElementById('admin-block-start').value;
+        const end_time = document.getElementById('admin-block-end').value;
+        const meeting_title = document.getElementById('admin-block-title').value;
+
+        if (start_time >= end_time) {
+          alert('Waktu tamat mestilah selepas waktu mula.');
+          return;
+        }
+
+        const payload = {
+          room_name,
+          applicant_name,
+          booking_date,
+          start_time,
+          end_time,
+          meeting_title
+        };
+
+        const url = editId ? `/api/tempahan/edit/${editId}` : '/api/tempahan';
+
+        try {
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (res.ok) {
+            alert('Rekod tempahan / sekatan berjaya disimpan!');
+            closeAdminBlockModal();
+            fetchBookingsAdmin();
+            return;
+          } else {
+            const data = await res.json();
+            alert(data.error || 'Gagal menyimpan rekod tempahan.');
+            return;
+          }
+        } catch (err) {
+          console.warn("API admin block save failed, using local fallback:", err);
+        }
+
+        // Local storage fallback
+        let bookings = JSON.parse(localStorage.getItem('tempahan') || '[]');
+        const conflict = bookings.find(b => 
+          b.id !== editId &&
+          b.room_name === room_name && 
+          b.booking_date === booking_date && 
+          (start_time < b.end_time) && (end_time > b.start_time)
+        );
+        if (conflict) {
+          alert(`Pertindihan Slot Masa! Bilik ${room_name} telah ditempah oleh ${conflict.applicant_name} ('${conflict.meeting_title}') pada jam ${conflict.start_time} - ${conflict.end_time}.`);
+          return;
+        }
+
+        if (editId) {
+          bookings = bookings.map(b => b.id === editId ? { ...b, ...payload } : b);
+        } else {
+          bookings.push({
+            id: "t_" + Date.now(),
+            ...payload
+          });
+        }
+        localStorage.setItem('tempahan', JSON.stringify(bookings));
+        adminBookings = bookings;
+        alert('Rekod tempahan / sekatan berjaya disimpan!');
+        closeAdminBlockModal();
+        renderAdminBookingsList();
+      }
+      window.saveAdminBlock = saveAdminBlock;
+
       function switchSubAdminTab(subId) {
         const subData = subAdminData[subId];
         if (!subData) return;
@@ -692,9 +822,14 @@
 
                 <!-- 2. Admin Booking Calendar & Slots List -->
                 <div class="space-y-3 border-t border-slate-100 pt-6">
-                  <div>
-                    <h4 class="font-extrabold text-sm text-navy-900 flex items-center gap-1.5"><i data-lucide="calendar-days" class="w-4 h-4 text-indigo-600"></i> Kalendar Tempahan & Jadual Slots</h4>
-                    <p class="text-[10px] text-slate-500">Semak senarai tempahan aktif merentasi semua bilik dan batalkan tempahan jika perlu.</p>
+                  <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+                    <div>
+                      <h4 class="font-extrabold text-sm text-navy-900 flex items-center gap-1.5"><i data-lucide="calendar-days" class="w-4 h-4 text-indigo-600"></i> Kalendar Tempahan & Jadual Slots</h4>
+                      <p class="text-[10px] text-slate-500">Semak senarai tempahan aktif merentasi semua bilik dan batalkan tempahan jika perlu.</p>
+                    </div>
+                    <button id="add-admin-block-btn" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold flex items-center gap-1.5 shadow-sm transition-colors text-xs">
+                      <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Sekat Slot / Tempahan Pentadbir
+                    </button>
                   </div>
                   
                   <!-- Slots Table -->
@@ -744,6 +879,47 @@
                   </form>
                 </div>
               </div>
+
+              <!-- 4. Dynamic Inline Modal for Admin Manual Reservation / Block Slot -->
+              <div id="admin-block-modal" class="fixed inset-0 z-[70] flex items-center justify-center bg-navy-950/40 p-4 hidden">
+                <div class="bg-white w-full max-w-md rounded-2xl shadow-xl border border-navy-200 overflow-hidden flex flex-col">
+                  <div class="p-4 bg-emerald-600 text-white flex justify-between items-center">
+                    <h3 id="admin-block-modal-title" class="font-bold text-xs">Sekat Slot / Tempahan Pentadbir</h3>
+                    <button type="button" id="close-admin-block-modal-btn" class="p-1 rounded hover:bg-emerald-700 text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+                  </div>
+                  <form id="admin-block-form" class="p-5 space-y-4 text-xs">
+                    <input type="hidden" id="edit-booking-id" value="" />
+                    <div class="space-y-1">
+                      <label class="font-semibold text-slate-600">Pilih Bilik</label>
+                      <select id="admin-block-room" class="w-full border border-slate-200 rounded-lg p-2 bg-slate-50 text-slate-800" required>
+                      </select>
+                    </div>
+                    <div class="space-y-1">
+                      <label class="font-semibold text-slate-600">Nama Pemohon / Pentadbir</label>
+                      <input type="text" id="admin-block-applicant" value="Pentadbir Sistem" class="w-full border border-slate-200 rounded-lg p-2 bg-slate-50 text-slate-800" required />
+                    </div>
+                    <div class="space-y-1">
+                      <label class="font-semibold text-slate-600">Tarikh Tempahan</label>
+                      <input type="date" id="admin-block-date" class="w-full border border-slate-200 rounded-lg p-2 bg-slate-50 text-slate-800" required />
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                      <div class="space-y-1">
+                        <label class="font-semibold text-slate-600">Masa Mula</label>
+                        <input type="time" id="admin-block-start" value="08:00" class="w-full border border-slate-200 rounded-lg p-2 bg-slate-50 text-slate-800" required />
+                      </div>
+                      <div class="space-y-1">
+                        <label class="font-semibold text-slate-600">Masa Tamat</label>
+                        <input type="time" id="admin-block-end" value="17:00" class="w-full border border-slate-200 rounded-lg p-2 bg-slate-50 text-slate-800" required />
+                      </div>
+                    </div>
+                    <div class="space-y-1">
+                      <label class="font-semibold text-slate-600">Tujuan / Catatan Sekatan</label>
+                      <input type="text" id="admin-block-title" placeholder="Contoh: Penyelenggaraan Fasiliti & Peralatan" class="w-full border border-slate-200 rounded-lg p-2 bg-slate-50 text-slate-800" required />
+                    </div>
+                    <button type="submit" class="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition-colors">Simpan Rekod Sekatan / Tempahan</button>
+                  </form>
+                </div>
+              </div>
             `;
             lucide.createIcons();
             fetchRoomsAdmin();
@@ -768,6 +944,27 @@
             if (roomForm) {
               roomForm.addEventListener('submit', function(e) {
                 saveRoom(e);
+              });
+            }
+
+            const addBlockBtn = document.getElementById('add-admin-block-btn');
+            if (addBlockBtn) {
+              addBlockBtn.addEventListener('click', function() {
+                showAdminBlockModal();
+              });
+            }
+
+            const closeBlockBtn = document.getElementById('close-admin-block-modal-btn');
+            if (closeBlockBtn) {
+              closeBlockBtn.addEventListener('click', function() {
+                closeAdminBlockModal();
+              });
+            }
+
+            const blockForm = document.getElementById('admin-block-form');
+            if (blockForm) {
+              blockForm.addEventListener('submit', function(e) {
+                saveAdminBlock(e);
               });
             }
             return;

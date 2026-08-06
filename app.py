@@ -167,7 +167,7 @@ def add_tempahan():
                 }), 400
 
     new_booking = {
-        "id": f"t{len(bookings) + 1}",
+        "id": f"t_{int(time.time())}_{len(bookings) + 1}",
         "room_name": room_name,
         "booking_date": booking_date,
         "start_time": start_time,
@@ -180,6 +180,42 @@ def add_tempahan():
     data["tempahan"] = bookings
     save_data(data)
     return jsonify(new_booking), 201
+
+@app.route('/api/tempahan/edit/<id>', methods=['POST'])
+def edit_tempahan(id):
+    data = load_data()
+    req = request.json
+    bookings = data.get("tempahan", [])
+    
+    room_name = req.get("room_name")
+    booking_date = req.get("booking_date")
+    start_time = req.get("start_time")
+    end_time = req.get("end_time")
+    meeting_title = req.get("meeting_title")
+    applicant_name = req.get("applicant_name")
+
+    if start_time >= end_time:
+        return jsonify({"error": "Waktu tamat mestilah selepas waktu mula."}), 400
+
+    for b in bookings:
+        if b["id"] != id and b["room_name"] == room_name and b["booking_date"] == booking_date:
+            if (start_time < b["end_time"]) and (end_time > b["start_time"]):
+                return jsonify({
+                    "error": f"Pertindihan Tempahan! Bilik ini telah ditempah oleh {b['applicant_name']} untuk '{b['meeting_title']}' pada jam {b['start_time']} - {b['end_time']}."
+                }), 400
+
+    for b in bookings:
+        if b["id"] == id:
+            b["room_name"] = room_name
+            b["booking_date"] = booking_date
+            b["start_time"] = start_time
+            b["end_time"] = end_time
+            b["meeting_title"] = meeting_title
+            b["applicant_name"] = applicant_name
+            save_data(data)
+            return jsonify(b)
+            
+    return jsonify({"error": "Tempahan tidak dijumpai"}), 404
 
 # --- KALENDAR ENDPOINTS ---
 @app.route('/api/kalendar', methods=['GET'])
