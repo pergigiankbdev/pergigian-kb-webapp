@@ -624,33 +624,37 @@
   </div>
 
   <!-- 3. MODAL TEMPAHAN BILIK MESYUARAT -->
-  <div id="modal-mesyuarat" class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 hidden">
-    <div class="bg-white rounded-2xl max-w-xl w-full overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+  <div id="modal-mesyuarat" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl border border-gray-100 flex flex-col max-h-[90vh]">
       <!-- Header -->
-      <div class="bg-indigo-600 text-white p-6 flex justify-between items-center flex-shrink-0">
+      <div class="bg-indigo-600 text-white p-5 flex justify-between items-center flex-shrink-0">
         <div>
-          <h2 class="text-xl font-bold">🏢 Tempahan Bilik Mesyuarat</h2>
-          <p class="text-indigo-100 text-xs mt-1">Maklumat Pegawai Bertanggungjawab</p>
+          <h2 class="text-lg font-bold flex items-center gap-2">
+            🏢 Tempahan Bilik Mesyuarat
+          </h2>
+          <p class="text-indigo-100 text-xs mt-0.5">
+            Maklumat Pegawai Bertanggungjawab
+          </p>
         </div>
         <button 
           onclick="closeSubModal('mesyuarat')" 
-          class="text-white hover:bg-indigo-700 p-2 rounded-lg text-lg font-bold leading-none transition-colors"
+          class="text-white/80 hover:text-white hover:bg-indigo-700/50 p-1.5 rounded-lg text-lg transition"
         >
           ✕
         </button>
       </div>
 
       <!-- Content Body -->
-      <div class="p-6 space-y-6 overflow-y-auto custom-scrollbar flex-1">
-        <!-- Dropdown -->
+      <div class="p-6 space-y-5 overflow-y-auto custom-scrollbar flex-1">
+        <!-- Dropdown Selection -->
         <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2">
+          <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">
             Pilih Bilik Mesyuarat
           </label>
           <select
             id="booking-room"
             onchange="renderRoomPicContacts(this.value)"
-            class="w-full border-2 border-indigo-500 rounded-xl p-3 font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+            class="w-full border-2 border-indigo-500 rounded-xl p-3 text-sm font-semibold text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200"
           >
             <option value="">-- Sila Pilih Bilik Mesyuarat --</option>
             <option value="KP Kota Bharu">KP Kota Bharu</option>
@@ -660,14 +664,14 @@
           </select>
         </div>
 
-        <!-- PIC Display Box -->
+        <!-- PIC Result Panel -->
         <div>
-          <h3 class="text-sm font-bold text-gray-700 mb-3">
-            📞 PEGAWAI BERTANGGUNGJAWAB (PIC)
-          </h3>
+          <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">
+            Pegawai Bertanggungjawab (PIC)
+          </label>
 
           <div id="pic-contact-container">
-            <div class="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center text-gray-400 font-medium text-sm">
+            <div class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center text-gray-400 font-medium text-xs">
               Sila pilih bilik mesyuarat terlebih dahulu.
             </div>
           </div>
@@ -1292,47 +1296,47 @@
     }
 
     // --- TEMPAHAN BILIK MESYUARAT LOGIC ---
-    const picData = {
+    const picDetails = {
       "KP Kota Bharu": [
-        { name: "Matron SD Johan", phone: "019-9197125" },
-        { name: "Matron Aliza", phone: "019-9545337" }
+        { name: "Matron SD Johan", phone: "0199197125" },
+        { name: "Matron Aliza", phone: "0199545337" }
       ],
       "KP Kubang Kerian": [
-        { name: "YM Dr Nazli", phone: "014-8224798" }
+        { name: "YM Dr Nazli", phone: "0148224798" }
       ],
       "KP UTC": [
-        { name: "YM Dr Hapizah", phone: "019-5730075" }
+        { name: "YM Dr Hapizah", phone: "0195730075" }
       ],
       "KP Kok Lanas": [
-        { name: "Dr Husna", phone: "014-8359771" }
+        { name: "Dr Husna", phone: "0148359771" }
       ]
     };
 
-    function renderRoomPicContacts(selectedLocation) {
+    function renderRoomPicContacts(selectedRoom) {
       const container = document.getElementById('pic-contact-container');
       if (!container) return;
 
-      if (!selectedLocation || !picData[selectedLocation]) {
+      if (!selectedRoom || !picDetails[selectedRoom]) {
         container.innerHTML = `
-          <div class="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center text-gray-400 font-medium text-sm">
+          <div class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center text-gray-400 font-medium text-xs">
             Sila pilih bilik mesyuarat terlebih dahulu.
           </div>
         `;
         return;
       }
 
-      const pics = picData[selectedLocation];
+      const pics = picDetails[selectedRoom];
       let html = `<div class="space-y-3">`;
 
       pics.forEach(pic => {
         html += `
-          <div class="p-4 bg-gray-50 border border-gray-200 rounded-xl flex justify-between items-center">
+          <div class="p-4 bg-indigo-50/50 border border-indigo-100 rounded-xl flex items-center justify-between">
             <div>
-              <p class="font-bold text-gray-800 text-base m-0">
+              <p class="font-bold text-gray-900 text-sm m-0">
                 ${pic.name}
               </p>
-              <p class="text-sm text-indigo-600 font-semibold m-0 mt-1">
-                No. Telefon: ${pic.phone}
+              <p class="text-xs text-indigo-700 font-semibold m-0 mt-1">
+                📞 No. Telefon: <span class="font-mono text-indigo-900">${pic.phone}</span>
               </p>
             </div>
           </div>
