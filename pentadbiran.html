@@ -1307,59 +1307,52 @@
     // --- TEMPAHAN BILIK MESYUARAT LOGIC ---
     const picData = {
       "KP Kota Bharu": [
-        { name: "Matron SD Johan", phone: "0199197125", displayPhone: "019-9197125" },
-        { name: "Matron Aliza", phone: "0199545337", displayPhone: "019-9545337" }
+        { name: "Matron SD Johan", phone: "60199197125", display: "019-9197125" },
+        { name: "Matron Aliza", phone: "60199545337", display: "019-9545337" }
       ],
       "KP Kubang Kerian": [
-        { name: "YM Dr Nazli", phone: "0148224798", displayPhone: "014-8224798" }
+        { name: "YM Dr Nazli", phone: "60148224798", display: "014-8224798" }
       ],
       "KP UTC": [
-        { name: "YM Dr Hapizah", phone: "0195730075", displayPhone: "019-5730075" }
+        { name: "YM Dr Hapizah", phone: "60195730075", display: "019-5730075" }
       ],
       "KP Kok Lanas": [
-        { name: "Dr Husna", phone: "0148359771", displayPhone: "014-8359771" }
+        { name: "Dr Husna", phone: "60148359771", display: "014-8359771" }
       ]
     };
 
-    function handleWhatsAppClick(phone) {
-      window.open(`https://wa.me/60${phone}`, '_blank', 'noopener,noreferrer');
-    }
-    window.handleWhatsAppClick = handleWhatsAppClick;
-
-    function renderRoomPicContacts(selectedLocation) {
+    function renderRoomPicContacts(selectedRoom) {
       const container = document.getElementById('pic-contact-container');
       if (!container) return;
 
-      if (!selectedLocation || !picData[selectedLocation]) {
+      if (!selectedRoom || !picData[selectedRoom]) {
         container.innerHTML = `
-          <div class="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center text-gray-400 font-medium text-sm">
+          <div class="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center text-gray-400 font-medium">
             Sila pilih bilik mesyuarat terlebih dahulu.
           </div>
         `;
         return;
       }
 
-      const pics = picData[selectedLocation];
-      let html = `<div class="space-y-3">`;
+      const pics = picData[selectedRoom];
+      let html = `<div class="space-y-3 mt-4">`;
 
       pics.forEach(pic => {
         html += `
-          <div
-            onclick="handleWhatsAppClick('${pic.phone}')"
-            class="border border-gray-200 hover:border-emerald-500 rounded-xl p-4 flex items-center justify-between cursor-pointer bg-gray-50 hover:bg-emerald-50/40 transition-all shadow-sm"
+          <a
+            href="https://wa.me/${pic.phone}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-between p-4 bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 rounded-xl transition cursor-pointer"
           >
             <div>
-              <h4 class="font-bold text-gray-800 text-base">${pic.name}</h4>
-              <p class="text-sm text-gray-500 font-medium">${pic.displayPhone}</p>
+              <p class="font-bold text-gray-800 text-base">${pic.name}</p>
+              <p class="text-sm text-gray-600 font-medium">${pic.display}</p>
             </div>
-            <button
-              type="button"
-              onclick="event.stopPropagation(); handleWhatsAppClick('${pic.phone}');"
-              class="bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm px-4 py-2 rounded-lg flex items-center gap-2 shadow-sm transition"
-            >
-              💬 WhatsApp
-            </button>
-          </div>
+            <span class="bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium text-sm flex items-center gap-2">
+              💬 Chat WhatsApp
+            </span>
+          </a>
         `;
       });
 
@@ -1497,16 +1490,13 @@
     window.addEventListener('load', () => {
       fetchBanjir();
       fetchPergerakan();
-      fetchRooms();
-      fetchBookings();
       fetchCalendarEvents();
 
-      // Bind change listener for room availability picker updates
+      // Bind change listener for room PIC selection
       const roomSelect = document.getElementById('booking-room');
       if (roomSelect) {
-        roomSelect.addEventListener('change', () => {
-          renderBookingDatePicker();
-          renderBookingTimeSlots();
+        roomSelect.addEventListener('change', (e) => {
+          renderRoomPicContacts(e.target.value);
         });
       }
     });
