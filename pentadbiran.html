@@ -654,7 +654,8 @@
             <div class="space-y-1">
               <label class="text-[11px] font-semibold text-slate-500">Pilih Bilik</label>
               <select id="booking-room" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
-                <option value="Bilik Mesyuarat KPKB">Bilik Mesyuarat KPKB </option>
+                <option value="">-- Sila Pilih Bilik --</option>
+                <option value="Bilik Mesyuarat KPKB">Bilik Mesyuarat KPKB</option>
                 <option value="Bilik Mesyuarat Kubang Kerian">Bilik Mesyuarat Kubang Kerian</option>
               </select>
             </div>
@@ -1392,7 +1393,7 @@
     function populateRoomsSelect(roomsList) {
       const select = document.getElementById('booking-room');
       if (!select) return;
-      select.innerHTML = '';
+      select.innerHTML = '<option value="">-- Sila Pilih Bilik --</option>';
       roomsList.forEach(room => {
         const opt = document.createElement('option');
         opt.value = room.name;
