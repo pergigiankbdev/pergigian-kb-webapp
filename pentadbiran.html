@@ -670,10 +670,11 @@
                   <span class="font-bold text-navy-800 flex items-center gap-1"><i data-lucide="calendar"
                       class="w-4 h-4 text-indigo-600"></i> Tarikh Tempahan</span>
                   <div class="flex items-center gap-2">
+                    <input type="date" id="booking-date-native" onchange="selectNativeDate(this.value)" class="border border-slate-200 rounded px-1.5 py-0.5 text-[10px] text-slate-700 bg-white shadow-xs focus:ring-1 focus:ring-indigo-500" />
                     <button type="button" onclick="prevPickerMonth()"
                       class="p-1 hover:bg-slate-200 rounded transition-colors"><i data-lucide="chevron-left"
                         class="w-3.5 h-3.5"></i></button>
-                    <span id="picker-month-year" class="font-semibold text-slate-700">Julai 2026</span>
+                    <span id="picker-month-year" class="font-semibold text-slate-700"></span>
                     <button type="button" onclick="nextPickerMonth()"
                       class="p-1 hover:bg-slate-200 rounded transition-colors"><i data-lucide="chevron-right"
                         class="w-3.5 h-3.5"></i></button>
@@ -1359,8 +1360,9 @@
       "Januari", "Februari", "Mac", "April", "Mei", "Jun",
       "Julai", "Ogos", "September", "Oktober", "November", "Disember"
     ];
-    let pickerYear = 2026;
-    let pickerMonth = 6; // July (0-indexed)
+    const todayObj = new Date();
+    let pickerYear = todayObj.getFullYear();
+    let pickerMonth = todayObj.getMonth(); // 0-indexed
     let activeBookings = [];
 
     async function fetchRooms() {
@@ -1666,7 +1668,16 @@
     }
 
     function selectPickerDate(dateStr) {
+      const roomSelect = document.getElementById('booking-room');
+      if (!roomSelect || !roomSelect.value) {
+        alert('Sila pilih bilik mesyuarat terlebih dahulu sebelum memilih tarikh.');
+        return;
+      }
       document.getElementById('booking-date').value = dateStr;
+
+      const nativeInput = document.getElementById('booking-date-native');
+      if (nativeInput) nativeInput.value = dateStr;
+
       const displaySpan = document.getElementById('selected-date-text');
       if (displaySpan) {
         displaySpan.textContent = dateStr;
@@ -1674,6 +1685,17 @@
       }
       renderBookingDatePicker();
     }
+
+    function selectNativeDate(val) {
+      if (!val) return;
+      const parts = val.split('-');
+      if (parts.length === 3) {
+        pickerYear = parseInt(parts[0]);
+        pickerMonth = parseInt(parts[1]) - 1;
+        selectPickerDate(val);
+      }
+    }
+    window.selectNativeDate = selectNativeDate;
 
     function prevPickerMonth() {
       pickerMonth--;
