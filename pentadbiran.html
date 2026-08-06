@@ -639,103 +639,43 @@
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
-      <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm">
-        <!-- Availability state / Upcoming List -->
-        <div class="space-y-3">
-          <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Tempahan Akan Datang</h4>
-          <div id="upcoming-bookings" class="space-y-2 max-h-[160px] overflow-y-auto pr-1 custom-scrollbar">
-            <!-- Rendered Dynamically -->
+        <!-- Room Selector & Dynamic WhatsApp Contacts -->
+        <div class="space-y-6">
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-navy-900 flex items-center gap-1.5">
+              <i data-lucide="door-open" class="w-4 h-4 text-indigo-600"></i> Pilih Bilik Mesyuarat
+            </label>
+            <select id="booking-room" onchange="renderRoomPicContacts(this.value)"
+              class="w-full border border-navy-200 rounded-xl p-3 text-xs bg-slate-50 font-medium focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all shadow-xs">
+              <option value="">-- Sila Pilih Bilik Mesyuarat --</option>
+              <option value="KP Kota Bharu">KP Kota Bharu</option>
+              <option value="KP Kubang Kerian">KP Kubang Kerian</option>
+              <option value="KP UTC">KP UTC</option>
+              <option value="KP Kok Lanas">KP Kok Lanas</option>
+            </select>
+          </div>
+
+          <!-- Dynamic Contact PIC Section -->
+          <div class="space-y-3 border-t border-slate-100 pt-5">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-xs text-navy-900 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="phone-call" class="w-4 h-4 text-emerald-600"></i> Pegawai Bertanggungjawab (PIC)
+              </h4>
+              <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full flex items-center gap-1">
+                <i data-lucide="message-circle" class="w-3 h-3 text-emerald-600"></i> Direct WhatsApp
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Sila pilih bilik mesyuarat di atas. Klik nama Pegawai Bertanggungjawab (PIC) di bawah untuk membuka perbualan WhatsApp bagi urusan semakan slot dan pengesahan tempahan.
+            </p>
+            
+            <div id="pic-contact-container" class="pt-2">
+              <div class="p-4 rounded-xl border border-dashed border-slate-300 bg-slate-50 text-center text-xs text-slate-400 font-medium">
+                Sila pilih bilik mesyuarat terlebih dahulu.
+              </div>
+            </div>
           </div>
         </div>
-        <!-- Booking Form -->
-        <form onsubmit="submitBooking(event)" class="space-y-4 border-t border-navy-100 pt-4">
-          <h4 class="font-bold text-xs text-navy-800 uppercase tracking-wider">Borang Tempahan Bilik</h4>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="space-y-1">
-              <label class="text-[11px] font-semibold text-slate-500">Pilih Bilik</label>
-              <select id="booking-room" class="w-full border border-navy-200 rounded-lg p-2 text-xs" required>
-                <option value="">-- Sila Pilih Bilik --</option>
-                <option value="Bilik Mesyuarat KPKB">Bilik Mesyuarat KPKB</option>
-                <option value="Bilik Mesyuarat Kubang Kerian">Bilik Mesyuarat Kubang Kerian</option>
-              </select>
-            </div>
-            <div class="space-y-1">
-              <label class="text-[11px] font-semibold text-slate-500">Nama Pemohon</label>
-              <input id="booking-applicant" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
-                placeholder="Contoh: Dr. Azmi" required />
-            </div>
-            <div class="space-y-1 sm:col-span-2">
-              <input id="booking-date" type="hidden" required />
-              <div class="space-y-2 border border-slate-200 rounded-xl p-3 bg-slate-50">
-                <div class="flex justify-between items-center text-[11px]">
-                  <span class="font-bold text-navy-800 flex items-center gap-1"><i data-lucide="calendar"
-                      class="w-4 h-4 text-indigo-600"></i> Tarikh Tempahan</span>
-                  <div class="flex items-center gap-2">
-                    <input type="date" id="booking-date-native" onchange="selectNativeDate(this.value)" class="border border-slate-200 rounded px-1.5 py-0.5 text-[10px] text-slate-700 bg-white shadow-xs focus:ring-1 focus:ring-indigo-500" />
-                    <button type="button" onclick="prevPickerMonth()"
-                      class="p-1 hover:bg-slate-200 rounded transition-colors"><i data-lucide="chevron-left"
-                        class="w-3.5 h-3.5"></i></button>
-                    <span id="picker-month-year" class="font-semibold text-slate-700"></span>
-                    <button type="button" onclick="nextPickerMonth()"
-                      class="p-1 hover:bg-slate-200 rounded transition-colors"><i data-lucide="chevron-right"
-                        class="w-3.5 h-3.5"></i></button>
-                  </div>
-                </div>
-                <!-- Selected Date display -->
-                <div class="text-[10px] text-indigo-700 font-semibold flex items-center justify-between">
-                  <span>Tarikh Dipilih: <span id="selected-date-text"
-                      class="bg-indigo-100 px-2 py-0.5 rounded text-indigo-800">Tiada</span></span>
-                  <span class="text-slate-400 font-normal">*Tarikh kelabu telah ditempah</span>
-                </div>
-                <!-- Calendar grid headers -->
-                <div
-                  class="grid grid-cols-7 gap-1 text-[9px] font-bold text-slate-400 text-center uppercase tracking-wider">
-                  <div>Ahd</div>
-                  <div>Isn</div>
-                  <div>Sel</div>
-                  <div>Rab</div>
-                  <div>Kha</div>
-                  <div>Jum</div>
-                  <div>Sab</div>
-                </div>
-                <!-- Calendar Grid days -->
-                <div id="booking-picker-grid" class="grid grid-cols-7 gap-1 text-[10px]"></div>
-              </div>
-            </div>
-            <!-- Interactive Time Slot Grid -->
-            <div class="space-y-1.5 sm:col-span-2">
-              <div class="flex items-center justify-between">
-                <label class="text-[11px] font-bold text-navy-800 flex items-center gap-1">
-                  <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-600"></i> Slot Masa Interaktif (8:00 AM - 5:00 PM)
-                </label>
-                <span id="slot-status-legend" class="text-[9px] font-semibold text-slate-400">Pilih tarikh dahulu</span>
-              </div>
-              <div id="booking-slots-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2 border border-slate-200 rounded-xl p-3 bg-slate-50">
-                <p class="col-span-full text-center text-xs text-slate-400 py-2 italic">Sila pilih tarikh mesyuarat di atas dahulu.</p>
-              </div>
-            </div>
-
-            <div class="space-y-1">
-              <label class="text-[11px] font-semibold text-slate-500">Masa Mula (Format 24 jam)</label>
-              <input id="booking-start" type="time" onchange="renderBookingTimeSlots()" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
-                required />
-            </div>
-            <div class="space-y-1">
-              <label class="text-[11px] font-semibold text-slate-500">Masa Tamat (Format 24 jam)</label>
-              <input id="booking-end" type="time" onchange="renderBookingTimeSlots()" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
-                required />
-            </div>
-            <div class="space-y-1 sm:col-span-2">
-              <label class="text-[11px] font-semibold text-slate-500">Tujuan Mesyuarat / Tajuk</label>
-              <input id="booking-title" type="text" class="w-full border border-navy-200 rounded-lg p-2 text-xs"
-                placeholder="Contoh: Mesyuarat Penyelarasan MyPortfolio Pentadbiran" required />
-            </div>
-          </div>
-          <button type="submit"
-            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs py-2.5 rounded-xl transition-all shadow-md shadow-indigo-500/10">
-            Hantar Permohonan Tempahan
-          </button>
-        </form>
       </div>
     </div>
   </div>
@@ -1153,9 +1093,8 @@
       } else if (id === 'pergerakan') {
         fetchPergerakan();
       } else if (id === 'mesyuarat') {
-        fetchBookings();
-        renderBookingDatePicker();
-        renderBookingTimeSlots();
+        const roomVal = document.getElementById('booking-room') ? document.getElementById('booking-room').value : '';
+        renderRoomPicContacts(roomVal);
       }
     }
 
@@ -1357,444 +1296,62 @@
     }
 
     // --- TEMPAHAN BILIK MESYUARAT LOGIC ---
-    const monthNames = [
-      "Januari", "Februari", "Mac", "April", "Mei", "Jun",
-      "Julai", "Ogos", "September", "Oktober", "November", "Disember"
-    ];
-    const todayObj = new Date();
-    let pickerYear = todayObj.getFullYear();
-    let pickerMonth = todayObj.getMonth(); // 0-indexed
-    let activeBookings = [];
+    const roomPicData = {
+      "KP Kota Bharu": [
+        { name: "Matron SD Johan", phone: "60199197125" },
+        { name: "Matron Aliza", phone: "60199545337" }
+      ],
+      "KP Kubang Kerian": [
+        { name: "YM Dr Nazli", phone: "60148224798" }
+      ],
+      "KP UTC": [
+        { name: "YM Dr Hapizah", phone: "60195730075" }
+      ],
+      "KP Kok Lanas": [
+        { name: "Dr Husna", phone: "60148359771" }
+      ]
+    };
 
-    async function fetchRooms() {
-      try {
-        const res = await fetch('/api/rooms');
-        if (res.ok) {
-          const data = await res.json();
-          populateRoomsSelect(data);
-          return;
-        }
-      } catch (err) {
-        console.warn("Error fetching rooms, falling back to localStorage:", err);
-      }
-      const localRooms = localStorage.getItem('rooms');
-      const defaults = [
-        { id: "r1", name: "Bilik Mesyuarat KPKB", capacity: 15, facilities: "Projektor & Smart TV" },
-        { id: "r2", name: "Bilik Mesyuarat Kubang Kerian", capacity: 8, facilities: "Whiteboard sahaja" }
-      ];
-      if (!localRooms) {
-        localStorage.setItem('rooms', JSON.stringify(defaults));
-        populateRoomsSelect(defaults);
-      } else {
-        populateRoomsSelect(JSON.parse(localRooms));
-      }
-    }
+    function renderRoomPicContacts(roomName) {
+      const container = document.getElementById('pic-contact-container');
+      if (!container) return;
 
-    function populateRoomsSelect(roomsList) {
-      const select = document.getElementById('booking-room');
-      if (!select) return;
-      select.innerHTML = '<option value="">-- Sila Pilih Bilik --</option>';
-      roomsList.forEach(room => {
-        const opt = document.createElement('option');
-        opt.value = room.name;
-        opt.textContent = `${room.name} (${room.capacity} pax - ${room.facilities})`;
-        select.appendChild(opt);
-      });
-      renderBookingDatePicker();
-    }
-
-    async function fetchBookings() {
-      let data = [];
-      try {
-        const res = await fetch('/api/tempahan');
-        if (res.ok) {
-          data = await res.json();
-          activeBookings = data;
-          renderBookingsList(data);
-          return;
-        }
-      } catch (err) {
-        console.warn("Error fetching bookings, falling back to localStorage:", err);
-      }
-      data = JSON.parse(localStorage.getItem('tempahan') || '[]');
-      activeBookings = data;
-      renderBookingsList(data);
-    }
-
-    function renderBookingsList(bookingsList) {
-      const list = document.getElementById('upcoming-bookings');
-      if (!list) return;
-      list.innerHTML = '';
-
-      if (bookingsList.length === 0) {
-        list.innerHTML = '<p class="text-xs text-slate-400 italic">Tiada tempahan aktif buat masa ini.</p>';
-        renderBookingDatePicker();
+      if (!roomName || !roomPicData[roomName]) {
+        container.innerHTML = `
+          <div class="p-4 rounded-xl border border-dashed border-slate-300 bg-slate-50 text-center text-xs text-slate-400 font-medium">
+            Sila pilih bilik mesyuarat terlebih dahulu.
+          </div>
+        `;
         return;
       }
 
-      bookingsList.forEach(b => {
-        const item = document.createElement('div');
-        item.className = 'p-3 bg-slate-50 border border-navy-100 rounded-xl flex items-center justify-between';
-        item.innerHTML = `
-            <div>
-              <h5 class="font-bold text-xs text-indigo-900">${b.meeting_title}</h5>
-              <p class="text-[10px] text-slate-500">${b.room_name} | ${b.booking_date} (${b.start_time} - ${b.end_time})</p>
-              <p class="text-[9px] text-slate-400">Ditempah oleh: ${b.applicant_name}</p>
+      const pics = roomPicData[roomName];
+      let html = `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">`;
+
+      pics.forEach(pic => {
+        const waUrl = `https://wa.me/${pic.phone}`;
+        html += `
+          <a href="${waUrl}" target="_blank" rel="noopener noreferrer" 
+            class="group p-3.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-between">
+            <div class="space-y-0.5">
+              <span class="text-[10px] text-emerald-100 uppercase tracking-wider font-semibold block">Pegawai Bertanggungjawab</span>
+              <h5 class="font-bold text-xs group-hover:underline flex items-center gap-1">
+                ${pic.name}
+              </h5>
             </div>
-            <span class="bg-indigo-100 text-indigo-700 text-[9px] font-bold px-2 py-0.5 rounded-full">Ditempah</span>
-          `;
-        list.appendChild(item);
+            <div class="w-8 h-8 rounded-full bg-emerald-500/40 group-hover:bg-emerald-500/60 flex items-center justify-center flex-shrink-0 transition-colors">
+              <i data-lucide="message-circle" class="w-4 h-4 text-white"></i>
+            </div>
+          </a>
+        `;
       });
 
-      renderBookingDatePicker();
+      html += `</div>`;
+      container.innerHTML = html;
+      if (window.lucide) lucide.createIcons();
     }
 
-    async function submitBooking(e) {
-      e.preventDefault();
-      const room_name = document.getElementById('booking-room').value;
-      const applicant_name = document.getElementById('booking-applicant').value;
-      const booking_date = document.getElementById('booking-date').value;
-      const start_time = document.getElementById('booking-start').value;
-      const end_time = document.getElementById('booking-end').value;
-      const meeting_title = document.getElementById('booking-title').value;
 
-      if (!booking_date) {
-        alert('Sila pilih tarikh mesyuarat daripada kalendar.');
-        return;
-      }
-
-      const payload = {
-        room_name,
-        applicant_name,
-        booking_date,
-        start_time,
-        end_time,
-        meeting_title
-      };
-
-      try {
-        const res = await fetch('/api/tempahan', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        if (res.ok) {
-          alert('Tempahan bilik mesyuarat berjaya didaftarkan!');
-          resetBookingForm();
-          fetchBookings();
-          return;
-        } else {
-          const data = await res.json();
-          alert(data.error || 'Gagal membuat tempahan.');
-          return;
-        }
-      } catch (err) {
-        console.warn("API booking submit failed, using localStorage fallback:", err);
-      }
-
-      // Local Storage Fallback
-      let bookings = JSON.parse(localStorage.getItem('tempahan') || '[]');
-      const conflict = bookings.find(b => b.room_name === room_name && b.booking_date === booking_date);
-      if (conflict) {
-        alert(`Bilik ${room_name} telah ditempah pada tarikh tersebut. Sila pilih slot lain.`);
-        return;
-      }
-
-      const newBooking = {
-        id: "b_" + Date.now(),
-        ...payload
-      };
-      bookings.push(newBooking);
-      localStorage.setItem('tempahan', JSON.stringify(bookings));
-      alert('Tempahan bilik mesyuarat berjaya didaftarkan!');
-      resetBookingForm();
-      fetchBookings();
-    }
-
-    function resetBookingForm() {
-      document.getElementById('booking-applicant').value = '';
-      document.getElementById('booking-date').value = '';
-      const displaySpan = document.getElementById('selected-date-text');
-      if (displaySpan) {
-        displaySpan.textContent = 'Tiada';
-        displaySpan.className = 'bg-indigo-100 px-2 py-0.5 rounded text-indigo-800';
-      }
-      document.getElementById('booking-start').value = '';
-      document.getElementById('booking-end').value = '';
-      document.getElementById('booking-title').value = '';
-    }
-
-    const defaultTimeSlots = [
-      { start: "08:00", end: "09:00", label: "08:00 AM - 09:00 AM" },
-      { start: "09:00", end: "10:00", label: "09:00 AM - 10:00 AM" },
-      { start: "10:00", end: "11:00", label: "10:00 AM - 11:00 AM" },
-      { start: "11:00", end: "12:00", label: "11:00 AM - 12:00 PM" },
-      { start: "12:00", end: "13:00", label: "12:00 PM - 01:00 PM" },
-      { start: "14:00", end: "15:00", label: "02:00 PM - 03:00 PM" },
-      { start: "15:00", end: "16:00", label: "03:00 PM - 04:00 PM" },
-      { start: "16:00", end: "17:00", label: "04:00 PM - 05:00 PM" }
-    ];
-
-    function renderBookingTimeSlots() {
-      const roomSelect = document.getElementById('booking-room');
-      const room_name = roomSelect ? roomSelect.value : '';
-      const booking_date = document.getElementById('booking-date').value;
-      const slotsGrid = document.getElementById('booking-slots-grid');
-      const legend = document.getElementById('slot-status-legend');
-      const currentStart = document.getElementById('booking-start').value;
-      const currentEnd = document.getElementById('booking-end').value;
-
-      if (!slotsGrid) return;
-      slotsGrid.innerHTML = '';
-
-      if (!booking_date) {
-        slotsGrid.innerHTML = '<p class="col-span-full text-center text-xs text-slate-400 py-2 italic">Sila pilih tarikh mesyuarat di atas dahulu.</p>';
-        if (legend) legend.textContent = 'Pilih tarikh dahulu';
-        return;
-      }
-
-      if (legend) legend.textContent = `Status Slot Masa (${booking_date})`;
-
-      // Filter bookings for room and date
-      const roomBookings = activeBookings.filter(b => b.room_name === room_name && b.booking_date === booking_date);
-
-      defaultTimeSlots.forEach(slot => {
-        // Overlap: (slot.start < b.end_time) && (slot.end > b.start_time)
-        const conflict = roomBookings.find(b => (slot.start < b.end_time) && (slot.end > b.start_time));
-        const isSelected = (currentStart === slot.start && currentEnd === slot.end);
-
-        const btn = document.createElement('button');
-        btn.type = 'button';
-
-        if (conflict) {
-          btn.className = 'w-full p-2 text-center bg-rose-50/80 border border-rose-200 rounded-lg text-[10px] cursor-not-allowed select-none opacity-80';
-          btn.disabled = true;
-          btn.innerHTML = `
-            <span class="font-mono text-slate-600 block font-bold">${slot.label}</span>
-            <span class="inline-block mt-0.5 text-[8px] font-bold text-rose-600 bg-rose-100 px-1.5 py-0.5 rounded">DITEMPAH (${conflict.applicant_name})</span>
-          `;
-        } else if (isSelected) {
-          btn.className = 'w-full p-2 text-center bg-indigo-600 border border-indigo-600 rounded-lg text-[10px] text-white font-bold shadow-md';
-          btn.innerHTML = `
-            <span class="font-mono block font-bold">${slot.label}</span>
-            <span class="inline-block mt-0.5 text-[8px] font-extrabold text-indigo-100 bg-indigo-700/60 px-1.5 py-0.5 rounded">DIPILIH</span>
-          `;
-          btn.onclick = () => selectSlot(slot.start, slot.end);
-        } else {
-          btn.className = 'w-full p-2 text-center bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 rounded-lg text-[10px] transition-all cursor-pointer';
-          btn.innerHTML = `
-            <span class="font-mono text-slate-700 block font-bold">${slot.label}</span>
-            <span class="inline-block mt-0.5 text-[8px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">TERSEDIA</span>
-          `;
-          btn.onclick = () => selectSlot(slot.start, slot.end);
-        }
-
-        slotsGrid.appendChild(btn);
-      });
-    }
-
-    function selectSlot(start, end) {
-      document.getElementById('booking-start').value = start;
-      document.getElementById('booking-end').value = end;
-      renderBookingTimeSlots();
-    }
-
-    function resetBookingForm() {
-      document.getElementById('booking-applicant').value = '';
-      document.getElementById('booking-date').value = '';
-      const displaySpan = document.getElementById('selected-date-text');
-      if (displaySpan) {
-        displaySpan.textContent = 'Tiada';
-        displaySpan.className = 'bg-indigo-100 px-2 py-0.5 rounded text-indigo-800';
-      }
-      document.getElementById('booking-start').value = '';
-      document.getElementById('booking-end').value = '';
-      document.getElementById('booking-title').value = '';
-      renderBookingTimeSlots();
-    }
-
-    function renderBookingDatePicker() {
-      const room_name = document.getElementById('booking-room').value;
-      const grid = document.getElementById('booking-picker-grid');
-      const monthYearText = document.getElementById('picker-month-year');
-      const selectedDateInput = document.getElementById('booking-date');
-
-      if (!grid || !monthYearText) return;
-
-      grid.innerHTML = '';
-      monthYearText.textContent = `${monthNames[pickerMonth]} ${pickerYear}`;
-
-      // Get all booked dates for the selected room
-      const bookedDates = new Set();
-      activeBookings.forEach(b => {
-        if (b.room_name === room_name) {
-          bookedDates.add(b.booking_date);
-        }
-      });
-
-      const firstDayIndex = new Date(pickerYear, pickerMonth, 1).getDay();
-      const totalDays = new Date(pickerYear, pickerMonth + 1, 0).getDate();
-
-      // Render padding empty days
-      for (let i = 0; i < firstDayIndex; i++) {
-        const emptyCell = document.createElement('div');
-        grid.appendChild(emptyCell);
-      }
-
-      // Render actual days of month
-      for (let d = 1; d <= totalDays; d++) {
-        const dateStr = `${pickerYear}-${String(pickerMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-        const isBooked = bookedDates.has(dateStr);
-        const isSelected = selectedDateInput.value === dateStr;
-
-        const dayBtn = document.createElement('button');
-        dayBtn.type = 'button';
-        dayBtn.textContent = d;
-
-        if (isSelected) {
-          dayBtn.className = 'w-full py-1 text-center bg-indigo-600 text-white border border-indigo-600 rounded-lg font-bold shadow-sm';
-          dayBtn.onclick = () => selectPickerDate(dateStr);
-        } else if (isBooked) {
-          dayBtn.className = 'w-full py-1 text-center bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-lg font-semibold';
-          dayBtn.onclick = () => selectPickerDate(dateStr);
-        } else {
-          dayBtn.className = 'w-full py-1 text-center bg-white hover:bg-indigo-50 text-slate-700 border border-slate-200 rounded-lg font-semibold hover:border-indigo-300 transition-all';
-          dayBtn.onclick = () => selectPickerDate(dateStr);
-        }
-        grid.appendChild(dayBtn);
-      }
-
-      renderBookingTimeSlots();
-    }
-
-    function selectPickerDate(dateStr) {
-      const roomSelect = document.getElementById('booking-room');
-      if (!roomSelect || !roomSelect.value) {
-        alert('Sila pilih bilik mesyuarat terlebih dahulu sebelum memilih tarikh.');
-        return;
-      }
-
-      document.getElementById('booking-date').value = dateStr;
-
-      const nativeInput = document.getElementById('booking-date-native');
-      if (nativeInput) nativeInput.value = dateStr;
-
-      // Format date for badge display e.g. 11 Ogos 2026
-      const [yr, mo, dy] = dateStr.split('-');
-      const formattedDate = `${parseInt(dy)} ${monthNames[parseInt(mo) - 1]} ${yr}`;
-
-      const displaySpan = document.getElementById('selected-date-text');
-      if (displaySpan) {
-        displaySpan.textContent = formattedDate;
-        displaySpan.className = "bg-indigo-600 px-2 py-0.5 rounded text-white font-bold shadow-xs";
-      }
-
-      renderBookingDatePicker();
-      renderBookingTimeSlots();
-    }
-
-    function selectNativeDate(val) {
-      if (!val) return;
-      const parts = val.split('-');
-      if (parts.length === 3 && parts[0].length === 4) {
-        pickerYear = parseInt(parts[0]);
-        pickerMonth = parseInt(parts[1]) - 1;
-        selectPickerDate(val);
-      }
-    }
-    window.selectNativeDate = selectNativeDate;
-
-    function prevPickerMonth() {
-      pickerMonth--;
-      if (pickerMonth < 0) {
-        pickerMonth = 11;
-        pickerYear--;
-      }
-      renderBookingDatePicker();
-    }
-    window.prevPickerMonth = prevPickerMonth;
-
-    function nextPickerMonth() {
-      pickerMonth++;
-      if (pickerMonth > 11) {
-        pickerMonth = 0;
-        pickerYear++;
-      }
-      renderBookingDatePicker();
-    }
-    window.nextPickerMonth = nextPickerMonth;
-
-    async function submitBooking(e) {
-      e.preventDefault();
-      const room_name = document.getElementById('booking-room').value;
-      const applicant_name = document.getElementById('booking-applicant').value;
-      const booking_date = document.getElementById('booking-date').value;
-      const start_time = document.getElementById('booking-start').value;
-      const end_time = document.getElementById('booking-end').value;
-      const meeting_title = document.getElementById('booking-title').value;
-
-      if (!booking_date) {
-        alert('Sila pilih tarikh mesyuarat daripada kalendar.');
-        return;
-      }
-      if (start_time >= end_time) {
-        alert('Waktu tamat mestilah selepas waktu mula.');
-        return;
-      }
-
-      const payload = {
-        room_name,
-        applicant_name,
-        booking_date,
-        start_time,
-        end_time,
-        meeting_title
-      };
-
-      try {
-        const res = await fetch('/api/tempahan', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        const data = await res.json();
-        if (res.ok) {
-          alert('Tempahan bilik mesyuarat berjaya didaftarkan!');
-          resetBookingForm();
-          fetchBookings();
-          return;
-        } else {
-          alert(data.error || 'Gagal membuat tempahan.');
-          return;
-        }
-      } catch (err) {
-        console.warn("API booking submit failed, using localStorage fallback:", err);
-      }
-
-      // Local Storage Fallback with strict overlap checking
-      let bookings = JSON.parse(localStorage.getItem('tempahan') || '[]');
-      const conflict = bookings.find(b => 
-        b.room_name === room_name && 
-        b.booking_date === booking_date && 
-        (start_time < b.end_time) && (end_time > b.start_time)
-      );
-      if (conflict) {
-        alert(`Pertindihan Slot Masa! Bilik ${room_name} telah ditempah oleh ${conflict.applicant_name} ('${conflict.meeting_title}') pada jam ${conflict.start_time} - ${conflict.end_time}.`);
-        return;
-      }
-
-      const newBooking = {
-        id: "t_" + Date.now(),
-        ...payload
-      };
-      bookings.push(newBooking);
-      localStorage.setItem('tempahan', JSON.stringify(bookings));
-      alert('Tempahan bilik mesyuarat berjaya didaftarkan!');
-      resetBookingForm();
-      fetchBookings();
-    }
 
     // --- KALENDAR AKTIVITI & ACARA JABATAN LOGIC ---
     let calendarYear = 2026;
