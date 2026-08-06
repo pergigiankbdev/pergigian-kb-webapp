@@ -141,15 +141,27 @@
   "rooms": [
     {
       "id": "r1",
-      "name": "Bilik Mesyuarat KPKB",
+      "name": "KP Kota Bharu",
       "capacity": 15,
       "facilities": "Projektor & Smart TV"
     },
     {
       "id": "r2",
-      "name": "Bilik Mesyuarat Kubang Kerian",
+      "name": "KP Kubang Kerian",
+      "capacity": 10,
+      "facilities": "Smart TV & Video Conference"
+    },
+    {
+      "id": "r3",
+      "name": "KP UTC",
       "capacity": 8,
-      "facilities": "Whiteboard sahaja"
+      "facilities": "Whiteboard & TV"
+    },
+    {
+      "id": "r4",
+      "name": "KP Kok Lanas",
+      "capacity": 12,
+      "facilities": "Projektor & Whiteboard"
     }
   ]
 }

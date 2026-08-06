@@ -422,8 +422,10 @@
         const localRooms = localStorage.getItem('rooms');
         if (!localRooms) {
           const defaults = [
-            { id: "r1", name: "Bilik Mesyuarat KPKB", capacity: 15, facilities: "Projektor & Smart TV" },
-            { id: "r2", name: "Bilik Mesyuarat Kubang Kerian", capacity: 8, facilities: "Whiteboard sahaja" }
+            { id: "r1", name: "KP Kota Bharu", capacity: 15, facilities: "Projektor & Smart TV" },
+            { id: "r2", name: "KP Kubang Kerian", capacity: 10, facilities: "Smart TV & Video Conference" },
+            { id: "r3", name: "KP UTC", capacity: 8, facilities: "Whiteboard & TV" },
+            { id: "r4", name: "KP Kok Lanas", capacity: 12, facilities: "Projektor & Whiteboard" }
           ];
           localStorage.setItem('rooms', JSON.stringify(defaults));
           adminRooms = defaults;

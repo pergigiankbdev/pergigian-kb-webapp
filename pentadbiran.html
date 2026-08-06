@@ -627,52 +627,56 @@
   <div id="modal-mesyuarat" class="fixed inset-0 z-50 flex items-center justify-center bg-navy-950/50 p-4 hidden">
     <div
       class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-navy-200 overflow-hidden flex flex-col max-h-[85vh]">
-      <div class="p-6 bg-indigo-600 text-white flex justify-between items-center">
-        <div class="flex items-center gap-2">
-          <i data-lucide="calendar-range" class="w-6 h-6"></i>
+      <!-- Modal Header -->
+      <div class="p-6 bg-indigo-600 text-white flex justify-between items-center flex-shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+            <i data-lucide="calendar-range" class="w-5 h-5 text-white"></i>
+          </div>
           <div>
             <h3 class="font-bold text-base">Tempahan Bilik Mesyuarat</h3>
-            <p class="text-[10px] text-indigo-100">Borang Tempahan & Status Ketersediaan Bilik</p>
+            <p class="text-xs text-indigo-100">Hubungi Pegawai Bertanggungjawab (PIC) via WhatsApp</p>
           </div>
         </div>
-        <button onclick="closeSubModal('mesyuarat')" class="p-1 rounded-lg hover:bg-indigo-700 transition-colors">
+        <button onclick="closeSubModal('mesyuarat')" class="p-1.5 rounded-lg hover:bg-indigo-700 transition-colors">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
-        <!-- Room Selector & Dynamic WhatsApp Contacts -->
-        <div class="space-y-6">
-          <div class="space-y-2">
-            <label class="text-xs font-bold text-navy-900 flex items-center gap-1.5">
-              <i data-lucide="door-open" class="w-4 h-4 text-indigo-600"></i> Pilih Bilik Mesyuarat
-            </label>
-            <select id="booking-room" onchange="renderRoomPicContacts(this.value)"
-              class="w-full border border-navy-200 rounded-xl p-3 text-xs bg-slate-50 font-medium focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all shadow-xs">
-              <option value="">-- Sila Pilih Bilik Mesyuarat --</option>
-              <option value="KP Kota Bharu">KP Kota Bharu</option>
-              <option value="KP Kubang Kerian">KP Kubang Kerian</option>
-              <option value="KP UTC">KP UTC</option>
-              <option value="KP Kok Lanas">KP Kok Lanas</option>
-            </select>
-          </div>
 
-          <!-- Dynamic Contact PIC Section -->
-          <div class="space-y-3 border-t border-slate-100 pt-5">
-            <div class="flex items-center justify-between">
-              <h4 class="font-bold text-xs text-navy-900 uppercase tracking-wider flex items-center gap-1.5">
-                <i data-lucide="phone-call" class="w-4 h-4 text-emerald-600"></i> Pegawai Bertanggungjawab (PIC)
-              </h4>
-              <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full flex items-center gap-1">
-                <i data-lucide="message-circle" class="w-3 h-3 text-emerald-600"></i> Direct WhatsApp
-              </span>
-            </div>
-            <p class="text-[11px] text-slate-500 leading-relaxed">
-              Sila pilih bilik mesyuarat di atas. Klik nama Pegawai Bertanggungjawab (PIC) di bawah untuk membuka perbualan WhatsApp bagi urusan semakan slot dan pengesahan tempahan.
-            </p>
-            
-            <div id="pic-contact-container" class="pt-2">
-              <div class="p-4 rounded-xl border border-dashed border-slate-300 bg-slate-50 text-center text-xs text-slate-400 font-medium">
-                Sila pilih bilik mesyuarat terlebih dahulu.
-              </div>
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm flex-1">
+        <!-- Room Selector -->
+        <div class="space-y-2">
+          <label class="text-xs font-bold text-navy-900 flex items-center gap-1.5">
+            <i data-lucide="door-open" class="w-4 h-4 text-indigo-600"></i> Pilih Bilik Mesyuarat
+          </label>
+          <select id="booking-room" onchange="renderRoomPicContacts(this.value)"
+            class="w-full border border-navy-200 rounded-xl p-3 text-xs bg-slate-50 font-semibold focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all shadow-xs text-navy-900">
+            <option value="">-- Pilih Bilik Mesyuarat --</option>
+            <option value="KP Kota Bharu">KP Kota Bharu</option>
+            <option value="KP Kubang Kerian">KP Kubang Kerian</option>
+            <option value="KP UTC">KP UTC</option>
+            <option value="KP Kok Lanas">KP Kok Lanas</option>
+          </select>
+        </div>
+
+        <!-- Dynamic Contact PIC Section -->
+        <div class="space-y-3 border-t border-slate-100 pt-5">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-xs text-navy-900 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="phone-call" class="w-4 h-4 text-emerald-600"></i> Pegawai Bertanggungjawab (PIC)
+            </h4>
+            <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+              <i data-lucide="message-circle" class="w-3 h-3 text-emerald-600"></i> Direct WhatsApp
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Sila pilih bilik mesyuarat di atas. Klik kad atau butang hijau di bawah untuk berhubung terus menerusi WhatsApp.
+          </p>
+          
+          <div id="pic-contact-container" class="pt-2">
+            <div class="p-5 rounded-xl border border-dashed border-slate-300 bg-slate-50 text-center text-xs text-slate-400 font-medium">
+              Sila pilih bilik mesyuarat terlebih dahulu.
             </div>
           </div>
         </div>
@@ -1298,17 +1302,17 @@
     // --- TEMPAHAN BILIK MESYUARAT LOGIC ---
     const roomPicData = {
       "KP Kota Bharu": [
-        { name: "Matron SD Johan", phone: "60199197125" },
-        { name: "Matron Aliza", phone: "60199545337" }
+        { name: "Matron SD Johan", phoneDisplay: "019-9197125", waUrl: "https://wa.me/60199197125" },
+        { name: "Matron Aliza", phoneDisplay: "019-9545337", waUrl: "https://wa.me/60199545337" }
       ],
       "KP Kubang Kerian": [
-        { name: "YM Dr Nazli", phone: "60148224798" }
+        { name: "YM Dr Nazli", phoneDisplay: "014-8224798", waUrl: "https://wa.me/60148224798" }
       ],
       "KP UTC": [
-        { name: "YM Dr Hapizah", phone: "60195730075" }
+        { name: "YM Dr Hapizah", phoneDisplay: "019-5730075", waUrl: "https://wa.me/60195730075" }
       ],
       "KP Kok Lanas": [
-        { name: "Dr Husna", phone: "60148359771" }
+        { name: "Dr Husna", phoneDisplay: "014-8359771", waUrl: "https://wa.me/60148359771" }
       ]
     };
 
@@ -1318,7 +1322,7 @@
 
       if (!roomName || !roomPicData[roomName]) {
         container.innerHTML = `
-          <div class="p-4 rounded-xl border border-dashed border-slate-300 bg-slate-50 text-center text-xs text-slate-400 font-medium">
+          <div class="p-5 rounded-xl border border-dashed border-slate-300 bg-slate-50 text-center text-xs text-slate-400 font-medium">
             Sila pilih bilik mesyuarat terlebih dahulu.
           </div>
         `;
@@ -1326,23 +1330,25 @@
       }
 
       const pics = roomPicData[roomName];
-      let html = `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">`;
+      let html = `<div class="space-y-3">`;
 
       pics.forEach(pic => {
-        const waUrl = `https://wa.me/${pic.phone}`;
         html += `
-          <a href="${waUrl}" target="_blank" rel="noopener noreferrer" 
-            class="group p-3.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-between">
-            <div class="space-y-0.5">
-              <span class="text-[10px] text-emerald-100 uppercase tracking-wider font-semibold block">Pegawai Bertanggungjawab</span>
-              <h5 class="font-bold text-xs group-hover:underline flex items-center gap-1">
-                ${pic.name}
+          <div onclick="window.open('${pic.waUrl}', '_blank')" 
+            class="group border border-slate-200 hover:border-emerald-500 rounded-xl p-4 flex justify-between items-center bg-slate-50 hover:bg-emerald-50/40 transition-all cursor-pointer shadow-xs">
+            <div class="space-y-1">
+              <h5 class="font-bold text-sm text-navy-900 group-hover:text-emerald-800 transition-colors flex items-center gap-1.5">
+                <i data-lucide="user-check" class="w-4 h-4 text-emerald-600"></i> ${pic.name}
               </h5>
+              <p class="text-xs text-slate-500 font-medium flex items-center gap-1">
+                <i data-lucide="phone" class="w-3.5 h-3.5 text-slate-400"></i> ${pic.phoneDisplay}
+              </p>
             </div>
-            <div class="w-8 h-8 rounded-full bg-emerald-500/40 group-hover:bg-emerald-500/60 flex items-center justify-center flex-shrink-0 transition-colors">
-              <i data-lucide="message-circle" class="w-4 h-4 text-white"></i>
-            </div>
-          </a>
+            <button type="button" onclick="event.stopPropagation(); window.open('${pic.waUrl}', '_blank')" 
+              class="bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-xs px-3.5 py-2 rounded-lg transition-colors flex items-center gap-1.5 shadow-xs flex-shrink-0">
+              <i data-lucide="message-circle" class="w-4 h-4"></i> Hubungi via WhatsApp
+            </button>
+          </div>
         `;
       });
 
@@ -1350,6 +1356,7 @@
       container.innerHTML = html;
       if (window.lucide) lucide.createIcons();
     }
+    window.renderRoomPicContacts = renderRoomPicContacts;
 
 
 
