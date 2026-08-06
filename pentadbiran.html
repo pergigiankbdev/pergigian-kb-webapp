@@ -631,10 +631,10 @@
       <div class="bg-indigo-600 text-white p-5 flex justify-between items-center flex-shrink-0">
         <div>
           <h2 class="text-lg font-bold flex items-center gap-2 m-0">
-            🏢 Tempahan Bilik Mesyuarat
+            🏢 Tempahan Bilik Mesyuarat - Pegawai Bertanggungjawab (PIC)
           </h2>
           <p class="text-indigo-100 text-xs mt-1 m-0">
-            Pilih lokasi bilik untuk melihat Pegawai Bertanggungjawab (PIC)
+            Senarai lengkap maklumat hubungan PIC mengikut lokasi bilik mesyuarat
           </p>
         </div>
         <button 
@@ -645,32 +645,82 @@
         </button>
       </div>
 
-      <!-- Modal Body -->
-      <div class="p-6 space-y-6 overflow-y-auto custom-scrollbar flex-1">
+      <!-- Modal Body (Static Plain Text HTML) -->
+      <div class="p-4 overflow-y-auto space-y-3 max-h-[70vh] custom-scrollbar flex-1">
         
-        <!-- Section 1: INTERACTIVE TABS -->
-        <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">
-            1. PILIH BILIK MESYUARAT (KLIK TAB DI BAWAH)
-          </label>
-          <div id="room-tabs-grid" class="grid grid-cols-2 gap-2">
-            <!-- Dynamically rendered tab buttons -->
+        <!-- Card 1: KP Kota Bharu -->
+        <div class="p-4 bg-indigo-50/60 border-2 border-indigo-200 rounded-xl space-y-2">
+          <div class="flex items-center justify-between border-b border-indigo-200/60 pb-2">
+            <h3 class="font-bold text-gray-900 text-sm flex items-center gap-1.5 m-0">
+              📍 KP Kota Bharu
+            </h3>
+            <span class="text-[10px] bg-indigo-600 text-white font-bold px-2 py-0.5 rounded-md">
+              Kota Bharu
+            </span>
+          </div>
+          <div class="space-y-1.5 pt-1">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-gray-800">Matron SD Johan</span>
+              <span class="font-mono font-bold text-indigo-900 bg-white px-2 py-1 rounded border border-indigo-100 shadow-2xs">019-9197125</span>
+            </div>
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-gray-800">Matron Aliza</span>
+              <span class="font-mono font-bold text-indigo-900 bg-white px-2 py-1 rounded border border-indigo-100 shadow-2xs">019-9545337</span>
+            </div>
           </div>
         </div>
 
-        <!-- Section 2: PEGAWAI BERTANGGUNGJAWAB TAB DISPLAY -->
-        <div>
-          <div class="flex justify-between items-center mb-3">
-            <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 m-0">
-              2. PEGAWAI BERTANGGUNGJAWAB (PIC)
-            </label>
-            <span id="active-tab-badge" class="text-[10px] bg-indigo-100 text-indigo-700 font-bold px-2.5 py-0.5 rounded-full">
-              KP Kota Bharu
+        <!-- Card 2: KP Kubang Kerian -->
+        <div class="p-4 bg-indigo-50/60 border-2 border-indigo-200 rounded-xl space-y-2">
+          <div class="flex items-center justify-between border-b border-indigo-200/60 pb-2">
+            <h3 class="font-bold text-gray-900 text-sm flex items-center gap-1.5 m-0">
+              📍 KP Kubang Kerian
+            </h3>
+            <span class="text-[10px] bg-indigo-600 text-white font-bold px-2 py-0.5 rounded-md">
+              Kubang Kerian
             </span>
           </div>
+          <div class="space-y-1.5 pt-1">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-gray-800">YM Dr Nazli</span>
+              <span class="font-mono font-bold text-indigo-900 bg-white px-2 py-1 rounded border border-indigo-100 shadow-2xs">014-8224798</span>
+            </div>
+          </div>
+        </div>
 
-          <div id="pic-contact-container" class="space-y-3">
-            <!-- Dynamically rendered PIC cards -->
+        <!-- Card 3: KP UTC -->
+        <div class="p-4 bg-indigo-50/60 border-2 border-indigo-200 rounded-xl space-y-2">
+          <div class="flex items-center justify-between border-b border-indigo-200/60 pb-2">
+            <h3 class="font-bold text-gray-900 text-sm flex items-center gap-1.5 m-0">
+              📍 KP UTC
+            </h3>
+            <span class="text-[10px] bg-indigo-600 text-white font-bold px-2 py-0.5 rounded-md">
+              UTC Kota Bharu
+            </span>
+          </div>
+          <div class="space-y-1.5 pt-1">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-gray-800">YM Dr Hapizah</span>
+              <span class="font-mono font-bold text-indigo-900 bg-white px-2 py-1 rounded border border-indigo-100 shadow-2xs">019-5730075</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: KP Kok Lanas -->
+        <div class="p-4 bg-indigo-50/60 border-2 border-indigo-200 rounded-xl space-y-2">
+          <div class="flex items-center justify-between border-b border-indigo-200/60 pb-2">
+            <h3 class="font-bold text-gray-900 text-sm flex items-center gap-1.5 m-0">
+              📍 KP Kok Lanas
+            </h3>
+            <span class="text-[10px] bg-indigo-600 text-white font-bold px-2 py-0.5 rounded-md">
+              Kok Lanas
+            </span>
+          </div>
+          <div class="space-y-1.5 pt-1">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-gray-800">Dr Husna</span>
+              <span class="font-mono font-bold text-indigo-900 bg-white px-2 py-1 rounded border border-indigo-100 shadow-2xs">014-8359771</span>
+            </div>
           </div>
         </div>
 
